@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::admineticAuth();
+
+Route::admin();

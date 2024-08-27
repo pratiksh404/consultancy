@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Pratiksh\Adminetic\Traits\SidebarHelper;
 use Pratiksh\Adminetic\Contracts\SidebarInterface;
+use Pratiksh\Adminetic\Traits\SidebarHelper;
 
 class MyMenu implements SidebarInterface
 {
@@ -12,10 +12,11 @@ class MyMenu implements SidebarInterface
     public function myMenu(): array
     {
         return [
-                        [
+            [
                 'type' => 'breaker',
                 'name' => 'General',
                 'description' => 'Administration Control',
+
             ],
             [
                 'type' => 'link',
@@ -134,6 +135,290 @@ class MyMenu implements SidebarInterface
             ],
             [
                 'type' => 'breaker',
+                'name' => 'Consultancy',
+                'description' => 'Website Module',
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Visa',
+                'icon' => 'fa fa-wrench',
+                'is_active' => request()->routeIs('visa*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Visa::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Visa::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('visa', \App\Models\Admin\Visa::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'Course',
+                'icon' => 'fa fa-wrench',
+                'is_active' => request()->routeIs('course*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Course::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Course::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('course', \App\Models\Admin\Course::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'Country',
+                'icon' => 'fa fa-wrench',
+                'is_active' => request()->routeIs('country*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Country::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Country::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('country', \App\Models\Admin\Country::class),
+
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Category',
+                'icon' => 'fa fa-code-branch',
+                'is_active' => request()->routeIs('category*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Category::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Category::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('category', \App\Models\Admin\Category::class),
+
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Counter',
+                'icon' => 'fa fa-chart-line',
+                'is_active' => request()->routeIs('counter*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Counter::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Counter::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('counter', \App\Models\Admin\Counter::class),
+
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Association',
+                'icon' => 'fa fa-handshake',
+                'is_active' => request()->routeIs('association*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Association::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Association::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('association', \App\Models\Admin\Association::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'Partner',
+                'icon' => 'fa fa-male',
+                'is_active' => request()->routeIs('partner*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Partner::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Partner::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('partner', \App\Models\Admin\Partner::class),
+
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Testimonial',
+                'icon' => 'fa fa-user-check',
+                'is_active' => request()->routeIs('testimonial*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Testimonial::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Testimonial::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('testimonial', \App\Models\Admin\Testimonial::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'Page',
+                'icon' => 'far fa-file',
+                'is_active' => request()->routeIs('page*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Page::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Page::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('page', \App\Models\Admin\Page::class),
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Gallery',
+                'icon' => 'fa fa-file-image',
+                'is_active' => request()->routeIs('gallery*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Gallery::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Gallery::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('gallery', \App\Models\Admin\Gallery::class),
+
+            ],  [
+                'type' => 'menu',
+                'name' => 'Faq',
+                'icon' => 'fa fa-question',
+                'is_active' => request()->routeIs('faq*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Faq::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Faq::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('faq', \App\Models\Admin\Faq::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'Facility',
+                'icon' => 'fa fa-seedling',
+                'is_active' => request()->routeIs('facility*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Facility::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Facility::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('facility', \App\Models\Admin\Facility::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'Service',
+                'icon' => 'fa fa-hard-hat',
+                'is_active' => request()->routeIs('service*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Service::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Service::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('service', \App\Models\Admin\Service::class),
+
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Popup',
+                'icon' => 'fab fa-cloudsmith',
+                'is_active' => request()->routeIs('popup*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Popup::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Popup::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('popup', \App\Models\Admin\Popup::class),
+
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Post',
+                'icon' => 'fa fa-blog',
+                'is_active' => request()->routeIs('post*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Post::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Post::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('post', \App\Models\Admin\Post::class),
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Slider',
+                'icon' => 'fa fa-sliders-h',
+                'is_active' => request()->routeIs('slider*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Slider::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Slider::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('slider', \App\Models\Admin\Slider::class),
+
+            ],
+            [
+                'type' => 'breaker',
                 'name' => 'DEV TOOLS',
                 'description' => 'Development Environment',
             ],
@@ -143,7 +428,7 @@ class MyMenu implements SidebarInterface
                 'conditions' => [
                     [
                         'type' => 'or',
-                        'condition' => env('APP_ENV') == 'local'
+                        'condition' => env('APP_ENV') == 'local',
                     ],
                 ],
                 'children' => [
@@ -167,7 +452,7 @@ class MyMenu implements SidebarInterface
                         'name' => 'Buttom Builder',
                         'link' => 'http://admin.pixelstrap.com/cuba/theme/button-builder.html',
                     ],
-                ]
+                ],
             ],
             [
                 'type' => 'menu',
@@ -175,7 +460,7 @@ class MyMenu implements SidebarInterface
                 'conditions' => [
                     [
                         'type' => 'or',
-                        'condition' => env('APP_ENV') == 'local'
+                        'condition' => env('APP_ENV') == 'local',
                     ],
                 ],
                 'children' => [
@@ -189,7 +474,7 @@ class MyMenu implements SidebarInterface
                         'name' => 'Adminetic Docs',
                         'link' => 'https://pratikdai404.gitbook.io/adminetic/',
                     ],
-                ]
+                ],
             ],
             [
                 'type' => 'link',
@@ -199,7 +484,7 @@ class MyMenu implements SidebarInterface
                 'conditions' => [
                     [
                         'type' => 'or',
-                        'condition' => env('APP_ENV') == 'local'
+                        'condition' => env('APP_ENV') == 'local',
                     ],
                 ],
             ],
@@ -211,7 +496,7 @@ class MyMenu implements SidebarInterface
                 'conditions' => [
                     [
                         'type' => 'or',
-                        'condition' => env('APP_ENV') == 'local'
+                        'condition' => env('APP_ENV') == 'local',
                     ],
                 ],
             ],

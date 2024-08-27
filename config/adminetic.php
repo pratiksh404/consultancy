@@ -136,7 +136,19 @@ return [
     'migrate_with_dummy' => false,
 
     // ASSETS DEPENDENCIES INJECTION
-    'assets' => [],
+    'assets' => [
+        [
+            'name' => 'Media Library',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'active' => true,
+                    'location' => 'plugins/medialibrarypro/styles.css',
+                ],
+            ],
+        ],
+    ],
 
     // Plugin Adapters
     'adapters' => [],
