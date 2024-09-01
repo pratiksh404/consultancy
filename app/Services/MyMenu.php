@@ -17,7 +17,43 @@ class MyMenu implements SidebarInterface
                 'name' => 'General',
                 'description' => 'Administration Control',
 
-            ],
+            
+
+],[
+'type' => 'menu',
+'name' => 'Candidate',
+'icon' => 'fa fa-wrench',
+'is_active' => request()->routeIs('candidate*') ? 'active' : '',
+'conditions' => [
+[
+'type' => 'or',
+'condition' => auth()->user()->can('view-any', \App\Models\Admin\Candidate::class),
+],
+[
+'type' => 'or',
+'condition' => auth()->user()->can('create', \App\Models\Admin\Candidate::class),
+],
+],
+"children" => $this->indexCreateChildren("candidate", \App\Models\Admin\Candidate::class),
+
+],[
+'type' => 'menu',
+'name' => 'Test',
+'icon' => 'fa fa-wrench',
+'is_active' => request()->routeIs('test*') ? 'active' : '',
+'conditions' => [
+[
+'type' => 'or',
+'condition' => auth()->user()->can('view-any', \App\Models\Admin\Test::class),
+],
+[
+'type' => 'or',
+'condition' => auth()->user()->can('create', \App\Models\Admin\Test::class),
+],
+],
+"children" => $this->indexCreateChildren("test", \App\Models\Admin\Test::class),
+
+],
             [
                 'type' => 'link',
                 'name' => 'Dashboard',

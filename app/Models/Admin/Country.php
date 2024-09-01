@@ -42,4 +42,15 @@ class Country extends Model implements HasMedia
     {
         return LogOptions::defaults();
     }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+
+    public function scopePosition($query)
+    {
+        return $query->orderBy('position');
+    }
 }

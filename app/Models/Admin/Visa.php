@@ -49,4 +49,15 @@ class Visa extends Model implements HasMedia
     {
         return ! is_null($this->getFirstMedia('thumbnail')) ? $this->getFirstMediaUrl('thumbnail') : null;
     }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+
+    public function scopePosition($query)
+    {
+        return $query->orderBy('position');
+    }
 }

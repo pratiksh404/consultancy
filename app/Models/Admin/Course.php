@@ -33,6 +33,7 @@ class Course extends Model implements HasMedia
     private static function cacheKey()
     {
         Cache::has('courses') ? Cache::forget('courses') : '';
+        Cache::has('website_courses') ? Cache::forget('website_courses') : '';
     }
 
     // Logs
@@ -48,5 +49,16 @@ class Course extends Model implements HasMedia
     public function getThumbnailAttribute()
     {
         return ! is_null($this->getFirstMedia('thumbnail')) ? $this->getFirstMediaUrl('thumbnail') : null;
+    }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+
+    public function scopePosition($query)
+    {
+        return $query->orderBy('position');
     }
 }
