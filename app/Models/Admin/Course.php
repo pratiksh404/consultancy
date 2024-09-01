@@ -44,11 +44,20 @@ class Course extends Model implements HasMedia
         return LogOptions::defaults();
     }
 
-    protected $appends = ['thumbnail'];
+    protected $casts = [
+        'data' => 'array',
+    ];
+
+    protected $appends = ['thumbnail', 'sections'];
 
     public function getThumbnailAttribute()
     {
         return ! is_null($this->getFirstMedia('thumbnail')) ? $this->getFirstMediaUrl('thumbnail') : null;
+    }
+
+    public function getSectionsAttribute()
+    {
+        return $this->data['sections'] ?? null;
     }
 
     // Scopes

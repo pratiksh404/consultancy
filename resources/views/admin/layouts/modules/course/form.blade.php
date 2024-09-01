@@ -1,26 +1,40 @@
 <div class="row">
     <div class="col-lg-8">
-        <div class="mt-2">
-            <label for="name">{{ label('courses', 'name') }}</label>
-            <div class="input-group">
-                <input type="text" name="name" id="name" class="form-control" placeholder="Course Name"
-                    value="{{ $course->name ?? old('name') }}">
+        <div class="card">
+            <div class="card-body shadow-lg p-2">
+                <div class="mt-2">
+                    <label for="name">{{ label('courses', 'name') }}</label>
+                    <div class="input-group">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Course Name"
+                            value="{{ $course->name ?? old('name') }}">
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <label for="excerpt">{{ label('courses', 'excerpt', 'Short Introduction') }}</label>
+                    <div class="input-group">
+                        <input type="text" name="excerpt" id="excerpt" class="form-control"
+                            placeholder="Short Introduction" value="{{ $course->excerpt ?? old('excerpt') }}">
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="mt-2">
-            <label for="excerpt">{{ label('courses', 'excerpt', 'Short Introduction') }}</label>
-            <div class="input-group">
-                <input type="text" name="excerpt" id="excerpt" class="form-control"
-                    placeholder="Short Introduction" value="{{ $course->excerpt ?? old('excerpt') }}">
+        <div class="card">
+            <div class="card-header">Course Section <small class="text-muted">(Eg. Listening, Reading ..)</small></div>
+            <div class="card-body shadow-lg p-2">
+                @livewire('admin.course.course-sections', ['sections' => $course->sections ?? null])
             </div>
         </div>
-        <div class="mt-2">
-            <label for="excerpt">{{ label('courses', 'excerpt', 'Short Introduction') }}</label>
-            <textarea name="description" id="heavytexteditor" cols="30" rows="10">
-                @isset($course->description)
+        <div class="card">
+            <div class="card-body shadow-lg p-2">
+                <div class="mt-2">
+                    <label for="description">{{ label('courses', 'excerpt', 'Short Introduction') }}</label>
+                    <textarea name="description" id="heavytexteditor" cols="30" rows="10">
+                    @isset($course->description)
 {!! $course->description !!}
 @endisset
-            </textarea>
+                </textarea>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-lg-4">
