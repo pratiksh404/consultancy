@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire\Admin\Test;
 
+use App\Models\Admin\Test;
 use Livewire\Component;
 
 class TestPanel extends Component
 {
     public function render()
     {
-        return view('livewire.admin.test.test-panel');
+        $tests = Test::paginate(9);
+
+        return view('livewire.admin.test.test-panel', compact('tests'));
     }
 }
