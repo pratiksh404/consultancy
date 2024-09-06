@@ -7,6 +7,13 @@ use Livewire\Component;
 
 class TestPanel extends Component
 {
+    protected $listeners = ['initialize_test_panel', 'testAdded' => '$refresh'];
+
+    public function initialize_test_panel()
+    {
+        $this->dispatchBrowserEvent('initializeTestPanel');
+    }
+
     public function render()
     {
         $tests = Test::paginate(9);

@@ -31,6 +31,7 @@ class Test extends Model
     private static function cacheKey()
     {
         Cache::has('tests') ? Cache::forget('tests') : '';
+        Cache::has('website_tests') ? Cache::forget('website_tests') : '';
     }
 
     // Logs
@@ -45,5 +46,21 @@ class Test extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function candidates()
+    {
+        return $this->morphMany(Candidate::class, 'candidateable');
+    }
+
+    // Scopes
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
+
+    public function scopeNotExpired($query)
+    {
+        return $query->where('test_date', '>', now());
     }
 }

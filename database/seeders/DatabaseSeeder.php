@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             SetupSeeder::class,
+            CourseSeeder::class,
+            VisaSeeder::class,
+            CountrySeeder::class,
         ]);
     }
 }

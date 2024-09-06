@@ -2,10 +2,10 @@
 
 namespace App\Models\Admin;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Candidate extends Model
 {
@@ -39,5 +39,26 @@ class Candidate extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
+    }
+
+    // Relationships
+    public function candidateable()
+    {
+        return $this->morphTo();
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function visa()
+    {
+        return $this->belongsTo(Visa::class);
     }
 }

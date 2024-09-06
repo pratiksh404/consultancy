@@ -52,7 +52,16 @@ class Course extends Model implements HasMedia
 
     public function getThumbnailAttribute()
     {
-        return ! is_null($this->getFirstMedia('thumbnail')) ? $this->getFirstMediaUrl('thumbnail') : null;
+        $image = ! is_null($this->getFirstMedia('thumbnail')) ? $this->getFirstMediaUrl('thumbnail') : null;
+        if (is_null($image)) {
+            // If File Exists
+            $file = 'adminetic/static/courses/'.strtolower(str_replace(' ', '-', $this->name)).'.jpg';
+            if (file_exists(public_path($file))) {
+                return asset($file);
+            }
+        }
+
+        return $image;
     }
 
     public function getSectionsAttribute()

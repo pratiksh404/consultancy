@@ -30,5 +30,7 @@ class SetupSeeder extends Seeder
         Artisan::call('make:permission Slider --all --onlyFlags');
         Artisan::call('make:permission Testimonial --all --onlyFlags');
         Artisan::call('make:permission Visa --all --onlyFlags');
+        Artisan::call('make:permission Candidate --all --onlyFlags');
+        Artisan::call('make:permission Test --all --onlyFlags');
     }
 }

@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Admin\Visa;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class VisaSeeder extends Seeder
 {
@@ -12,6 +13,15 @@ class VisaSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Visa::whereNotNull('id')->delete();
+
+        $data = ['Tourist Visa', 'Commercial Visa', 'Business Visa', 'Student Visa', 'Working Visa', 'Dependent Visa'];
+
+        foreach ($data as $item) {
+            Visa::create([
+                'name' => $item,
+                'slug' => Str::slug($item),
+            ]);
+        }
     }
 }

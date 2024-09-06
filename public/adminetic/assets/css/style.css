@@ -43439,3 +43439,5 @@ html[dir=rtl] body.dark-only .page-wrapper .page-body-wrapper .page-body .card:n
   -webkit-animation: 1s loader-02 linear infinite;
   animation: 1s loader-02 linear infinite
 }
+
+[x-cloak] { display: none; }
