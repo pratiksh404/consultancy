@@ -42,6 +42,12 @@ class Test extends Model
         return LogOptions::defaults();
     }
 
+    protected $appends = ['marks'];
+
+    protected $casts = [
+        'data' => 'array',
+    ];
+
     // Relationships
     public function course()
     {
@@ -62,5 +68,11 @@ class Test extends Model
     public function scopeNotExpired($query)
     {
         return $query->where('test_date', '>', now());
+    }
+
+    // Accessors
+    public function getMarksAttribute()
+    {
+        return $this->data['marks'] ?? null;
     }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->json('data')->nullable();
             $table->boolean('verified')->default(false);
+            $table->boolean('attended')->default(false);
             $table->integer('type')->nullable();
             $table->foreignId('country_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('course_id')->nullable()->constrained()->nullOnDelete();

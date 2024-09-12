@@ -40,6 +40,7 @@ class CandidateRequest extends FormRequest
             'data' => 'nullable',
             'type' => 'nullable|numeric',
             'verified' => 'sometimes|boolean',
+            'attended' => 'sometimes|boolean',
             'country_id' => 'nullable|exists:countries,id',
             'course_id' => 'nullable|exists:courses,id',
             'visa_id' => 'nullable|exists:visas,id',

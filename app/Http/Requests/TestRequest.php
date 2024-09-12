@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
 class TestRequest extends FormRequest
 {
@@ -21,7 +20,7 @@ class TestRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'code' => ! is_null($this->test) ? $this->test->code : Str::uuid()->toString(),
+            'code' => ! is_null($this->test) ? $this->test->code : rand(100000, 999999),
         ]);
     }
 
