@@ -9,7 +9,8 @@ class TestCard extends Component
 {
     public $test;
 
-    protected $listeners = ['candidateAdded' => '$refresh'];
+    protected $listeners = ['candidateAdded' => '$refresh', 'candidateUpdated' => '$refresh'];
+
     public function mount(Test $test)
     {
         $this->test = $test;

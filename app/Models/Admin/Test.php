@@ -75,4 +75,12 @@ class Test extends Model
     {
         return $this->data['marks'] ?? null;
     }
+
+    // Helpers
+    public function attendancePercentage()
+    {
+        $percentage = $this->candidates()->count() > 0 ? number_format(($this->candidates()->where('attended', true)->count() / $this->candidates()->count()) * 100, 2) : 0;
+
+        return $percentage <= 100 ? $percentage : 100;
+    }
 }
