@@ -49,3 +49,22 @@ if (! function_exists('tests')) {
         });
     }
 }
+
+if (! function_exists('getCEFRLevel')) {
+    function getCEFRLevel($bandScore)
+    {
+        if ($bandScore >= 8.5) {
+            return 'C2';
+        } elseif ($bandScore >= 7.0) {
+            return 'C1';
+        } elseif ($bandScore >= 5.5) {
+            return 'B2';
+        } elseif ($bandScore >= 4.0) {
+            return 'B1';
+        } elseif ($bandScore >= 2.5) {
+            return 'A2';
+        } elseif ($bandScore >= 1.0) {
+            return 'A1';
+        }
+    }
+}

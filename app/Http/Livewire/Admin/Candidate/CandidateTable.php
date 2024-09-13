@@ -109,7 +109,8 @@ class CandidateTable extends DataTableComponent
                 ->searchable(),
             BooleanColumn::make('Verified'),
             BooleanColumn::make('Attended'),
-            Column::make('Name', 'name')
+            Column::make('Name')
+                ->label(fn ($row) => Candidate::find($row->id)->name ?? '-')
                 ->sortable()
                 ->searchable(),
             Column::make('Email', 'email')

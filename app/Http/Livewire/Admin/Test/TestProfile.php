@@ -2,8 +2,13 @@
 
 namespace App\Http\Livewire\Admin\Test;
 
+use App\Exports\Admin\Test\ResultTableExport;
 use App\Models\Admin\Test;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\View;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TestProfile extends Component
 {
@@ -31,12 +36,41 @@ class TestProfile extends Component
 
     protected $listeners = [
         'candidateUpdated' => '$refresh',
+        'printReportCard',
+        'printResultTable',
     ];
 
     public function mount(Test $test)
     {
         $this->test = $test;
         $this->marks = $test->marks;
+    }
+
+    public function printReportCard($candidate_ids)
+    {
+        $report_card_html = View::make('admin.layouts.modules.test.results.ielts', ['test' => $this->test, 'candidate_ids' => array_values($candidate_ids)])->render();
+        $this->emit('printTestContent', $report_card_html);
+    }
+
+    public function printResultTable()
+    {
+        $result_table = View::make('admin.layouts.modules.test.results.table', ['test' => $this->test])->render();
+        $this->emit('printTestContent', $result_table);
+    }
+
+    public function downloadResultTable()
+    {
+        $pdfContent = PDF::loadView('admin.layouts.modules.test.results.table', ['test' => $this->test])->output();
+
+        return response()->streamDownload(
+            fn () => print ($pdfContent),
+            Carbon::create($this->test->test_date)->format('Y-m-d').'.pdf'
+        );
+    }
+
+    public function excelResultTable()
+    {
+        return Excel::download(new ResultTableExport($this->test->marks), Carbon::create($this->test->test_date)->format('Y-m-d').'.xlsx');
     }
 
     public function saveCandidate()
@@ -68,7 +102,9 @@ class TestProfile extends Component
 
         $this->test->refresh();
 
-        $this->candidate_name = null;
+        $this->candidate_first_name = null;
+        $this->candidate_middle_name = null;
+        $this->candidate_last_name = null;
         $this->candidate_email = null;
         $this->candidate_phone = null;
         $this->candidate_address = null;

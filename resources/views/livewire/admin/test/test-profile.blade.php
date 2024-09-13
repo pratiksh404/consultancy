@@ -1,5 +1,28 @@
 <div>
-    <div class="row" x-data="{ addCandidate: false, openCandidateReport: null }" x-init="Livewire.on('candidateAdded', () => { addCandidate = false });" x-cloak>
+    <div class="row" x-data="{
+        addCandidate: false,
+        openCandidateReport: null,
+        printableCandidateIdsReportCard: [],
+        toggleCheckAllCandidatesReportCardPrint(event) {
+            this.printableCandidateIdsReportCard = event.target.checked ? @json(collect($test->marks)->pluck('candidate.id')->toArray()) : [];
+        }
+    }" x-init="Livewire.on('candidateAdded', () => { addCandidate = false });
+    Livewire.on('printTestContent', (content) => {
+        const iframe = document.getElementById('printFrame');
+    
+        // Write HTML content to iframe
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        doc.open();
+        doc.write(content);
+        doc.close();
+    
+        // Print the content of the iframe
+        iframe.onload = function() {
+            iframe.contentWindow.print();
+        };
+    });" x-cloak>
+        <!-- Hidden iframe for printing -->
+        <iframe id="printFrame" style="display:none;"></iframe>
         <div class="col-lg-3">
             <div class="card o-hidden welcome-card" style="background-image: url({{ asset('adminetic/static/bg.jpg') }})">
                 <div class="card-body">
@@ -83,15 +106,14 @@
                             <button type="button" @click="addCandidate = true"
                                 class="btn btn-primary btn-air-primary mx-2">Add Candidate</button>
                             <ul class="nav nav-pills nav-warning" id="j-pills-tab" role="tablist">
-                                <li class="nav-item" role="presentation"><a class="nav-link" id="j-pills-dashboard-tab"
-                                        data-bs-toggle="pill" href="#j-pills-dashboard" role="tab"
-                                        aria-controls="j-pills-dashboard" aria-selected="false"
+                                <li class="nav-item" role="presentation"><a class="nav-link active"
+                                        id="j-pills-dashboard-tab" data-bs-toggle="pill" href="#j-pills-dashboard"
+                                        role="tab" aria-controls="j-pills-dashboard" aria-selected="true"
                                         tabindex="-1">Dashboard</a>
                                 </li>
-                                <li class="nav-item" role="presentation"><a class="nav-link active"
-                                        id="j-pills-candidates-tab" data-bs-toggle="pill" href="#j-pills-candidates"
-                                        role="tab" aria-controls="j-pills-candidates"
-                                        aria-selected="true">Candidates</a></li>
+                                <li class="nav-item" role="presentation"><a class="nav-link" id="j-pills-candidates-tab"
+                                        data-bs-toggle="pill" href="#j-pills-candidates" role="tab"
+                                        aria-controls="j-pills-candidates" aria-selected="false">Candidates</a></li>
                                 <li class="nav-item" role="presentation"><a class="nav-link" id="j-pills-marks-tab"
                                         data-bs-toggle="pill" href="#j-pills-marks" role="tab"
                                         aria-controls="j-pills-marks" aria-selected="false" tabindex="-1">Marks</a>
@@ -101,7 +123,7 @@
                     </div>
                     <div class="card-body px-0 pb-0">
                         <div class="tab-content" id="j-pills-tabContent">
-                            <div class="tab-pane fade" id="j-pills-dashboard" role="tabpanel"
+                            <div class="tab-pane fade show active" id="j-pills-dashboard" role="tabpanel"
                                 aria-labelledby="j-pills-dashboard-tab">
                                 @if (count($test->course->sections ?? []) > 0 && count($test->marks ?? []) > 0)
                                     <div class="row">
@@ -127,7 +149,25 @@
                                     </div>
                                     <div class="mt-2">
                                         <div class="d-flex justify-content-between">
-                                            <h5>Result</h5>
+                                            <div class="d-flex justify-content-start">
+                                                <h5>Result</h5>
+                                                <span class="text-primary mx-2" style="cursor: pointer"
+                                                    @click="Livewire.emit('printResultTable')">Print</span>
+                                                <div wire:loading.remove wire:target="downloadResultTable">
+                                                    <span class="text-primary mx-2" style="cursor: pointer"
+                                                        wire:click="downloadResultTable">PDF</span>
+                                                </div>
+                                                <div wire:loading wire:target="downloadResultTable">
+                                                    <i class="fa fa-spinner fa-spin text-primary"></i>
+                                                </div>
+                                                <div wire:loading.remove wire:target="excelResultTable">
+                                                    <span class="text-primary mx-2" style="cursor: pointer"
+                                                        wire:click="excelResultTable">Excel</span>
+                                                </div>
+                                                <div wire:loading wire:target="excelResultTable">
+                                                    <i class="fa fa-spinner fa-spin text-primary"></i>
+                                                </div>
+                                            </div>
                                             <ul class="nav nav-tabs border-tab border-0 mb-0 nav-danger"
                                                 id="topline-tab" role="tablist">
                                                 <li class="nav-item" role="presentation"><a
@@ -135,76 +175,160 @@
                                                         id="topline-result-table-tab" data-bs-toggle="tab"
                                                         href="#topline-result-table" role="tab"
                                                         aria-controls="topline-result-table" aria-selected="true"><i
-                                                            class="icofont icofont-man-in-glasses"></i>User</a></li>
+                                                            class="fa fa-award"></i>Result</a></li>
                                                 <li class="nav-item" role="presentation"><a
                                                         class="nav-link nav-border txt-danger nav-danger"
                                                         id="topline-statistics-tab" data-bs-toggle="tab"
                                                         href="#topline-statistics" role="tab"
                                                         aria-controls="topline-statistics" aria-selected="false"
-                                                        tabindex="-1"><i
-                                                            class="icofont icofont-file-document"></i>Description</a>
+                                                        tabindex="-1"><i class="fa fa-area-chart"></i>Statistics</a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="tab-content" id="topline-tabContent">
                                             <div class="tab-pane fade show active" id="topline-result-table"
                                                 role="tabpanel" aria-labelledby="topline-top-user-tab">
-                                                <div class="table-container">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th> # </th>
-                                                                @foreach ($test->course->sections as $section)
-                                                                    <th>{{ $section['name'] }}
-                                                                        ({{ $section['full_marks'] }})
-                                                                    </th>
-                                                                @endforeach
-                                                                <th>Overall</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @if (count($test->marks) > 0)
-                                                                @foreach ($test->marks as $candidate_id => $mark)
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div
-                                                                                class="d-flex justify-content-between">
-                                                                                {{ $mark['candidate']['name'] . ' - ' . $mark['candidate']['code'] }}
+                                                <div id="test-result">
+                                                    <style>
+                                                        @media print {
+                                                            .options {
+                                                                display: none;
+                                                            }
+
+
+                                                        }
+
+                                                        .result-table {
+                                                            width: 100%;
+                                                            height: 60vh;
+                                                            /* Set the height for vertical scrolling */
+                                                            overflow: auto;
+                                                            /* Allow scrolling */
+                                                            position: relative;
+                                                        }
+
+                                                        .result-table table {
+                                                            width: 100%;
+                                                            border-collapse: collapse;
+                                                        }
+
+                                                        .result-table th,
+                                                        .result-table td {
+                                                            padding: 10px;
+                                                            border: 1px solid #ccc;
+                                                            text-align: left;
+                                                        }
+
+                                                        .result-table thead th {
+                                                            position: sticky;
+                                                            top: 0;
+                                                            background-color: #f1f1f1;
+                                                            z-index: 2;
+                                                            /* Keeps the header above the content */
+                                                        }
+
+                                                        .result-table tbody td:first-child,
+                                                        .result-table thead th:first-child {
+                                                            position: sticky;
+                                                            left: 0;
+                                                            background-color: #f1f1f1;
+                                                            z-index: 1;
+                                                            /* Keeps the first column on top */
+                                                        }
+
+                                                        /* Special styling for the top-left corner */
+                                                        .result-table thead th:first-child {
+                                                            z-index: 3;
+                                                            /* Ensure the top-left corner stays on top of all other cells */
+                                                        }
+                                                    </style>
+
+                                                    <div class="result-table">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        <div class="d-flex justify-content-between">
+                                                                            <input type="checkbox" class="options"
+                                                                                @change="toggleCheckAllCandidatesReportCardPrint">
+                                                                            <div class="mx-2 options"
+                                                                                x-show="printableCandidateIdsReportCard.length > 0">
                                                                                 <span class="text-primary"
-                                                                                    @click="openCandidateReport == {{ $candidate_id }} ? openCandidateReport = null : openCandidateReport = {{ $candidate_id }}"
-                                                                                    style="cursor: pointer"> - View
-                                                                                    Report
-                                                                                    Card</span>
+                                                                                    x-text="'Print selected (' + printableCandidateIdsReportCard.length + ') report cards'"
+                                                                                    @click="
+                                                                                Livewire.emit('printReportCard', printableCandidateIdsReportCard)
+                                                                                "></span>
                                                                             </div>
-                                                                        </td>
-                                                                        @foreach ($test->course->sections as $section)
+                                                                        </div>
+                                                                    </th>
+                                                                    @foreach ($test->course->sections as $section)
+                                                                        <th>{{ $section['name'] }}
+                                                                            ({{ $section['full_marks'] }})
+                                                                        </th>
+                                                                    @endforeach
+                                                                    <th>Overall</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if (count($test->marks) > 0)
+                                                                    @foreach ($test->marks as $candidate_id => $mark)
+                                                                        <tr>
                                                                             <td>
-                                                                                {{ $mark['sections'][$section['name']] ?? '*' }}
+                                                                                <div
+                                                                                    class="d-flex justify-content-between">
+                                                                                    <span class="mx-2">
+                                                                                        <input type="checkbox"
+                                                                                            class="options"
+                                                                                            name="printableCandidateIdsReportCard"
+                                                                                            value="{{ $candidate_id }}"
+                                                                                            x-model="printableCandidateIdsReportCard">
+                                                                                    </span>
+                                                                                    {{ $mark['candidate']['name'] . ' - ' . $mark['candidate']['code'] }}
+                                                                                    <span
+                                                                                        x-show="openCandidateReport == {{ $candidate_id }}"
+                                                                                        @click="$('#candidateReportCard').printThis()"
+                                                                                        style="cursor: pointer"
+                                                                                        class="text-primary options"
+                                                                                        @click="openCandidateReport = null')">Print</span>
+                                                                                    <span class="text-primary options"
+                                                                                        @click="openCandidateReport == {{ $candidate_id }} ? openCandidateReport = null : openCandidateReport = {{ $candidate_id }}"
+                                                                                        style="cursor: pointer"> - View
+                                                                                        Report
+                                                                                        Card</span>
+                                                                                </div>
                                                                             </td>
-                                                                        @endforeach
-                                                                        <td>
-                                                                            {{ $mark['overall'] ?? '*' }}
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr
-                                                                        x-show="openCandidateReport == {{ $candidate_id }}">
+                                                                            @foreach ($test->course->sections as $section)
+                                                                                <td>
+                                                                                    {{ $mark['sections'][$section['name']] ?? '*' }}
+                                                                                </td>
+                                                                            @endforeach
+                                                                            <td>
+                                                                                {{ $mark['overall'] ?? '*' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr
+                                                                            x-show="openCandidateReport == {{ $candidate_id }}">
+                                                                            <td
+                                                                                colspan="{{ count($test->course->sections) + 2 }}">
+                                                                                <div id="candidateReportCard">
+                                                                                    <x-admin.test.result.ielts
+                                                                                        :mark='$mark'
+                                                                                        :test='$test' />
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @else
+                                                                    <tr>
                                                                         <td
                                                                             colspan="{{ count($test->course->sections) + 2 }}">
-                                                                            <x-admin.test.result.ielts :mark='$mark'
-                                                                                :test='$test' />
-                                                                        </td>
+                                                                            No
+                                                                            Candidate Available
                                                                     </tr>
-                                                                @endforeach
-                                                            @else
-                                                                <tr>
-                                                                    <td
-                                                                        colspan="{{ count($test->course->sections) + 2 }}">
-                                                                        No
-                                                                        Candidate Available
-                                                                </tr>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="topline-statistics" role="tabpanel"
@@ -215,7 +339,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="tab-pane fade show active" id="j-pills-candidates" role="tabpanel"
+                            <div class="tab-pane fade" id="j-pills-candidates" role="tabpanel"
                                 aria-labelledby="j-pills-candidates-tab">
                                 @livewire('admin.candidate.candidate-table', ['test' => $test], key('test-candidates' . $test->id))
                             </div>
