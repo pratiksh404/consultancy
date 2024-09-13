@@ -41,6 +41,8 @@ class Candidate extends Model
         return LogOptions::defaults();
     }
 
+    protected $appends = ['name'];
+
     // Relationships
     public function candidateable()
     {
@@ -60,5 +62,15 @@ class Candidate extends Model
     public function visa()
     {
         return $this->belongsTo(Visa::class);
+    }
+
+    // Accessors
+    public function getNameAttribute()
+    {
+        $first_name = $this->first_name;
+        $middle_name = $this->middle_name;
+        $last_name = $this->last_name;
+
+        return $first_name.(! is_null($middle_name) ? ' '.$middle_name : '').(! is_null($last_name) ? ' '.$last_name : '');
     }
 }

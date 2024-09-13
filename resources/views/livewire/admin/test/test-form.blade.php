@@ -77,7 +77,7 @@
             transform: translateX(-50%) scale(1);
         }
     </style>
-    <div class="card" x-show="createTestPanel" @click.outside="createTestPanel = false" x-cloak
+    <div class="card" x-show="createTestPanel" x-cloak
         style="position: fixed;width: 40vw; height: 85vh; top: 10vh; right: 30vw;overflow-y:auto">
         <div class="card-header">
             <h5>Create Test</h5>
@@ -96,19 +96,18 @@
                             let today = moment().format('YYYY-MM-DD'); // Get today's date
                         
                             var picker = $('#datepicker').daterangepicker({
-                                singleDatePicker: true,
-                                startDate: today, // Start with today's date
-                                locale: { format: 'YYYY-MM-DD' },
-                                opens: 'right',
-                                drops: 'down',
-                                alwaysShowCalendars: true,
-                                autoApply: true,
-                                linkedCalendars: true,
+                                'singleDatePicker': true,
+                                'startDate': today, // Start with today's date
+                                'locale': { format: 'YYYY-MM-DD' },
+                                'opens': 'down',
+                                'drops': 'down',
+                                'alwaysShowCalendars': true,
+                                'linkedCalendars': true,
                                 isInvalidDate: function(date) {
                                     return date.isBefore(moment(), 'day'); // Disable past dates
                                 },
-                                timePicker: true,
-                                autoApply: true,
+                                'timePicker': true,
+                                'autoApply': true,
                                 autoUpdateInput: true,
                             }, function(start) {
                                 test_date = start.format('YYYY-MM-DD');

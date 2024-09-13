@@ -33,7 +33,9 @@ class CandidateRequest extends FormRequest
     {
         return [
             'code' => 'required',
-            'name' => 'required|max:80',
+            'first_name' => 'required|max:80',
+            'middle_name' => 'nullable|max:80',
+            'last_name' => 'nullable|max:80',
             'email' => 'required|email|max:60',
             'phone' => 'nullable',
             'address' => 'nullable|max:100',

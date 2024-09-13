@@ -10,7 +10,11 @@ class TestProfile extends Component
     public $test;
 
     // Add Candidate
-    public $candidate_name;
+    public $candidate_first_name;
+
+    public $candidate_middle_name;
+
+    public $candidate_last_name;
 
     public $candidate_email;
 
@@ -39,7 +43,9 @@ class TestProfile extends Component
     {
 
         $this->validate([
-            'candidate_name' => 'required|max:80',
+            'candidate_first_name' => 'required|max:80',
+            'candidate_middle_name' => 'nullable|max:80',
+            'candidate_last_name' => 'nullable|max:80',
             'candidate_email' => 'required|email|max:60',
             'candidate_phone' => 'nullable',
             'candidate_address' => 'nullable|max:100',
@@ -49,7 +55,9 @@ class TestProfile extends Component
 
         $this->test->candidates()->create([
             'code' => rand(100000, 999999),
-            'name' => $this->candidate_name,
+            'first_name' => $this->candidate_first_name,
+            'middle_name' => $this->candidate_middle_name,
+            'last_name' => $this->candidate_last_name,
             'email' => $this->candidate_email,
             'phone' => $this->candidate_phone,
             'address' => $this->candidate_address,

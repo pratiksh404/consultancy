@@ -73,7 +73,15 @@ class Test extends Model
     // Accessors
     public function getMarksAttribute()
     {
-        return $this->data['marks'] ?? null;
+        $marks = $this->data['marks'] ?? null;
+
+        return ! is_null($marks)
+        ? (collect($marks)->map(function ($mark, $candidate_id) {
+            $mark['candidate'] = \App\Models\Admin\Candidate::find($candidate_id)->toArray();
+
+            return $mark;
+        })->sortByDesc(fn ($mark) => $mark['overall'] ?? 0)->toArray())
+        : null;
     }
 
     // Helpers

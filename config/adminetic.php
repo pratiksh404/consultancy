@@ -148,6 +148,17 @@ return [
                 ],
             ],
         ],
+        [
+            'name' => 'Print This',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'active' => true,
+                    'location' => 'plugins/printThis/printThis.js',
+                ],
+            ],
+        ],
     ],
 
     // Plugin Adapters

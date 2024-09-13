@@ -1,5 +1,5 @@
 <div>
-    <div class="row" x-data="{ addCandidate: false }" x-init="Livewire.on('candidateAdded', () => { addCandidate = false });" x-cloak>
+    <div class="row" x-data="{ addCandidate: false, openCandidateReport: null }" x-init="Livewire.on('candidateAdded', () => { addCandidate = false });" x-cloak>
         <div class="col-lg-3">
             <div class="card o-hidden welcome-card" style="background-image: url({{ asset('adminetic/static/bg.jpg') }})">
                 <div class="card-body">
@@ -103,7 +103,117 @@
                         <div class="tab-content" id="j-pills-tabContent">
                             <div class="tab-pane fade" id="j-pills-dashboard" role="tabpanel"
                                 aria-labelledby="j-pills-dashboard-tab">
+                                @if (count($test->course->sections ?? []) > 0 && count($test->marks ?? []) > 0)
+                                    <div class="row">
+                                        @foreach ($test->course->sections as $section)
+                                            <div class="col-lg-3">
+                                                <div class="card o-hidden welcome-card"
+                                                    style="background-image: url({{ asset('adminetic/static/bg.jpg') }})">
+                                                    <div class="card-body">
+                                                        <h5>{{ $section['name'] }}</h5> <br>
+                                                        <h3>{{ count(
+                                                            array_filter($test->marks, function ($mark) use ($section) {
+                                                                $exists = isset($mark['sections'][$section['name']]);
+                                                                $not_null = $exists ? !is_null($mark['sections'][$section['name']] ?? null) : false;
+                                                                $not_empty = $exists ? !empty($mark['sections'][$section['name']] ?? null) : false;
+                                                                return $exists && $not_null && $not_empty;
+                                                            }),
+                                                        ) }}
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex justify-content-between">
+                                            <h5>Result</h5>
+                                            <ul class="nav nav-tabs border-tab border-0 mb-0 nav-danger"
+                                                id="topline-tab" role="tablist">
+                                                <li class="nav-item" role="presentation"><a
+                                                        class="nav-link active nav-border pt-0 txt-danger nav-danger"
+                                                        id="topline-result-table-tab" data-bs-toggle="tab"
+                                                        href="#topline-result-table" role="tab"
+                                                        aria-controls="topline-result-table" aria-selected="true"><i
+                                                            class="icofont icofont-man-in-glasses"></i>User</a></li>
+                                                <li class="nav-item" role="presentation"><a
+                                                        class="nav-link nav-border txt-danger nav-danger"
+                                                        id="topline-statistics-tab" data-bs-toggle="tab"
+                                                        href="#topline-statistics" role="tab"
+                                                        aria-controls="topline-statistics" aria-selected="false"
+                                                        tabindex="-1"><i
+                                                            class="icofont icofont-file-document"></i>Description</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-content" id="topline-tabContent">
+                                            <div class="tab-pane fade show active" id="topline-result-table"
+                                                role="tabpanel" aria-labelledby="topline-top-user-tab">
+                                                <div class="table-container">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th> # </th>
+                                                                @foreach ($test->course->sections as $section)
+                                                                    <th>{{ $section['name'] }}
+                                                                        ({{ $section['full_marks'] }})
+                                                                    </th>
+                                                                @endforeach
+                                                                <th>Overall</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (count($test->marks) > 0)
+                                                                @foreach ($test->marks as $candidate_id => $mark)
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div
+                                                                                class="d-flex justify-content-between">
+                                                                                {{ $mark['candidate']['name'] . ' - ' . $mark['candidate']['code'] }}
+                                                                                <span class="text-primary"
+                                                                                    @click="openCandidateReport == {{ $candidate_id }} ? openCandidateReport = null : openCandidateReport = {{ $candidate_id }}"
+                                                                                    style="cursor: pointer"> - View
+                                                                                    Report
+                                                                                    Card</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        @foreach ($test->course->sections as $section)
+                                                                            <td>
+                                                                                {{ $mark['sections'][$section['name']] ?? '*' }}
+                                                                            </td>
+                                                                        @endforeach
+                                                                        <td>
+                                                                            {{ $mark['overall'] ?? '*' }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr
+                                                                        x-show="openCandidateReport == {{ $candidate_id }}">
+                                                                        <td
+                                                                            colspan="{{ count($test->course->sections) + 2 }}">
+                                                                            <x-admin.test.result.ielts :mark='$mark'
+                                                                                :test='$test' />
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @else
+                                                                <tr>
+                                                                    <td
+                                                                        colspan="{{ count($test->course->sections) + 2 }}">
+                                                                        No
+                                                                        Candidate Available
+                                                                </tr>
+                                                            @endif
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="topline-statistics" role="tabpanel"
+                                                aria-labelledby="topline-top-description-tab">
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                             <div class="tab-pane fade show active" id="j-pills-candidates" role="tabpanel"
                                 aria-labelledby="j-pills-candidates-tab">

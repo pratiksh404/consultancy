@@ -54,13 +54,27 @@ class PopulateFakeTestCandidateCommand extends Command
 
         $bar->start();
         while ($i <= $count) {
-            $test->candidates()->create([
+            $candidate = $test->candidates()->create([
                 'code' => rand(100000, 999999),
-                'name' => fake()->name,
+                'first_name' => fake()->firstName,
+                'last_name' => fake()->lastName,
                 'email' => fake()->email,
                 'phone' => fake()->phoneNumber,
                 'course_id' => $test->course_id,
+                'attended' => true,
             ]);
+
+            // Fake Result
+            $marks = $test->data['marks'] ?? [];
+            if (count($test->course->sections ?? []) > 0) {
+                foreach ($test->course->sections as $section) {
+                    $marks[$candidate->id]['sections'][$section['name']] = rand(2, $section['full_marks'] * 2) / 2;
+                }
+                $marks[$candidate->id]['overall'] = round((array_sum($marks[$candidate->id]['sections']) / count($marks[$candidate->id]['sections']) * 2) / 2);
+            }
+            $data = $test->data;
+            $data['marks'] = $marks;
+            $test->update(['data' => $data]);
 
             $bar->advance();
             $i++;
