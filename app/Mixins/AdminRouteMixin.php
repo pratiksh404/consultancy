@@ -35,6 +35,7 @@ class AdminRouteMixin
                     Route::resource('counter', \App\Http\Controllers\Admin\CounterController::class);
                     Route::resource('test', \App\Http\Controllers\Admin\TestController::class);
                     Route::resource('candidate', \App\Http\Controllers\Admin\CandidateController::class);
+                    Route::resource('university', \App\Http\Controllers\Admin\UniversityController::class);
                     // Single Pages
                     Route::view('contact-management', 'admin.setting.contact_management')->name('setting.contact_management');
                 });

@@ -6,6 +6,7 @@ use App\Exports\Admin\Test\ResultTableExport;
 use App\Models\Admin\Test;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
@@ -48,7 +49,7 @@ class TestProfile extends Component
 
     public function printReportCard($candidate_ids)
     {
-        $report_card_html = View::make('admin.layouts.modules.test.results.ielts', ['test' => $this->test, 'candidate_ids' => array_values($candidate_ids)])->render();
+        $report_card_html = View::make('admin.layouts.modules.test.results.report_card', ['test' => $this->test, 'candidate_ids' => array_values($candidate_ids)])->render();
         $this->emit('printTestContent', $report_card_html);
     }
 
@@ -66,6 +67,12 @@ class TestProfile extends Component
             fn () => print ($pdfContent),
             Carbon::create($this->test->test_date)->format('Y-m-d').'.pdf'
         );
+    }
+
+    public function populateFakeCandidates()
+    {
+        Artisan::call('test:candidate --test='.$this->test->id);
+        $this->test->refresh();
     }
 
     public function excelResultTable()

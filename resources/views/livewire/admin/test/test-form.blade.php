@@ -83,92 +83,81 @@
             <h5>Create Test</h5>
         </div>
         <div x-data="{ test_added: false }" x-init="Livewire.on('testAdded', () => {
-            test_added = true;
-            setTimeout(() => {
-                createTestPanel = false;
-                test_added = false;
-            }, 2000);
+            createTestPanel = false;
+        
         });">
-            <div x-show="!test_added">
-                <form wire:submit.prevent="save">
-                    <div class="card-body shadow-lg p-2">
-                        <div x-data="{ test_date: @entangle('test_date').defer }" x-init="() => {
-                            let today = moment().format('YYYY-MM-DD'); // Get today's date
-                        
-                            var picker = $('#datepicker').daterangepicker({
-                                'singleDatePicker': true,
-                                'startDate': today, // Start with today's date
-                                'locale': { format: 'YYYY-MM-DD' },
-                                'opens': 'down',
-                                'drops': 'down',
-                                'alwaysShowCalendars': true,
-                                'linkedCalendars': true,
-                                isInvalidDate: function(date) {
-                                    return date.isBefore(moment(), 'day'); // Disable past dates
-                                },
-                                'timePicker': true,
-                                'autoApply': true,
-                                autoUpdateInput: true,
-                            }, function(start) {
-                                test_date = start.format('YYYY-MM-DD');
-                            });
-                        
-                            $('#datepicker').on('apply.daterangepicker', function(ev, picker) {
-                                test_date = picker.startDate.format('YYYY-MM-DD');
-                            });
-                        
-                            $('.calendar.right').show();
-                        
-                            $watch('test_date', value => $('#datepicker').data('daterangepicker').setStartDate(value));
-                        }">
-                            <div id="datepicker-container" class="d-flex justify-content-center mt-3">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa fa-clock"></i></span>
-                                    <input type="text" id="datepicker" class="form-control" readonly />
-                                </div>
-                            </div>
-                            @error('test_date')
-                                <br>
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
 
-                            @if (courses()->count() > 0)
-                                <div class="radio-buttons">
-                                    @error('course_id')
-                                        <small class="text-danger">{{ $message }}</small>
-                                        <br>
-                                    @enderror
-                                    @foreach (courses() as $course)
-                                        <label class="custom-radio">
-                                            <input type="radio" name="course_id" wire:model.defer="course_id"
-                                                value="{{ $course->id }}">
-                                            <span class="radio-btn"><i class="las la-check"></i>
-                                                <div class="hobbies-icon">
-                                                    <img src="{{ $course->thumbnail }}">
-                                                    <h3 class="">{{ $course->name }}</h3>
-                                                </div>
-                                            </span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            @endif
+            <form wire:submit.prevent="save">
+                <div class="card-body shadow-lg p-2">
+                    <div x-data="{ test_date: @entangle('test_date').defer }" x-init="() => {
+                        let today = moment().format('YYYY-MM-DD'); // Get today's date
+                    
+                        var picker = $('#datepicker').daterangepicker({
+                            'singleDatePicker': true,
+                            'startDate': today, // Start with today's date
+                            'locale': { format: 'YYYY-MM-DD' },
+                            'opens': 'down',
+                            'drops': 'down',
+                            'alwaysShowCalendars': true,
+                            'linkedCalendars': true,
+                            isInvalidDate: function(date) {
+                                return date.isBefore(moment(), 'day'); // Disable past dates
+                            },
+                            'timePicker': true,
+                            'autoApply': true,
+                            autoUpdateInput: true,
+                        }, function(start) {
+                            test_date = start.format('YYYY-MM-DD');
+                        });
+                    
+                        $('#datepicker').on('apply.daterangepicker', function(ev, picker) {
+                            test_date = picker.startDate.format('YYYY-MM-DD');
+                        });
+                    
+                        $('.calendar.right').show();
+                    
+                        $watch('test_date', value => $('#datepicker').data('daterangepicker').setStartDate(value));
+                    }">
+                        <div id="datepicker-container" class="d-flex justify-content-center mt-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-clock"></i></span>
+                                <input type="text" id="datepicker" class="form-control" readonly />
+                            </div>
                         </div>
+                        @error('test_date')
+                            <br>
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+
+                        @if (courses()->count() > 0)
+                            <div class="radio-buttons">
+                                @error('course_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    <br>
+                                @enderror
+                                @foreach (courses() as $course)
+                                    <label class="custom-radio">
+                                        <input type="radio" name="course_id" wire:model.defer="course_id"
+                                            value="{{ $course->id }}">
+                                        <span class="radio-btn"><i class="las la-check"></i>
+                                            <div class="hobbies-icon">
+                                                <img src="{{ $course->thumbnail }}">
+                                                <h3 class="">{{ $course->name }}</h3>
+                                            </div>
+                                        </span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
-                    <div class="card-footer d-flex justify-content-end">
-                        <button type="button" class="btn btn-danger btn-air-danger mx-1"
-                            @click="createTestPanel = false">Close</button>
-                        <button type="submit" class="btn btn-success btn-air-success mx-1">Save</button>
-                    </div>
-                </form>
-            </div>
-            <div class="card-body shadow-lg p-2" x-show="test_added">
-                <div class="d-flex justify-content-center p-3">
-                    <img src="{{ asset('adminetic/static/student.gif') }}" alt="Test Created Sucessfully"
-                        width="500">
                 </div>
-                <br>
-                <span class="d-flex justify-content-center">Test Created Sucessfully</span>
-            </div>
+                <div class="card-footer d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger btn-air-danger mx-1"
+                        @click="createTestPanel = false">Close</button>
+                    <button type="submit" class="btn btn-success btn-air-success mx-1">Save</button>
+                </div>
+            </form>
+
 
         </div>
     </div>

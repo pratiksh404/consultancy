@@ -1,5 +1,5 @@
 <div>
-    <div x-data="{ profile: false }" x-cloak style="cursor: pointer">
+    <a href="{{ adminShowRoute('test', $test->id) }}" class="router">
         <div class="project-box" @click="profile = true"><span class="badge badge-primary">{{ $test->course->name }}</span>
             <h6>{{ toBS(\Carbon\Carbon::create($test->test_date)) }}</h6>
             <div class="media">
@@ -42,11 +42,5 @@
                 </div>
             </div>
         </div>
-        <div class="card" x-show="profile" @click.outside="profile = false" x-cloak
-            style="position: fixed;width: 90vw; height: 85vh; top: 10vh; right: 5vw;overflow-y:auto;z-index:9999">
-            <div class="card-body shadow-lg p-2">
-                @livewire('admin.test.test-profile', ['test' => $test], key('profile' . $test->id))
-            </div>
-        </div>
-    </div>
+    </a>
 </div>

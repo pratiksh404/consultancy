@@ -18,8 +18,11 @@
                     }
                 }
             </style>
+            @php
+                $component = 'admin.test.result.' . strtolower(str_replace(' ', '-', $test->course->name));
+            @endphp
             @foreach (collect($test->marks)->filter(fn($mark, $candidate_id) => isset($candidate_ids) ? in_array($candidate_id, $candidate_ids) : true)->sortByDesc(fn($mark) => $mark['overall'] ?? 0)->toArray() as $mark)
-                <x-admin.test.result.ielts :mark='$mark' :test='$test' />
+                <x-dynamic-component :test='$test' :mark='$mark' :component='$component' />
             @endforeach
         @endif
     @endisset

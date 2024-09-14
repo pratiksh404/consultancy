@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Country extends Model implements HasMedia
+class University extends Model implements HasMedia
 {
     use InteractsWithMedia,LogsActivity;
 
@@ -32,31 +32,24 @@ class Country extends Model implements HasMedia
     // Cache Keys
     private static function cacheKey()
     {
-        Cache::has('countries') ? Cache::forget('countries') : '';
+        Cache::has('universities') ? Cache::forget('universities') : '';
     }
 
     // Logs
-    protected static $logName = 'country';
+    protected static $logName = 'university';
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
     }
 
-    // Scopes
-    public function scopeActive($query)
-    {
-        return $query->where('active', true);
-    }
-
-    public function scopePosition($query)
-    {
-        return $query->orderBy('position');
-    }
+    protected $casts = [
+        'data' => 'array',
+    ];
 
     // Relationships
-    public function universities()
+    public function country()
     {
-        return $this->hasMany(University::class);
+        return $this->belongsTo(Country::class);
     }
 }

@@ -79,4 +79,12 @@ class Course extends Model implements HasMedia
     {
         return $query->orderBy('position');
     }
+
+    // Helper
+    public function report_card_path()
+    {
+        $path = 'components.admin.test.result.'.strtolower(str_replace(' ', '-', $this->name));
+
+        return view()->exists($path) ? $path : null;
+    }
 }

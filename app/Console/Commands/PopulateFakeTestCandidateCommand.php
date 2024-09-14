@@ -12,7 +12,7 @@ class PopulateFakeTestCandidateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'test:candidate {--count=40} {--test}';
+    protected $signature = 'test:candidate {--count=40} {--test=}';
 
     /**
      * The console command description.

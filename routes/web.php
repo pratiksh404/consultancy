@@ -16,7 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::admineticAuth();
 
 Route::admin();
-
-Route::get('/ielts', function () {
-    return view('admin.layouts.modules.test.results.ielts');
-});

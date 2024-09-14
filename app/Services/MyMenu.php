@@ -19,6 +19,24 @@ class MyMenu implements SidebarInterface
 
             
 
+
+],[
+'type' => 'menu',
+'name' => 'University',
+'icon' => 'fa fa-wrench',
+'is_active' => request()->routeIs('university*') ? 'active' : '',
+'conditions' => [
+[
+'type' => 'or',
+'condition' => auth()->user()->can('view-any', \App\Models\Admin\University::class),
+],
+[
+'type' => 'or',
+'condition' => auth()->user()->can('create', \App\Models\Admin\University::class),
+],
+],
+"children" => $this->indexCreateChildren("university", \App\Models\Admin\University::class),
+
 ],[
 'type' => 'menu',
 'name' => 'Candidate',

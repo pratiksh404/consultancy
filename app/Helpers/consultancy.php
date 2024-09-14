@@ -68,3 +68,24 @@ if (! function_exists('getCEFRLevel')) {
         }
     }
 }
+
+if (! function_exists('calculatePercentile')) {
+    function calculatePercentile($scores, $targetScore)
+    {
+        // Sort the scores in ascending order
+        sort($scores);
+
+        // Count how many scores are lower than the target score
+        $count = 0;
+        foreach ($scores as $score) {
+            if ($score < $targetScore) {
+                $count++;
+            }
+        }
+
+        // Calculate percentile: (Number of scores below target / Total number of scores) * 100
+        $percentile = ($count / count($scores)) * 100;
+
+        return number_format($percentile, 2);
+    }
+}

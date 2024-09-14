@@ -16,7 +16,7 @@ class TestPanel extends Component
 
     public function render()
     {
-        $tests = Test::paginate(9);
+        $tests = Test::latest()->paginate(9);
 
         return view('livewire.admin.test.test-panel', compact('tests'));
     }

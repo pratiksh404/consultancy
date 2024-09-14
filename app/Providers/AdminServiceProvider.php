@@ -56,5 +56,6 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->bind(\App\Contracts\CounterRepositoryInterface::class, \App\Repositories\CounterRepository::class);
     $this->app->bind(\App\Contracts\TestRepositoryInterface::class, \App\Repositories\TestRepository::class);
 $this->app->bind(\App\Contracts\CandidateRepositoryInterface::class, \App\Repositories\CandidateRepository::class);
+$this->app->bind(\App\Contracts\UniversityRepositoryInterface::class, \App\Repositories\UniversityRepository::class);
 }
 }

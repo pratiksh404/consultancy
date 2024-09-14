@@ -32,5 +32,6 @@ class SetupSeeder extends Seeder
         Artisan::call('make:permission Visa --all --onlyFlags');
         Artisan::call('make:permission Candidate --all --onlyFlags');
         Artisan::call('make:permission Test --all --onlyFlags');
+        Artisan::call('make:permission University --all --onlyFlags');
     }
 }
