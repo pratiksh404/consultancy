@@ -67,5 +67,10 @@ class VisaRepository implements VisaRepositoryInterface
                 ->addFromMediaLibraryRequest(request()->thumbnail)
                 ->toMediaCollection('thumbnail');
         }
+        if (request()->has('icon')) {
+            $visa
+                ->addFromMediaLibraryRequest(request()->icon)
+                ->toMediaCollection('icon');
+        }
     }
 }

@@ -33,6 +33,7 @@ class University extends Model implements HasMedia
     private static function cacheKey()
     {
         Cache::has('universities') ? Cache::forget('universities') : '';
+        Cache::has('website_universities') ? Cache::forget('website_universities') : '';
     }
 
     // Logs
@@ -47,9 +48,28 @@ class University extends Model implements HasMedia
         'data' => 'array',
     ];
 
+    protected $appends = ['logo'];
+
+    // Accessors
+    public function getLogoAttribute()
+    {
+        return $this->getMedia('logo')->count() > 0 ? $this->getFirstMediaUrl('logo') : null;
+    }
+
     // Relationships
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    // Scopes
+    public function scopeActive($qry)
+    {
+        return $qry->where('active', 1);
+    }
+
+    public function scopePosition($qry)
+    {
+        return $qry->orderBy('position');
     }
 }

@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Visa extends Model implements HasMedia
+class Step extends Model
 {
-    use InteractsWithMedia,LogsActivity;
+    use LogsActivity;
 
     protected $guarded = [];
 
@@ -32,35 +30,18 @@ class Visa extends Model implements HasMedia
     // Cache Keys
     private static function cacheKey()
     {
-        Cache::has('visas') ? Cache::forget('visas') : '';
+        Cache::has('steps') ? Cache::forget('steps') : '';
     }
 
     // Logs
-    protected static $logName = 'visa';
+    protected static $logName = 'step';
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
     }
 
-    protected $appends = ['thumbnail', 'icon'];
-
-    public function getThumbnailAttribute()
-    {
-        return ! is_null($this->getFirstMedia('thumbnail')) ? $this->getFirstMediaUrl('thumbnail') : null;
-    }
-
-    public function getIconAttribute()
-    {
-        return ! is_null($this->getFirstMedia('icon')) ? $this->getFirstMediaUrl('icon') : asset('website/assets/img/icon/sv_0'.rand(1, 5).'.svg');
-    }
-
-    // Scopes
-    public function scopeActive($query)
-    {
-        return $query->where('active', true);
-    }
-
+    // Scope
     public function scopePosition($query)
     {
         return $query->orderBy('position');

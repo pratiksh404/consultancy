@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             VisaSeeder::class,
             CountrySeeder::class,
+            StepSeeder::class,
         ]);
     }
 }

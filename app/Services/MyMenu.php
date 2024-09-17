@@ -18,60 +18,75 @@ class MyMenu implements SidebarInterface
                 'description' => 'Administration Control',
 
             
-
-
 ],[
 'type' => 'menu',
-'name' => 'University',
+'name' => 'Step',
 'icon' => 'fa fa-wrench',
-'is_active' => request()->routeIs('university*') ? 'active' : '',
+'is_active' => request()->routeIs('step*') ? 'active' : '',
 'conditions' => [
 [
 'type' => 'or',
-'condition' => auth()->user()->can('view-any', \App\Models\Admin\University::class),
+'condition' => auth()->user()->can('view-any', \App\Models\Admin\Step::class),
 ],
 [
 'type' => 'or',
-'condition' => auth()->user()->can('create', \App\Models\Admin\University::class),
+'condition' => auth()->user()->can('create', \App\Models\Admin\Step::class),
 ],
 ],
-"children" => $this->indexCreateChildren("university", \App\Models\Admin\University::class),
+"children" => $this->indexCreateChildren("step", \App\Models\Admin\Step::class),
 
-],[
-'type' => 'menu',
-'name' => 'Candidate',
-'icon' => 'fa fa-wrench',
-'is_active' => request()->routeIs('candidate*') ? 'active' : '',
-'conditions' => [
-[
-'type' => 'or',
-'condition' => auth()->user()->can('view-any', \App\Models\Admin\Candidate::class),
-],
-[
-'type' => 'or',
-'condition' => auth()->user()->can('create', \App\Models\Admin\Candidate::class),
-],
-],
-"children" => $this->indexCreateChildren("candidate", \App\Models\Admin\Candidate::class),
+], [
+                'type' => 'menu',
+                'name' => 'University',
+                'icon' => 'fa fa-wrench',
+                'is_active' => request()->routeIs('university*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\University::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\University::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('university', \App\Models\Admin\University::class),
 
-],[
-'type' => 'menu',
-'name' => 'Test',
-'icon' => 'fa fa-wrench',
-'is_active' => request()->routeIs('test*') ? 'active' : '',
-'conditions' => [
-[
-'type' => 'or',
-'condition' => auth()->user()->can('view-any', \App\Models\Admin\Test::class),
-],
-[
-'type' => 'or',
-'condition' => auth()->user()->can('create', \App\Models\Admin\Test::class),
-],
-],
-"children" => $this->indexCreateChildren("test", \App\Models\Admin\Test::class),
+            ], [
+                'type' => 'menu',
+                'name' => 'Candidate',
+                'icon' => 'fa fa-wrench',
+                'is_active' => request()->routeIs('candidate*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Candidate::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Candidate::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('candidate', \App\Models\Admin\Candidate::class),
 
-],
+            ], [
+                'type' => 'menu',
+                'name' => 'Test',
+                'icon' => 'fa fa-wrench',
+                'is_active' => request()->routeIs('test*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Test::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Test::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('test', \App\Models\Admin\Test::class),
+
+            ],
             [
                 'type' => 'link',
                 'name' => 'Dashboard',
@@ -154,6 +169,32 @@ class MyMenu implements SidebarInterface
                     [
                         'type' => 'or',
                         'condition' => auth()->user()->can('create', \Pratiksh\Adminetic\Models\Admin\Setting::class),
+                    ],
+                ],
+            ],
+            [
+                'type' => 'link',
+                'name' => 'Banner Management',
+                'icon' => 'fa fa-cog',
+                'link' => route('admin.widgets.banner_management'),
+                'is_active' => request()->routeIs('home') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->hasRole('admin'),
+                    ],
+                ],
+            ],
+            [
+                'type' => 'link',
+                'name' => 'Contact Management',
+                'icon' => 'fa fa-cog',
+                'link' => route('admin.widgets.contact_management'),
+                'is_active' => request()->routeIs('home') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->hasRole('admin'),
                     ],
                 ],
             ],

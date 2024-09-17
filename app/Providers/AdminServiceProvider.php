@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Mixins\AdminRouteMixin;
+use App\Mixins\WebsiteRouteMixin;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -20,6 +21,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->repos();
         /* Mixins */
         Route::mixin(new AdminRouteMixin);
+        Route::mixin(new WebsiteRouteMixin);
     }
 
     /**
@@ -54,8 +56,9 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->bind(\App\Contracts\PartnerRepositoryInterface::class, \App\Repositories\PartnerRepository::class);
         $this->app->bind(\App\Contracts\AssociationRepositoryInterface::class, \App\Repositories\AssociationRepository::class);
         $this->app->bind(\App\Contracts\CounterRepositoryInterface::class, \App\Repositories\CounterRepository::class);
-    $this->app->bind(\App\Contracts\TestRepositoryInterface::class, \App\Repositories\TestRepository::class);
-$this->app->bind(\App\Contracts\CandidateRepositoryInterface::class, \App\Repositories\CandidateRepository::class);
-$this->app->bind(\App\Contracts\UniversityRepositoryInterface::class, \App\Repositories\UniversityRepository::class);
+        $this->app->bind(\App\Contracts\TestRepositoryInterface::class, \App\Repositories\TestRepository::class);
+        $this->app->bind(\App\Contracts\CandidateRepositoryInterface::class, \App\Repositories\CandidateRepository::class);
+        $this->app->bind(\App\Contracts\UniversityRepositoryInterface::class, \App\Repositories\UniversityRepository::class);
+    $this->app->bind(\App\Contracts\StepRepositoryInterface::class, \App\Repositories\StepRepository::class);
 }
 }
