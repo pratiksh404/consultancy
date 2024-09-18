@@ -33,6 +33,7 @@ class Country extends Model implements HasMedia
     private static function cacheKey()
     {
         Cache::has('countries') ? Cache::forget('countries') : '';
+        Cache::has('website_countries') ? Cache::forget('website_countries') : '';
     }
 
     // Logs
@@ -41,6 +42,14 @@ class Country extends Model implements HasMedia
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
+    }
+
+    protected $appends = ['image'];
+
+    // Accessors
+    public function getImageAttribute()
+    {
+        return $this->getMedia('image')->count() > 0 ? $this->getFirstMediaUrl('image') : null;
     }
 
     // Scopes

@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Admin\Country;
-use Illuminate\Support\Facades\Cache;
 use App\Contracts\CountryRepositoryInterface;
 use App\Http\Requests\CountryRequest;
+use App\Models\Admin\Country;
+use Illuminate\Support\Facades\Cache;
 
 class CountryRepository implements CountryRepositoryInterface
 {
@@ -17,6 +17,7 @@ class CountryRepository implements CountryRepositoryInterface
                 return Country::latest()->get();
             }))
             : Country::latest()->get();
+
         return compact('countries');
     }
 
@@ -29,7 +30,8 @@ class CountryRepository implements CountryRepositoryInterface
     // Country Store
     public function storeCountry(CountryRequest $request)
     {
-        Country::create($request->validated());
+        $country = Country::create($request->validated());
+        $this->uploadImage($country);
     }
 
     // Country Show
@@ -48,11 +50,22 @@ class CountryRepository implements CountryRepositoryInterface
     public function updateCountry(CountryRequest $request, Country $country)
     {
         $country->update($request->validated());
+        $this->uploadImage($country);
     }
 
     // Country Destroy
     public function destroyCountry(Country $country)
     {
         $country->delete();
+    }
+
+    // Upload Image
+    private function uploadImage(Country $country)
+    {
+        if (request()->has('image')) {
+            $country
+                ->addFromMediaLibraryRequest(request()->image)
+                ->toMediaCollection('image');
+        }
     }
 }

@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\Admin\Counter;
+use App\Models\Admin\Country;
+use App\Models\Admin\Faq;
 use App\Models\Admin\Page;
 use App\Models\Admin\Step;
+use App\Models\Admin\Testimonial;
 use App\Models\Admin\University;
 use App\Models\Admin\Visa;
 use Illuminate\Support\Facades\Cache;
@@ -102,6 +106,38 @@ if (! function_exists('steps')) {
     {
         return Cache::has('steps') ? Cache::get('steps') : Cache::rememberForever('steps', function () {
             return Step::position()->get();
+        });
+    }
+}
+if (! function_exists('counters')) {
+    function counters()
+    {
+        return Cache::has('counters') ? Cache::get('counters') : Cache::rememberForever('counters', function () {
+            return Counter::position()->get();
+        });
+    }
+}
+if (! function_exists('countries')) {
+    function countries()
+    {
+        return Cache::has('website_countries') ? Cache::get('website_countries') : Cache::rememberForever('website_countries', function () {
+            return Country::active()->position()->get();
+        });
+    }
+}
+if (! function_exists('testimonials')) {
+    function testimonials()
+    {
+        return Cache::has('website_testimonials') ? Cache::get('website_testimonials') : Cache::rememberForever('website_testimonials', function () {
+            return Testimonial::approved()->position()->get();
+        });
+    }
+}
+if (! function_exists('faqs')) {
+    function faqs()
+    {
+        return Cache::has('faqs') ? Cache::get('faqs') : Cache::rememberForever('faqs', function () {
+            return Faq::position()->get();
         });
     }
 }

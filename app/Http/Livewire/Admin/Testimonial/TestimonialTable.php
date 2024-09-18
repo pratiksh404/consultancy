@@ -13,7 +13,7 @@ class TestimonialTable extends DataTableComponent
 {
     public function builder(): Builder
     {
-        return Testimonial::query()->orderBy('position'); // Eager load anything; // Select some things
+        return Testimonial::with('country', 'visa', 'course')->orderBy('position'); // Eager load anything; // Select some things
     }
 
     public array $bulkActions = [
@@ -89,15 +89,27 @@ class TestimonialTable extends DataTableComponent
             Column::make('Name', 'name')
                 ->sortable()
                 ->searchable(),
-            Column::make('Email', 'email')
+            Column::make('Country', 'country_id')
+                ->format(
+                    fn ($value, $row, Column $column) => $row->country->name ?? '-'
+                )
                 ->sortable()
-                ->searchable(),
-            Column::make('Company', 'company')
+                ->searchable()
+                ->collapseOnTablet(),
+            Column::make('Visa', 'visa_id')
+                ->format(
+                    fn ($value, $row, Column $column) => $row->visa->name ?? '-'
+                )
                 ->sortable()
-                ->searchable(),
-            Column::make('Designation', 'designation')
+                ->searchable()
+                ->collapseOnTablet(),
+            Column::make('Course', 'course_id')
+                ->format(
+                    fn ($value, $row, Column $column) => $row->course->name ?? '-'
+                )
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->collapseOnTablet(),
             Column::make('Message', 'message')
                 ->format(
                     fn ($value, $row, Column $column) => $row->message

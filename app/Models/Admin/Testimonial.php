@@ -34,7 +34,7 @@ class Testimonial extends Model implements HasMedia
     private static function cacheKey()
     {
         Cache::has('testimonials') ? Cache::forget('testimonials') : '';
-        Cache::has('home_testimonials') ? Cache::forget('home_testimonials') : '';
+        Cache::has('website_testimonials') ? Cache::forget('website_testimonials') : '';
     }
 
     // Logs
@@ -43,6 +43,22 @@ class Testimonial extends Model implements HasMedia
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
+    }
+
+    // Relationships
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function visa()
+    {
+        return $this->belongsTo(Visa::class);
     }
 
     // Scope
@@ -59,7 +75,7 @@ class Testimonial extends Model implements HasMedia
     // Accessors
     public function getImageAttribute()
     {
-        return ! is_null($this->getFirstMedia('image')) ? $this->getFirstMediaUrl('image') : (! is_null($this->adventurer) ? $this->adventurer->logo : logoBanner());
+        return ! is_null($this->getFirstMedia('image')) ? $this->getFirstMediaUrl('image') : logo();
     }
 
     // Relationship

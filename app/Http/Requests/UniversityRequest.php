@@ -34,9 +34,11 @@ class UniversityRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->university->id ?? '';
+
         return [
             'name' => 'required|max:120',
-            'slug' => 'required|max:100|unique:universities,slug',
+            'slug' => 'required|max:100|unique:universities,slug,'.$id,
             'url' => 'nullable|max:255',
             'excerpt' => 'nullable|max:5500',
             'description' => 'nullable|max:55000',

@@ -34,7 +34,7 @@
                     @livewire('admin.system.upload-image', ['model' => $visa ?? null, 'attribute' => 'thumbnail'])
                 </div>
                 <div class="mt-2">
-                    <label>Icon</label>
+                    <label>Icon <a href="https://www.flaticon.com/" target="_blank">Explore ..</a></label>
                     @livewire('admin.system.upload-image', ['model' => $visa ?? null, 'attribute' => 'icon'])
                 </div>
             </div>

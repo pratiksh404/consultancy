@@ -47,7 +47,7 @@ class Counter extends Model implements HasMedia
         'data' => 'array',
     ];
 
-    protected $appends = ['suffix'];
+    protected $appends = ['suffix', 'icon_image'];
 
     // Accessor
     public function getSuffixAttribute()
@@ -62,6 +62,12 @@ class Counter extends Model implements HasMedia
                 1 => 'Number',
                 2 => 'Percentage',
             ][$attribute] : null;
+    }
+
+    // Accessors
+    public function getIconImageAttribute()
+    {
+        return ! is_null($this->getFirstMedia('icon_image')) ? $this->getFirstMediaUrl('icon_image') : asset('website/assets/img/icon/c_0'.rand(1, 4).'.svg');
     }
 
     // Scope

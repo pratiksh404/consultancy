@@ -27,7 +27,9 @@ class TestimonialRequest extends FormRequest
             'message' => 'required|max:5500',
             'approved' => 'sometimes|boolean',
             'rating' => 'sometimes|numeric',
-            'adventurer_id' => 'nullable|exists:adventurers,id',
+            'country_id' => 'nullable|exists:countries,id',
+            'course_id' => 'nullable|exists:courses,id',
+            'visa_id' => 'nullable|exists:visas,id',
         ];
     }
 }

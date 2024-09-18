@@ -20,6 +20,9 @@ return new class extends Migration
             $table->double('rating')->default(5);
             $table->bigInteger('position')->default(1);
             $table->integer('type')->default(1);
+            $table->foreignId('country_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('visa_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('course_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -80,7 +80,7 @@
                         @foreach (visas() as $visa)
                             <option value="{{ $visa->id }}"
                                 {{ isset($candidate) ? ($candidate->visa_id == $visa->id ? 'selected' : '') : (old('visa_id') == $visa->id ? 'selected' : '') }}>
-                                {{ $visa->name }}"></option>
+                                {{ $visa->name }}</option>
                         @endforeach
                     </select>
                 </div>

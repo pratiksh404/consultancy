@@ -52,6 +52,51 @@
         <div class="mt-4">
             @livewire('admin.system.upload-image', ['model' => $testimonial ?? null, 'attribute' => 'image'])
         </div>
+        @if (countries()->count() > 0)
+            <div class="card">
+                <div class="card-header">Interested Country</div>
+                <div class="card-body shadow-lg p-2">
+                    <select name="country_id" id="country_id" class="select2">
+                        <option selected disabled>Select ...</option>
+                        @foreach (countries() as $country)
+                            <option value="{{ $country->id }}"
+                                {{ isset($candidate) ? ($candidate->country_id == $country->id ? 'selected' : '') : (old('country_id') == $country->id ? 'selected' : '') }}>
+                                {{ $country->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        @endif
+        @if (courses()->count() > 0)
+            <div class="card">
+                <div class="card-header">Interested Course</div>
+                <div class="card-body shadow-lg p-2">
+                    <select name="course_id" id="course_id" class="select2">
+                        <option selected disabled>Select ...</option>
+                        @foreach (courses() as $course)
+                            <option value="{{ $course->id }}"
+                                {{ isset($candidate) ? ($candidate->course_id == $course->id ? 'selected' : '') : (old('course_id') == $course->id ? 'selected' : '') }}>
+                                {{ $course->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        @endif
+        @if (visas()->count() > 0)
+            <div class="card">
+                <div class="card-header">Interested VISA</div>
+                <div class="card-body shadow-lg p-2">
+                    <select name="visa_id" id="visa_id" class="select2">
+                        <option selected disabled>Select ...</option>
+                        @foreach (visas() as $visa)
+                            <option value="{{ $visa->id }}"
+                                {{ isset($candidate) ? ($candidate->visa_id == $visa->id ? 'selected' : '') : (old('visa_id') == $visa->id ? 'selected' : '') }}>
+                                {{ $visa->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 <br>

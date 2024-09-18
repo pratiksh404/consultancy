@@ -54,4 +54,10 @@ class Faq extends Model
 
         return $schema;
     }
+
+    // Scopes
+    public function scopePosition($query)
+    {
+        return $query->orderBy('position');
+    }
 }
