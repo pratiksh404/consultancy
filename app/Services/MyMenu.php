@@ -18,6 +18,24 @@ class MyMenu implements SidebarInterface
                 'description' => 'Administration Control',
 
             
+
+],[
+'type' => 'menu',
+'name' => 'Team',
+'icon' => 'fa fa-wrench',
+'is_active' => request()->routeIs('team*') ? 'active' : '',
+'conditions' => [
+[
+'type' => 'or',
+'condition' => auth()->user()->can('view-any', \App\Models\Admin\Team::class),
+],
+[
+'type' => 'or',
+'condition' => auth()->user()->can('create', \App\Models\Admin\Team::class),
+],
+],
+"children" => $this->indexCreateChildren("team", \App\Models\Admin\Team::class),
+
 ],[
 'type' => 'menu',
 'name' => 'Step',

@@ -159,6 +159,17 @@ return [
                 ],
             ],
         ],
+        [
+            'name' => 'Masonry',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'active' => true,
+                    'location' => 'plugins/masonry/masonry.min.js',
+                ],
+            ],
+        ],
     ],
 
     // Plugin Adapters

@@ -75,7 +75,7 @@ class Testimonial extends Model implements HasMedia
     // Accessors
     public function getImageAttribute()
     {
-        return ! is_null($this->getFirstMedia('image')) ? $this->getFirstMediaUrl('image') : logo();
+        return ! is_null($this->getFirstMedia('image')) ? $this->getFirstMediaUrl('image') : logoBanner();
     }
 
     // Relationship
@@ -94,5 +94,15 @@ class Testimonial extends Model implements HasMedia
             );
 
         return $schema;
+    }
+
+    // Helper
+    public function info()
+    {
+        $country = $this->country->name;
+        $course = $this->course->name;
+        $visa = $this->visa->name;
+
+        return implode(' - ', [$country, $course, $visa]);
     }
 }

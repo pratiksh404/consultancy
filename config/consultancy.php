@@ -45,15 +45,15 @@ return [
     |--------------------------------------------------------------------------
     */
     'social_media' => [
-        'facebook' => 'fa fa-facebook',
-        'twitter' => 'fa fa-twitter',
-        'instagram' => 'fa fa-instagram',
-        'whatsapp' => 'fa fa-whatsapp',
-        'youtube' => 'fa fa-youtube',
-        'linkedin' => 'fa fa-linkedin',
-        'pinterest' => 'fa fa-pinterest',
-        'tiktok' => 'fa fa-tiktok',
-        'facebook_messenger' => 'fa fa-facebook-messenger',
+        'facebook' => 'fab fa-facebook',
+        'twitter' => 'fab fa-twitter',
+        'instagram' => 'fab fa-instagram',
+        'whatsapp' => 'fab fa-whatsapp',
+        'youtube' => 'fab fa-youtube',
+        'linkedin' => 'fab fa-linkedin',
+        'pinterest' => 'fab fa-pinterest',
+        'tiktok' => 'fab fa-tiktok',
+        'facebook_messenger' => 'fab fa-facebook-messenger',
     ],
 
 ];

@@ -10,7 +10,7 @@
   <div id="xb-loadding">
       <div class="loader">
           <div class="plane">
-              <img class="plane-img" src="assets/img/icon/plane.gif" alt="">
+              <img class="plane-img" src="{{ asset('website/assets/img/icon/plane.gif') }}" alt="preloader">
           </div>
           <div class="earth-wrapper">
               <div class="earth"></div>

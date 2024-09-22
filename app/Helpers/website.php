@@ -18,27 +18,6 @@ if (! function_exists('website')) {
     }
 }
 
-// Breadcrumbs
-
-if (! function_exists('breadcrumb')) {
-    function breadcrumb($name, array $menu = [])
-    {
-        $default_menu = collect(config('consultancy.breadcrumb.'.trim($name).'.default', [
-            [
-                'name' => 'Home',
-                'route' => 'website.home',
-            ],
-        ]))->map(function ($menu) {
-            return [
-                'name' => $menu['name'],
-                'route' => route($menu['route']),
-            ];
-        });
-
-        return array_merge($default_menu->toArray(), $menu);
-    }
-}
-
 // DB Data
 if (! function_exists('pages')) {
     function pages()
@@ -139,5 +118,24 @@ if (! function_exists('faqs')) {
         return Cache::has('faqs') ? Cache::get('faqs') : Cache::rememberForever('faqs', function () {
             return Faq::position()->get();
         });
+    }
+}
+
+if (! function_exists('breadcrumb')) {
+    function breadcrumb(array $menu = [])
+    {
+        $default_menu = collect([
+            [
+                'name' => 'Home',
+                'route' => 'website.home',
+            ],
+        ])->map(function ($menu) {
+            return [
+                'name' => $menu['name'],
+                'route' => isset($menu['route']) ? route($menu['route']) : null,
+            ];
+        });
+
+        return array_merge($default_menu->toArray(), $menu);
     }
 }

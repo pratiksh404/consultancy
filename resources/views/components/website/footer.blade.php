@@ -6,9 +6,10 @@
                     <h3 class="widget-title">Do you have questions or went more information? Contact us now
                     </h3>
                     <ul class="footer__cta list-unstyled mt-50">
-                        <li class="ul_li"><span><img src="assets/img/icon/f_call.svg" alt=""></span>+91590 088 55
+                        <li class="ul_li"><span><img src="{{ asset('website/assets/img/icon/f_call.svg') }}"
+                                    alt=""></span>+91590 088 55
                         </li>
-                        <li class="ul_li"><span><img src="assets/img/icon/f_mail.svg"
+                        <li class="ul_li"><span><img src="{{ asset('website/assets/img/icon/f_mail.svg') }}"
                                     alt=""></span>e.visa@gmail.com
                         </li>
                     </ul>
@@ -131,7 +132,7 @@
                 Copyright © 2023 e.visa All rights reserved.
             </div>
             <div class="footer__copyright-img mt-20">
-                <img src="assets/img/icon/card_img.png" alt="">
+                <img src="{{ asset('website/assets/img/icon/card_img.png') }}" alt="">
             </div>
         </div>
     </div>

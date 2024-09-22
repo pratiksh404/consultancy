@@ -30,7 +30,8 @@
         <div class="left-header col horizontal-wrapper ps-0">
             <ul class="horizontal-menu">
                 @if (config('adminetic.mega_menu', false))
-                    <li class="mega-menu outside"><a class="nav-link" href="#!"><i data-feather="layers"></i><span>Mega
+                    <li class="mega-menu outside"><a class="nav-link" href="#!"><i
+                                data-feather="layers"></i><span>Mega
                                 Menu</span></a>
                         <div class="mega-menu-container nav-submenu menu-to-be-close header-mega">
                             <div class="container-fluid">
@@ -134,7 +135,9 @@
                     </li>
                 @endif
                 @if (config('adminetic.level_menu', false))
-                    <li class="level-menu outside"><a class="nav-link" href="#!"><i data-feather="inbox"></i><span>Level
+                    @livewire('notify.notification-bell')
+                    <li class="level-menu outside"><a class="nav-link" href="#!"><i
+                                data-feather="inbox"></i><span>Level
                                 Menu</span></a>
                         <ul class="header-level-menu menu-to-be-close">
                             <li><a href="file-manager.html" data-original-title="" title=""> <i
@@ -171,8 +174,8 @@
                                     </span></div>
                             </div>
                             <div class="more_lang">
-                                <div class="lang selected" data-value="en"><i class="flag-icon flag-icon-us"></i><span
-                                        class="lang-txt">English<span>
+                                <div class="lang selected" data-value="en"><i
+                                        class="flag-icon flag-icon-us"></i><span class="lang-txt">English<span>
                                             (US)</span></span></div>
                                 <div class="lang" data-value="np"><i class="flag-icon flag-icon-np"></i><span
                                         class="lang-txt">Nepali</span></div>
@@ -268,8 +271,8 @@
                     </li>
                 @endif
                 @if (config('adminetic.fullscreen_expander', true))
-                    <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i
-                                data-feather="maximize"></i></a></li>
+                    <li class="maximize"><a class="text-dark" href="#!"
+                            onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
                 @endif
                 @if (config('adminetic.profile', true))
                     <li class="profile-nav onhover-dropdown p-0 me-0">
@@ -278,9 +281,7 @@
                                 alt="{{ auth()->user()->name }}" height="37" width="37">
                             <div class="media-body"><span>{{ Auth::user()->name }}</span>
                                 <p class="mb-0 font-roboto">
-                                    {{ isset(auth()->user()->roles)
-    ? auth()->user()->roles->first()->name
-    : 'N/A' }}
+                                    {{ isset(auth()->user()->roles) ? auth()->user()->roles->first()->name : 'N/A' }}
                                     <i class="middle fa fa-angle-down"></i>
                                 </p>
                             </div>

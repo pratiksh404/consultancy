@@ -3,8 +3,9 @@
         <section class="country pt-120 pb-120">
             <div class="container">
                 <div class="sec-title style-2 text-center mb-55">
-                    <span class="sec-title--sub"><img src="assets/img/icon/h_star.png" alt="">countries<img
-                            src="assets/img/icon/h_star.png" alt=""></span>
+                    <span class="sec-title--sub"><img src="{{ asset('website/assets/img/icon/h_star.png') }}"
+                            alt="">countries<img src="{{ asset('website/assets/img/icon/h_star.png') }}"
+                            alt=""></span>
                     <h3 class="sec-title--heading">Best Countries to Study <br> Abroad</h3>
                 </div>
                 <div class="xb-country-slide swiper-container">
