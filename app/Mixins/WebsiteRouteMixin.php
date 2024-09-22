@@ -33,8 +33,11 @@ class WebsiteRouteMixin
                     Route::get('/teams', [WebsiteController::class, 'teams'])->name('teams');
                     Route::get('/team/{team:slug}', [WebsiteController::class, 'team'])->name('team');
 
-                    // Single Pages
+                    // Testimonial
                     Route::view('/testimonials', 'website.pages.others.testimonials')->name('testimonials');
+                    Route::get('/testimonial/{testimonial}', [WebsiteController::class, 'testimonial'])->name('testimonial');
+
+                    // Single Pages
                     Route::get('/about-us', [WebsiteController::class, 'about_us'])->name('about_us');
                     Route::view('/contact-us', 'website.pages.extra.contact_us')->name('contact_us');
                     Route::get('/page/{page:slug}', [WebsiteController::class, 'page'])->name('page');

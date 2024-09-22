@@ -25,38 +25,43 @@
                                     <div class="swiper-wrapper">
                                         @foreach (testimonials() as $testimonial)
                                             <div class="swiper-slide xb-swiper-slide">
-                                                <div class="xb-testimonial">
-                                                    <div class="xb-item--inner text-center">
-                                                        <div class="xb-item--img">
-                                                            <img src="{{ $testimonial->image }}"
-                                                                alt="{{ $testimonial->name }}">
-                                                        </div>
-                                                        <div class="xb-item--content">
-                                                            {!! $testimonial->message !!}
-                                                        </div>
-                                                        <div class="xb-item--bottom">
-                                                            <div class="xb-item--ratting">
-                                                                @for ($i = 1; $i <= 5; $i++)
-                                                                    <i
-                                                                        class="text-warning fa fa-{{ $i <= $testimonial->rating ? 'star' : 'star-o' }}"></i>
-                                                                @endfor
+                                                <a
+                                                    href="{{ route('website.testimonial', ['testimonial' => $testimonial->id]) }}">
+                                                    <div class="xb-testimonial">
+                                                        <div class="xb-item--inner text-center">
+                                                            <div class="xb-item--img">
+                                                                <img src="{{ $testimonial->image }}"
+                                                                    alt="{{ $testimonial->name }}">
                                                             </div>
-                                                            <h3 class="xb-item--title">{{ $testimonial->name }}</h3>
-                                                            @if (!is_null($testimonial->country))
-                                                                <h5 class="xb-item--title">
-                                                                    {{ $testimonial->country->name }}</h5>
-                                                            @endif
-                                                            @if (!is_null($testimonial->visa))
-                                                                <h5 class="xb-item--title">
-                                                                    {{ $testimonial->visa->name }}</h5>
-                                                            @endif
-                                                            @if (!is_null($testimonial->course))
-                                                                <h5 class="xb-item--title">
-                                                                    {{ $testimonial->course->name }}</h5>
-                                                            @endif
+                                                            <div class="xb-item--content">
+                                                                <p class="testimonial-content">
+                                                                    {!! $testimonial->message !!}
+                                                                </p>
+                                                            </div>
+                                                            <div class="xb-item--bottom">
+                                                                <div class="xb-item--ratting">
+                                                                    @for ($i = 1; $i <= 5; $i++)
+                                                                        <i
+                                                                            class="text-warning fa fa-{{ $i <= $testimonial->rating ? 'star' : 'star-o' }}"></i>
+                                                                    @endfor
+                                                                </div>
+                                                                <h3 class="xb-item--title">{{ $testimonial->name }}</h3>
+                                                                @if (!is_null($testimonial->country))
+                                                                    <h5 class="xb-item--title">
+                                                                        {{ $testimonial->country->name }}</h5>
+                                                                @endif
+                                                                @if (!is_null($testimonial->visa))
+                                                                    <h5 class="xb-item--title">
+                                                                        {{ $testimonial->visa->name }}</h5>
+                                                                @endif
+                                                                @if (!is_null($testimonial->course))
+                                                                    <h5 class="xb-item--title">
+                                                                        {{ $testimonial->course->name }}</h5>
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>
                                         @endforeach
                                     </div>
