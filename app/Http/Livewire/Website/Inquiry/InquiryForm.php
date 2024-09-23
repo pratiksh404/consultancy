@@ -31,6 +31,14 @@ class InquiryForm extends Component
 
     protected $listeners = ['initialize-inquiry' => 'initialize_inquiry'];
 
+    public function mount($country_id = null, $course_id = null, $visa_id = null)
+    {
+
+        $this->country_id = $country_id;
+        $this->course_id = $course_id;
+        $this->visa_id = $visa_id;
+    }
+
     public function initialize_inquiry()
     {
         $this->dispatchBrowserEvent('initialize_inquiry');

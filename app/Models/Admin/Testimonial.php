@@ -99,9 +99,9 @@ class Testimonial extends Model implements HasMedia
     // Helper
     public function info()
     {
-        $country = $this->country->name;
-        $course = $this->course->name;
-        $visa = $this->visa->name;
+        $country = $this->country->name ?? null;
+        $course = $this->course->name ?? null;
+        $visa = $this->visa->name ?? null;
 
         return implode(' - ', [$country, $course, $visa]);
     }

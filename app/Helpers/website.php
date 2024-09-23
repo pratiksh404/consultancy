@@ -4,6 +4,7 @@ use App\Models\Admin\Counter;
 use App\Models\Admin\Country;
 use App\Models\Admin\Faq;
 use App\Models\Admin\Page;
+use App\Models\Admin\Service;
 use App\Models\Admin\Step;
 use App\Models\Admin\Testimonial;
 use App\Models\Admin\University;
@@ -117,6 +118,14 @@ if (! function_exists('faqs')) {
     {
         return Cache::has('faqs') ? Cache::get('faqs') : Cache::rememberForever('faqs', function () {
             return Faq::position()->get();
+        });
+    }
+}
+if (! function_exists('services')) {
+    function services()
+    {
+        return Cache::has('website_services') ? Cache::get('website_services') : Cache::rememberForever('website_services', function () {
+            return Service::active()->position()->get();
         });
     }
 }

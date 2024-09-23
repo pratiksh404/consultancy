@@ -5,27 +5,24 @@ namespace App\Http\Livewire\Admin\System;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class UploadImage extends Component
+class UploadAttachment extends Component
 {
     public $model;
 
     public $attribute;
 
-    public $multiple = false;
-
-    public function mount($model = null, $attribute = 'image', $multiple = false)
+    public function mount($model = null, $attribute = 'attachments')
     {
         $this->model = $model;
         $this->attribute = $attribute;
-        $this->multiple = $multiple;
     }
 
     public function render()
     {
-        return view('livewire.admin.system.upload-image');
+        return view('livewire.admin.system.upload-attachment');
     }
 
-    public function removeImage(Media $media)
+    public function removeAttachment(Media $media)
     {
         $media->delete();
         if (! is_null($this->model)) {

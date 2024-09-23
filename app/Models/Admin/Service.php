@@ -3,7 +3,6 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -50,7 +49,7 @@ class Service extends Model implements HasMedia
         'data' => 'array',
     ];
 
-    protected $appends = ['image', 'icon_image'];
+    protected $appends = ['image', 'icon_image', 'downloads'];
 
     // Relationships
     public function category()
@@ -58,9 +57,9 @@ class Service extends Model implements HasMedia
         return $this->belongsTo(Category::class);
     }
 
-    public function bookings(): MorphMany
+    public function getDownloadsAttribute()
     {
-        return $this->morphMany(Booking::class, 'bookingable');
+        return $this->getMedia('downloads');
     }
 
     public function getImageAttribute()
@@ -70,7 +69,7 @@ class Service extends Model implements HasMedia
 
     public function getIconImageAttribute()
     {
-        return ! is_null($this->getFirstMedia('icon_image')) ? $this->getFirstMediaUrl('icon_image') : null;
+        return ! is_null($this->getFirstMedia('icon_image')) ? $this->getFirstMediaUrl('icon_image') : ($this->data['icon_image'] ?? asset('website/assets/img/icon/s_icon01.svg'));
     }
 
     // Scopes

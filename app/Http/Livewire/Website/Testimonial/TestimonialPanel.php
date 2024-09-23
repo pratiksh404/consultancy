@@ -10,6 +10,13 @@ class TestimonialPanel extends Component
 {
     use WithPagination;
 
+    public $testimonial_ids = null;
+
+    public function mount($testimonial_ids = null)
+    {
+        $this->testimonial_ids = $testimonial_ids;
+    }
+
     public function paginationView()
     {
         return 'website.layouts.components.pagination';
@@ -17,7 +24,8 @@ class TestimonialPanel extends Component
 
     public function render()
     {
-        $testimonials = Testimonial::approved()->latest()->paginate(8);
+        $query = count($this->testimonial_ids ?? []) > 0 ? Testimonial::whereIn('id', $this->testimonial_ids) : Testimonial::query();
+        $testimonials = $query->approved()->latest()->paginate(8);
 
         return view('livewire.website.testimonial.testimonial-panel', compact('testimonials'));
     }

@@ -76,7 +76,14 @@
                             {{ isset($service->featured) ? ($service->featured ? 'checked' : '') : '' }}>
                     </div>
                 </div>
-                <br>
+                <div class="card">
+                    <div class="card-header">
+                        Visa's Downloads
+                    </div>
+                    <div class="card-body shadow-lg p-3">
+                        @livewire('admin.system.upload-attachment', ['model' => $service ?? null, 'attribute' => 'downloads'])
+                    </div>
+                </div>
                 <div class="mt-4">
                     <label for="icon">{{ label('services', 'icon') }}</label>
                     <div class="input-group">

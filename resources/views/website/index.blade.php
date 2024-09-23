@@ -15,6 +15,12 @@
         <x-website.visas />
         <!-- visa type end -->
 
+
+        <!-- services start -->
+        <x-website.services />
+        <!-- services end -->
+
+
         <!-- Steps start -->
         <x-website.steps />
         <!-- Steps end -->

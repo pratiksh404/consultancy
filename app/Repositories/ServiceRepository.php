@@ -78,5 +78,10 @@ class ServiceRepository implements ServiceRepositoryInterface
                 ->addFromMediaLibraryRequest(request()->icon_image)
                 ->toMediaCollection('icon_image');
         }
+        if (request()->has('downloads')) {
+            $service
+                ->addFromMediaLibraryRequest(request()->downloads)
+                ->toMediaCollection('downloads');
+        }
     }
 }

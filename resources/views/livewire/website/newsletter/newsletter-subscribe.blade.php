@@ -1,5 +1,5 @@
 <div>
-    <section class="newsletter">
+    <section class="newsletter mt-4">
         <div class="container">
             <div class="xb-newsletter pos-rel">
                 <div class="row">

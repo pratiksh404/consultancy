@@ -15,6 +15,9 @@
             </div>
         </div>
         <div class="mt-2">
+            @livewire('admin.counter.appended-counter', ['counters' => $visa->counters ?? null])
+        </div>
+        <div class="mt-2">
             <label for="excerpt">{{ label('visas', 'excerpt', 'Short Introduction') }}</label>
             <textarea name="description" id="heavytexteditor" cols="30" rows="10">
                 @isset($visa->description)
@@ -37,6 +40,14 @@
                     <label>Icon <a href="https://www.flaticon.com/" target="_blank">Explore ..</a></label>
                     @livewire('admin.system.upload-image', ['model' => $visa ?? null, 'attribute' => 'icon'])
                 </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Visa's Downloads
+            </div>
+            <div class="card-body shadow-lg p-3">
+                @livewire('admin.system.upload-attachment', ['model' => $visa ?? null, 'attribute' => 'downloads'])
             </div>
         </div>
         <div class="card">

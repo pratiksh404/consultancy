@@ -43,11 +43,25 @@ class Visa extends Model implements HasMedia
         return LogOptions::defaults();
     }
 
-    protected $appends = ['thumbnail', 'icon'];
+    protected $casts = [
+        'data' => 'array',
+    ];
+
+    protected $appends = ['thumbnail', 'icon', 'counters', 'downloads'];
+
+    public function getCountersAttribute()
+    {
+        return $this->data['counters'] ?? null;
+    }
 
     public function getThumbnailAttribute()
     {
         return ! is_null($this->getFirstMedia('thumbnail')) ? $this->getFirstMediaUrl('thumbnail') : null;
+    }
+
+    public function getDownloadsAttribute()
+    {
+        return $this->getMedia('downloads');
     }
 
     public function getIconAttribute()

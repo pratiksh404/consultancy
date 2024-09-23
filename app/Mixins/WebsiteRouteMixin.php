@@ -37,6 +37,10 @@ class WebsiteRouteMixin
                     Route::view('/testimonials', 'website.pages.others.testimonials')->name('testimonials');
                     Route::get('/testimonial/{testimonial}', [WebsiteController::class, 'testimonial'])->name('testimonial');
 
+                    // Service
+                    Route::view('/services', 'website.pages.service.index')->name('services');
+                    Route::get('/services/{service:slug}', [WebsiteController::class, 'service'])->name('service');
+
                     // Single Pages
                     Route::get('/about-us', [WebsiteController::class, 'about_us'])->name('about_us');
                     Route::view('/contact-us', 'website.pages.extra.contact_us')->name('contact_us');

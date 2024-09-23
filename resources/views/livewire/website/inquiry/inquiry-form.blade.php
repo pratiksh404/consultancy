@@ -1,13 +1,13 @@
 <div>
-    <section class="contact contact-pt gray-bg">
+    <section class="contact contact-pt gray-bg" id="inquiry">
         <div class="container">
             <div class="xb-contact pos-rel">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="xb-item--inner">
                             <div class="xb-item--holder mb-25">
-                                <span><img src="{{ asset('website/assets/img/icon/n_pad.svg') }}" alt="">Contact
-                                    Us</span>
+                                <span><img src="{{ asset('website/assets/img/icon/n_pad.svg') }}"
+                                        alt="">Inquiry</span>
                                 <h3>Do you have questions or want more <br> information?</h3>
                             </div>
                             <form class="xb-item--form contact-from" wire:submit.prevent="send_inquiry">
