@@ -2,6 +2,7 @@
 
 use App\Models\Admin\Counter;
 use App\Models\Admin\Country;
+use App\Models\Admin\Course;
 use App\Models\Admin\Faq;
 use App\Models\Admin\Page;
 use App\Models\Admin\Service;
@@ -126,6 +127,14 @@ if (! function_exists('services')) {
     {
         return Cache::has('website_services') ? Cache::get('website_services') : Cache::rememberForever('website_services', function () {
             return Service::active()->position()->get();
+        });
+    }
+}
+if (! function_exists('courses')) {
+    function courses()
+    {
+        return Cache::has('website_courses') ? Cache::get('website_courses') : Cache::rememberForever('website_courses', function () {
+            return Course::active()->position()->get();
         });
     }
 }

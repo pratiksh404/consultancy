@@ -37,6 +37,10 @@ class WebsiteRouteMixin
                     Route::view('/testimonials', 'website.pages.others.testimonials')->name('testimonials');
                     Route::get('/testimonial/{testimonial}', [WebsiteController::class, 'testimonial'])->name('testimonial');
 
+                    // Course
+                    Route::view('/courses', 'website.pages.others.courses')->name('courses');
+                    Route::get('/course/{course}', [WebsiteController::class, 'course'])->name('course');
+
                     // Service
                     Route::view('/services', 'website.pages.service.index')->name('services');
                     Route::get('/services/{service:slug}', [WebsiteController::class, 'service'])->name('service');

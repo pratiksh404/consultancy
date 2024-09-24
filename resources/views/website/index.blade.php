@@ -16,6 +16,11 @@
         <!-- visa type end -->
 
 
+        <!-- visa type start -->
+        <x-website.courses />
+        <!-- visa type end -->
+
+
         <!-- services start -->
         <x-website.services />
         <!-- services end -->

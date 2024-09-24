@@ -40,8 +40,7 @@
                                     @foreach (countries() as $side_menu_country)
                                         <li><a class="{{ $country->id == $side_menu_country->id ? 'active' : '' }}"
                                                 href="{{ route('website.country', $side_menu_country->slug) }}">{{ $side_menu_country->name }}<span><img
-                                                        src="{{ asset('website/assets/img/icon/arrow_up.svg') }}"
-                                                        alt=""></span></a></li>
+                                                        src="{{ $side_menu_country->flag }}" alt=""></span></a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -131,8 +130,8 @@
                         <div class="xb-brand xb-brand1 ul_li">
                             @foreach ($country->universities as $university)
                                 <div class="xb-item--item">
-                                    <a class="xb-item--inner" href="#!"><img src="{{ $university->logo }}"
-                                            alt="{{ $university->name }}"></a>
+                                    <a class="xb-item--inner" href="{{ $university->url ?? '#' }}"><img
+                                            src="{{ $university->logo }}" alt="{{ $university->name }}"></a>
                                 </div>
                             @endforeach
                         </div>
