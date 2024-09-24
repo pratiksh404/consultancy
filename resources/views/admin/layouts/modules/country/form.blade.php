@@ -7,19 +7,36 @@
                     value="{{ $country->name ?? old('name') }}">
             </div>
         </div>
+        <div class="mt-2">
+            @livewire('admin.counter.appended-counter', ['counters' => $country->counters ?? null])
+        </div>
+        <div class="mt-2">
+            <label>Country's Gallery Images</label> <br>
+            @livewire('admin.system.upload-image', ['model' => $country ?? null, 'attribute' => 'images', 'multiple' => true])
+        </div>
+        <div class="mt-2">
+            <label for="description">Description</label>
+            <textarea name="data[description]" id="heavytexteditor" cols="30" rows="10">{!! $country->description ?? old('description') !!}</textarea>
+        </div>
         <br>
         <x-adminetic-edit-add-button :model="$country ?? null" name="country" />
     </div>
     <div class="col-lg-4">
         <div class="card">
-            <div class="card-header">
-                Country's Flag
-            </div>
             <div class="card-body shadow-lg p-3">
+                <label>Country's Flag</label> <br>
                 @livewire('admin.system.upload-image', ['model' => $country ?? null, 'attribute' => 'image'])
             </div>
         </div>
         <div class="card">
+            <div class="card">
+                <div class="card-header">
+                    Country's Downloads
+                </div>
+                <div class="card-body shadow-lg p-3">
+                    @livewire('admin.system.upload-attachment', ['model' => $country ?? null, 'attribute' => 'downloads'])
+                </div>
+            </div>
             <div class="card-body shadow-lg p-3">
                 <div class="mt-4">
                     <label for="meta_name">{{ label('countrys', 'meta_name', 'Meta Name') }}</label>

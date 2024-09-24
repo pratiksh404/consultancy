@@ -67,5 +67,15 @@ class CountryRepository implements CountryRepositoryInterface
                 ->addFromMediaLibraryRequest(request()->image)
                 ->toMediaCollection('image');
         }
+        if (request()->has('images')) {
+            $country
+                ->addFromMediaLibraryRequest(request()->images)
+                ->toMediaCollection('images');
+        }
+        if (request()->has('downloads')) {
+            $country
+                ->addFromMediaLibraryRequest(request()->downloads)
+                ->toMediaCollection('downloads');
+        }
     }
 }

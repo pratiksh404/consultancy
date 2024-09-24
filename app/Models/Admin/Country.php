@@ -44,12 +44,31 @@ class Country extends Model implements HasMedia
         return LogOptions::defaults();
     }
 
-    protected $appends = ['image'];
+    protected $appends = ['flag', 'description', 'counters', 'downloads'];
+
+    protected $casts = [
+        'data' => 'array',
+    ];
 
     // Accessors
-    public function getImageAttribute()
+    public function getDownloadsAttribute()
     {
-        return $this->getMedia('image')->count() > 0 ? $this->getFirstMediaUrl('image') : null;
+        return $this->getMedia('downloads');
+    }
+
+    public function getCountersAttribute()
+    {
+        return $this->data['counters'] ?? null;
+    }
+
+    public function getFlagAttribute()
+    {
+        return $this->getMedia('image')->count() > 0 ? $this->getFirstMediaUrl('image') : asset('adminetic/static/countries.png');
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->data['description'] ?? null;
     }
 
     // Scopes

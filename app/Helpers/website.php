@@ -101,7 +101,7 @@ if (! function_exists('countries')) {
     function countries()
     {
         return Cache::has('website_countries') ? Cache::get('website_countries') : Cache::rememberForever('website_countries', function () {
-            return Country::active()->position()->get();
+            return Country::with('universities')->active()->position()->get();
         });
     }
 }

@@ -10,6 +10,7 @@
     {{-- Links Start --}}
     @include('website.layouts.assets.links')
     {{-- Links End --}}
+    @yield('custom_css')
 </head>
 
 <body>
@@ -35,7 +36,7 @@
     {{-- Scripts Start --}}
     @include('website.layouts.assets.scripts')
     {{-- Scripts End --}}
-
+    @yield('custom_js')
 </body>
 
 </html>

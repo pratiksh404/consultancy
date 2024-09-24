@@ -11,15 +11,16 @@
                 <div class="xb-country-slide swiper-container">
                     <div class="swiper-wrapper">
                         @foreach (countries() as $country)
-                            @if (!is_null($country->image))
+                            @if (!is_null($country->flag))
                                 <div class="swiper-slide xb-swiper-slide">
                                     <div class="xb-country2">
                                         <div class="xb-item--inner text-center">
                                             <div class="xb-item--flag mb-20">
-                                                <img src="{{ $country->image }}" alt="{{ $country->name }}">
+                                                <img src="{{ $country->flag }}" alt="{{ $country->name }}">
                                             </div>
                                             <h3 class="xb-item--title">{{ $country->name }}</h3>
-                                            <a class="xb-item--link" href="country-single.html"></a>
+                                            <a class="xb-item--link"
+                                                href="{{ route('website.country', ['country' => $country->slug]) }}"></a>
                                         </div>
                                     </div>
                                 </div>
