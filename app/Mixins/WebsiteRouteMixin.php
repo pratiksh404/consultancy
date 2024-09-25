@@ -39,13 +39,14 @@ class WebsiteRouteMixin
 
                     // Course
                     Route::view('/courses', 'website.pages.others.courses')->name('courses');
-                    Route::get('/course/{course}', [WebsiteController::class, 'course'])->name('course');
+                    Route::get('/course/{course:slug}', [WebsiteController::class, 'course'])->name('course');
 
                     // Service
                     Route::view('/services', 'website.pages.service.index')->name('services');
                     Route::get('/services/{service:slug}', [WebsiteController::class, 'service'])->name('service');
 
                     // Single Pages
+                    Route::get('/test/{test:code}', [WebsiteController::class, 'test'])->name('test');
                     Route::get('/about-us', [WebsiteController::class, 'about_us'])->name('about_us');
                     Route::view('/contact-us', 'website.pages.extra.contact_us')->name('contact_us');
                     Route::get('/page/{page:slug}', [WebsiteController::class, 'page'])->name('page');

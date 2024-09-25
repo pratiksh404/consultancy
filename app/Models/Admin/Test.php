@@ -42,7 +42,7 @@ class Test extends Model
         return LogOptions::defaults();
     }
 
-    protected $appends = ['marks'];
+    protected $appends = ['name', 'marks', 'description'];
 
     protected $casts = [
         'data' => 'array',
@@ -71,6 +71,17 @@ class Test extends Model
     }
 
     // Accessors
+    public function getNameAttribute()
+    {
+        return $this->course->name.' Mock Test - '
+       .sprintf('%04d', $this->id);
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->data['description'] ?? null;
+    }
+
     public function getMarksAttribute()
     {
         $marks = $this->data['marks'] ?? null;

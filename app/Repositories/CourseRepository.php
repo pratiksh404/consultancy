@@ -67,5 +67,15 @@ class CourseRepository implements CourseRepositoryInterface
                 ->addFromMediaLibraryRequest(request()->thumbnail)
                 ->toMediaCollection('thumbnail');
         }
+        if (request()->has('course')) {
+            $course
+                ->addFromMediaLibraryRequest(request()->course)
+                ->toMediaCollection('course');
+        }
+        if (request()->has('images')) {
+            $course
+                ->addFromMediaLibraryRequest(request()->images)
+                ->toMediaCollection('images');
+        }
     }
 }

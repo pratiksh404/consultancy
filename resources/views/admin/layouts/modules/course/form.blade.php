@@ -16,6 +16,10 @@
                             placeholder="Short Introduction" value="{{ $course->excerpt ?? old('excerpt') }}">
                     </div>
                 </div>
+                <div class="mt-2">
+                    <label>Course's Gallery Images</label> <br>
+                    @livewire('admin.system.upload-image', ['model' => $course ?? null, 'attribute' => 'images', 'multiple' => true])
+                </div>
             </div>
         </div>
         <div class="card">
@@ -44,6 +48,14 @@
             </div>
             <div class="card-body shadow-lg p-3">
                 @livewire('admin.system.upload-image', ['model' => $course ?? null, 'attribute' => 'thumbnail'])
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Course's Downloads
+            </div>
+            <div class="card-body shadow-lg p-3">
+                @livewire('admin.system.upload-attachment', ['model' => $course ?? null, 'attribute' => 'downloads'])
             </div>
         </div>
         <div class="card">

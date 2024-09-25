@@ -128,6 +128,12 @@
                                         data-bs-toggle="pill" href="#j-pills-marks" role="tab"
                                         aria-controls="j-pills-marks" aria-selected="false" tabindex="-1">Marks</a>
                                 </li>
+                                <li class="nav-item" role="presentation"><a class="nav-link"
+                                        id="j-pills-configurations-tab" data-bs-toggle="pill"
+                                        href="#j-pills-configurations" role="tab"
+                                        aria-controls="j-pills-configurations" aria-selected="false"
+                                        tabindex="-1">Configurations</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -484,6 +490,15 @@
                                 @else
                                     <p class="text-center text-danger">No section found</p>
                                 @endif
+                            </div>
+                            <div class="tab-pane fade" id="j-pills-configurations" role="tabpanel"
+                                aria-labelledby="j-pills-configurations-tab">
+                                <form wire:submit.prevent="saveConfigurations">
+                                    <label>Description</label>
+                                    @livewire('admin.system.trix', ['value' => $test->description ?? ''])
+                                    <hr>
+                                    <input type="submit" value="Save" class="btn btn-primary btn-air-primary">
+                                </form>
                             </div>
                         </div>
                     </div>

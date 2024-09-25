@@ -78,7 +78,7 @@
         }
     </style>
     <div class="card" x-show="createTestPanel" x-cloak
-        style="position: fixed;width: 40vw; height: 85vh; top: 10vh; right: 30vw;overflow-y:auto">
+        style="position: fixed;width: 70vw; height: 85vh; top: 10vh; right: 15vw;overflow-y:auto">
         <div class="card-header">
             <h5>Create Test</h5>
         </div>
@@ -95,7 +95,7 @@
                         var picker = $('#datepicker').daterangepicker({
                             'singleDatePicker': true,
                             'startDate': today, // Start with today's date
-                            'locale': { format: 'YYYY-MM-DD' },
+                            'locale': { format: 'YYYY-MM-DD hh:mm A' },
                             'opens': 'down',
                             'drops': 'down',
                             'alwaysShowCalendars': true,
@@ -107,11 +107,11 @@
                             'autoApply': true,
                             autoUpdateInput: true,
                         }, function(start) {
-                            test_date = start.format('YYYY-MM-DD');
+                            test_date = start.format('YYYY-MM-DD hh:mm:ss');
                         });
                     
                         $('#datepicker').on('apply.daterangepicker', function(ev, picker) {
-                            test_date = picker.startDate.format('YYYY-MM-DD');
+                            test_date = picker.startDate.format('YYYY-MM-DD hh:mm:ss');
                         });
                     
                         $('.calendar.right').show();

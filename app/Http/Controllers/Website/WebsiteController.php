@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Country;
+use App\Models\Admin\Course;
 use App\Models\Admin\Service;
 use App\Models\Admin\Team;
+use App\Models\Admin\Test;
 use App\Models\Admin\Testimonial;
 use App\Models\Admin\Visa;
 
@@ -44,5 +46,17 @@ class WebsiteController extends Controller
     public function country(Country $country)
     {
         return view('website.pages.country.show', compact('country'));
+    }
+
+    // Course
+    public function course(Course $course)
+    {
+        return view('website.pages.course.show', compact('course'));
+    }
+
+    // Test
+    public function test(Test $test)
+    {
+        return view('website.pages.test.show', compact('test'));
     }
 }

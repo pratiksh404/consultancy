@@ -48,7 +48,7 @@ class Course extends Model implements HasMedia
         'data' => 'array',
     ];
 
-    protected $appends = ['thumbnail', 'sections'];
+    protected $appends = ['thumbnail', 'sections', 'downloads'];
 
     public function getThumbnailAttribute()
     {
@@ -67,6 +67,17 @@ class Course extends Model implements HasMedia
     public function getSectionsAttribute()
     {
         return $this->data['sections'] ?? null;
+    }
+
+    public function getDownloadsAttribute()
+    {
+        return $this->getMedia('downloads');
+    }
+
+    // Relationships
+    public function tests()
+    {
+        return $this->hasMany(Test::class);
     }
 
     // Scopes

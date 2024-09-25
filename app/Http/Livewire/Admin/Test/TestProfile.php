@@ -35,16 +35,32 @@ class TestProfile extends Component
     // Test Marks
     public $marks;
 
+    // Test Attributes
+    public $test_date;
+
+    public $description;
+
+    public $is_limit;
+
+    public $limit;
+
     protected $listeners = [
         'candidateUpdated' => '$refresh',
         'printReportCard',
         'printResultTable',
+        'trix_value_updated',
     ];
 
     public function mount(Test $test)
     {
         $this->test = $test;
         $this->marks = $test->marks;
+        $this->description = $test->description;
+    }
+
+    public function trix_value_updated($value)
+    {
+        $this->description = $value;
     }
 
     public function printReportCard($candidate_ids)
@@ -126,6 +142,15 @@ class TestProfile extends Component
 
         $data = $this->test->data;
         $data['marks'] = $this->marks;
+        $this->test->update([
+            'data' => $data,
+        ]);
+    }
+
+    public function saveConfigurations()
+    {
+        $data = $this->test->data;
+        $data['description'] = $this->description;
         $this->test->update([
             'data' => $data,
         ]);
