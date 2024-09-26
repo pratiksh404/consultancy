@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Website\Course;
 
+use App\Models\Admin\Candidate;
 use App\Models\Admin\Test;
+use Illuminate\Support\Facades\View;
 use Livewire\Component;
 
 class TestProfile extends Component
@@ -25,6 +27,13 @@ class TestProfile extends Component
     public $candidate_country_id;
 
     public $candidate_visa_id;
+
+    // Result
+    public $code;
+
+    public $candidate;
+
+    public $candidate_mark;
 
     public function mount(Test $test)
     {
@@ -70,6 +79,25 @@ class TestProfile extends Component
         $this->candidate_visa_id = null;
 
         $this->emit('candidateAdded');
+    }
+
+    public function searchResult()
+    {
+        $this->validate([
+            'code' => 'required|exists:candidates,code',
+        ]);
+        $candidate = Candidate::where('code', $this->code)->first();
+        $this->candidate = $candidate;
+        $this->candidate_mark = collect($this->test->marks)->first(function ($mark, $candidate_id) use ($candidate) {
+            return $candidate_id == $candidate->id;
+        });
+
+    }
+
+    public function printReportCard($candidate_id)
+    {
+        $report_card_html = View::make('admin.layouts.modules.test.results.report_card', ['test' => $this->test, 'candidate_ids' => [$candidate_id]])->render();
+        $this->emit('printTestContent', $report_card_html);
     }
 
     public function render()

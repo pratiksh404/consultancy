@@ -40,9 +40,14 @@ class TestProfile extends Component
 
     public $description;
 
-    public $is_limit;
+    // Publish Type
+    const TABLE_PUBLISH = 1;
 
-    public $limit;
+    const INDIVIDUAL_PUBLISH = 2;
+
+    const PHYSICAL_PUBLISH = 3;
+
+    public $publish_type = self::TABLE_PUBLISH;
 
     protected $listeners = [
         'candidateUpdated' => '$refresh',
@@ -151,8 +156,16 @@ class TestProfile extends Component
     {
         $data = $this->test->data;
         $data['description'] = $this->description;
+        $data['publish_type'] = $this->publish_type ?? self::TABLE_PUBLISH;
         $this->test->update([
             'data' => $data,
+        ]);
+    }
+
+    public function publish()
+    {
+        return $this->test->update([
+            'is_published' => ! $this->test->is_published,
         ]);
     }
 

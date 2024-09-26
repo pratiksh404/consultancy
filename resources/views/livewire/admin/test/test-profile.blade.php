@@ -74,6 +74,12 @@
                     <h3>{{ toBS(\Carbon\Carbon::create($test->test_date)) }}</h3>
                 </div>
             </div>
+            @if (\Carbon\Carbon::create($test->test_date)->isPast())
+                <button wire:click="publish" type="button"
+                    class="mb-3 btn btn-{{ $test->is_published ? 'danger' : 'success' }} btn-air-{{ $test->is_published ? 'danger' : 'success' }}"
+                    style="width: 100%">{{ $test->is_published ? 'Unpublish' : 'Publish' }} The
+                    Results</button>
+            @endif
             <div class="card">
                 <div class="card-body shadow-lg p-2">
                     <img src="{{ $test->course->thumbnail }}" alt="{{ $test->course->thumbnail }}" class="img-fluid">
@@ -445,8 +451,12 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th> <input type="submit" value="Save Marks"
-                                                                class="btn btn-primary btn-air-primary"></th>
+                                                        <th>
+                                                            @if (!$test->is_published)
+                                                                <input type="submit" value="Save Marks"
+                                                                    class="btn btn-primary btn-air-primary">
+                                                            @endif
+                                                        </th>
                                                         @foreach ($test->course->sections as $section)
                                                             <th>{{ $section['name'] }} ({{ $section['full_marks'] }})
                                                             </th>
@@ -466,6 +476,7 @@
                                                                             wire:model.defer="marks.{{ $candidate->id }}.sections.{{ $section['name'] }}"
                                                                             min="0"
                                                                             max="{{ $section['full_marks'] }}"
+                                                                            {{ $test->is_published ? 'disabled' : '' }}
                                                                             class="form-control" step="any">
                                                                     </td>
                                                                 @endforeach
@@ -473,6 +484,7 @@
                                                                     <input type="number"
                                                                         wire:model.defer="marks.{{ $candidate->id }}.overall"
                                                                         min="0" class="form-control"
+                                                                        {{ $test->is_published ? 'disabled' : '' }}
                                                                         step="any">
                                                                 </td>
                                                             </tr>
@@ -496,6 +508,21 @@
                                 <form wire:submit.prevent="saveConfigurations">
                                     <label>Description</label>
                                     @livewire('admin.system.trix', ['value' => $test->description ?? ''])
+                                    <br>
+                                    <div class="mt-2">
+                                        <label for="publish_type">Result Publish Type</label>
+                                        <ul>
+                                            <li><input type="radio" name="publish_type"
+                                                    value="{{ \App\Http\Livewire\Admin\Test\TestProfile::TABLE_PUBLISH }}"
+                                                    wire:model.defer="publish_type">Table Publish</li>
+                                            <li><input type="radio" name="publish_type"
+                                                    value="{{ \App\Http\Livewire\Admin\Test\TestProfile::INDIVIDUAL_PUBLISH }}"
+                                                    wire:model.defer="publish_type">Individual Publish</li>
+                                            <li><input type="radio" name="publish_type"
+                                                    value="{{ \App\Http\Livewire\Admin\Test\TestProfile::PHYSICAL_PUBLISH }}"
+                                                    wire:model.defer="publish_type">Physicial Publish</li>
+                                        </ul>
+                                    </div>
                                     <hr>
                                     <input type="submit" value="Save" class="btn btn-primary btn-air-primary">
                                 </form>

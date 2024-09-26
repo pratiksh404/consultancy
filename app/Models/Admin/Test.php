@@ -42,7 +42,7 @@ class Test extends Model
         return LogOptions::defaults();
     }
 
-    protected $appends = ['name', 'marks', 'description'];
+    protected $appends = ['name', 'marks', 'description', 'publish_type'];
 
     protected $casts = [
         'data' => 'array',
@@ -80,6 +80,11 @@ class Test extends Model
     public function getDescriptionAttribute()
     {
         return $this->data['description'] ?? null;
+    }
+
+    public function getPublishTypeAttribute()
+    {
+        return $this->data['publish_type'] ?? null;
     }
 
     public function getMarksAttribute()
