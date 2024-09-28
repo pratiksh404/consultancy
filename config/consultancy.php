@@ -11,7 +11,7 @@ return [
         'banner' => [
             'title' => 'Immigration Visa',
             'subtitle' => 'Consulting',
-            'short_decsription' => 'Expert Guidance for a Seamless Immigration Journey',
+            'short_description' => 'Expert Guidance for a Seamless Immigration Journey',
             'features' => [
                 'Tailored Immigration Solutions',
                 'Expert Legal Support',
