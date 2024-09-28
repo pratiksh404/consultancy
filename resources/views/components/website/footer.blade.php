@@ -6,13 +6,25 @@
                     <h3 class="widget-title">Do you have questions or went more information? Contact us now
                     </h3>
                     <ul class="footer__cta list-unstyled mt-50">
-                        <li class="ul_li"><span><img src="{{ asset('website/assets/img/icon/f_call.svg') }}"
-                                    alt=""></span> <a href="tel:{{ website('phone') }}"
-                                style="color: black;font-size: 18px" style="mx-1">{{ website('phone') }}</a>
+                        <li class="ul_li d-flex justify-content-start"><span><img
+                                    src="{{ asset('website/assets/img/icon/f_call.svg') }}" alt=""></span>
+                            @foreach (explode(',', website('phone')) as $footer_phone)
+                                <a href="tel:{{ $footer_phone }}" style="color: black;font-size: 18px"
+                                    class="mx-2">{{ $footer_phone }}</a>
+                                @if (!$loop->last)
+                                    ,
+                                @endif
+                            @endforeach
                         </li>
-                        <li class="ul_li"><span><img src="{{ asset('website/assets/img/icon/f_mail.svg') }}"
-                                    alt=""></span> <a href="mailto:{{ website('email') }}"
-                                style="color: black;font-size: 18px" class="mx-1">{{ website('email') }}</a>
+                        <li class="ul_li d-flex justify-content-start"><span><img
+                                    src="{{ asset('website/assets/img/icon/f_mail.svg') }}" alt=""></span>
+                            @foreach (explode(',', website('email')) as $footer_email)
+                                <a href="tel:{{ $footer_email }}" style="color: black;font-size: 18px"
+                                    class="mx-2">{{ $footer_email }}</a>
+                                @if (!$loop->last)
+                                    ,
+                                @endif
+                            @endforeach
                         </li>
                     </ul>
                 </div>

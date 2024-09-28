@@ -25,7 +25,7 @@ class TestimonialPanel extends Component
     public function render()
     {
         $query = count($this->testimonial_ids ?? []) > 0 ? Testimonial::whereIn('id', $this->testimonial_ids) : Testimonial::query();
-        $testimonials = $query->approved()->latest()->paginate(8);
+        $testimonials = $query->with('country', 'course', 'visa')->approved()->latest()->paginate(8);
 
         return view('livewire.website.testimonial.testimonial-panel', compact('testimonials'));
     }

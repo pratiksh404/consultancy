@@ -4,7 +4,7 @@ return [
     'website' => [
         'name' => 'Consultancy',
         'short_description' => 'Your unique weekend getaway',
-        'phone' => '4357496',
+        'phone' => '4357496,9843652012',
         'email' => 'info@pratikshrestha404.com.np',
         'address' => 'Location, Country',
         'map' => 'https://www.google.com/maps/embed/v1/place?q=doctype+innovations&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8',
