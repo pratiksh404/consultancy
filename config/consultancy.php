@@ -2,7 +2,7 @@
 
 return [
     'website' => [
-        'name' => 'Rafting',
+        'name' => 'Consultancy',
         'short_description' => 'Your unique weekend getaway',
         'phone' => '4357496',
         'email' => 'info@pratikshrestha404.com.np',

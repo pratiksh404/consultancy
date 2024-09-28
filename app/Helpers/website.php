@@ -10,8 +10,10 @@ use App\Models\Admin\Step;
 use App\Models\Admin\Testimonial;
 use App\Models\Admin\University;
 use App\Models\Admin\Visa;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Pratiksh\Adminetic\Models\Admin\Data;
+use Spatie\OpeningHours\OpeningHours;
 
 if (! function_exists('website')) {
     function website($keyword)
@@ -60,6 +62,14 @@ if (! function_exists('banner')) {
         }
 
         return json_decode(json_encode($banner), false);
+    }
+}
+
+if (! function_exists('todays_business_hour')) {
+    function todays_business_hour()
+    {
+        $business_hours = OpeningHours::create(business_hour());
+        $todays_business_hours = $business_hours->currentOpenRange(Carbon::now());
     }
 }
 
