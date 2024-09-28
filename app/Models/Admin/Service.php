@@ -34,7 +34,7 @@ class Service extends Model implements HasMedia
     private static function cacheKey()
     {
         Cache::has('services') ? Cache::forget('services') : '';
-        Cache::has('home_services') ? Cache::forget('home_services') : '';
+        Cache::has('website_services') ? Cache::forget('website_services') : '';
     }
 
     // Logs
