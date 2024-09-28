@@ -52,7 +52,7 @@ if (! function_exists('banner')) {
     function banner()
     {
         $banner = Cache::has('banner') ? Cache::get('banner') : website('banner');
-        if (! is_null($banner['image'])) {
+        if (isset($banner['image'])) {
             // Check if image exists
             if (file_exists(public_path('storage/'.$banner['image']))) {
                 $banner['image'] = asset('storage/'.$banner['image']);
