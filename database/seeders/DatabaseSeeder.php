@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
             VisaSeeder::class,
             CountrySeeder::class,
             StepSeeder::class,
+            ServiceSeeder::class,
+            PageSeeder::class,
+            FaqSeeder::class,
         ]);
     }
 }

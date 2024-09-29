@@ -61,5 +61,6 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->bind(\App\Contracts\UniversityRepositoryInterface::class, \App\Repositories\UniversityRepository::class);
     $this->app->bind(\App\Contracts\StepRepositoryInterface::class, \App\Repositories\StepRepository::class);
 $this->app->bind(\App\Contracts\TeamRepositoryInterface::class, \App\Repositories\TeamRepository::class);
+$this->app->bind(\App\Contracts\BranchRepositoryInterface::class, \App\Repositories\BranchRepository::class);
 }
 }

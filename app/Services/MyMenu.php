@@ -18,93 +18,24 @@ class MyMenu implements SidebarInterface
                 'description' => 'Administration Control',
 
             
-
 ],[
 'type' => 'menu',
-'name' => 'Team',
+'name' => 'Branch',
 'icon' => 'fa fa-wrench',
-'is_active' => request()->routeIs('team*') ? 'active' : '',
+'is_active' => request()->routeIs('branch*') ? 'active' : '',
 'conditions' => [
 [
 'type' => 'or',
-'condition' => auth()->user()->can('view-any', \App\Models\Admin\Team::class),
+'condition' => auth()->user()->can('view-any', \App\Models\Admin\Branch::class),
 ],
 [
 'type' => 'or',
-'condition' => auth()->user()->can('create', \App\Models\Admin\Team::class),
+'condition' => auth()->user()->can('create', \App\Models\Admin\Branch::class),
 ],
 ],
-"children" => $this->indexCreateChildren("team", \App\Models\Admin\Team::class),
+"children" => $this->indexCreateChildren("branch", \App\Models\Admin\Branch::class),
 
-],[
-'type' => 'menu',
-'name' => 'Step',
-'icon' => 'fa fa-wrench',
-'is_active' => request()->routeIs('step*') ? 'active' : '',
-'conditions' => [
-[
-'type' => 'or',
-'condition' => auth()->user()->can('view-any', \App\Models\Admin\Step::class),
 ],
-[
-'type' => 'or',
-'condition' => auth()->user()->can('create', \App\Models\Admin\Step::class),
-],
-],
-"children" => $this->indexCreateChildren("step", \App\Models\Admin\Step::class),
-
-], [
-                'type' => 'menu',
-                'name' => 'University',
-                'icon' => 'fa fa-wrench',
-                'is_active' => request()->routeIs('university*') ? 'active' : '',
-                'conditions' => [
-                    [
-                        'type' => 'or',
-                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\University::class),
-                    ],
-                    [
-                        'type' => 'or',
-                        'condition' => auth()->user()->can('create', \App\Models\Admin\University::class),
-                    ],
-                ],
-                'children' => $this->indexCreateChildren('university', \App\Models\Admin\University::class),
-
-            ], [
-                'type' => 'menu',
-                'name' => 'Candidate',
-                'icon' => 'fa fa-wrench',
-                'is_active' => request()->routeIs('candidate*') ? 'active' : '',
-                'conditions' => [
-                    [
-                        'type' => 'or',
-                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Candidate::class),
-                    ],
-                    [
-                        'type' => 'or',
-                        'condition' => auth()->user()->can('create', \App\Models\Admin\Candidate::class),
-                    ],
-                ],
-                'children' => $this->indexCreateChildren('candidate', \App\Models\Admin\Candidate::class),
-
-            ], [
-                'type' => 'menu',
-                'name' => 'Test',
-                'icon' => 'fa fa-wrench',
-                'is_active' => request()->routeIs('test*') ? 'active' : '',
-                'conditions' => [
-                    [
-                        'type' => 'or',
-                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Test::class),
-                    ],
-                    [
-                        'type' => 'or',
-                        'condition' => auth()->user()->can('create', \App\Models\Admin\Test::class),
-                    ],
-                ],
-                'children' => $this->indexCreateChildren('test', \App\Models\Admin\Test::class),
-
-            ],
             [
                 'type' => 'link',
                 'name' => 'Dashboard',
@@ -253,8 +184,94 @@ class MyMenu implements SidebarInterface
             ],
             [
                 'type' => 'menu',
+                'name' => 'Team',
+                'icon' => 'fa fa-users',
+                'is_active' => request()->routeIs('team*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Team::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Team::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('team', \App\Models\Admin\Team::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'Step',
+                'icon' => 'fa fa-hiking',
+                'is_active' => request()->routeIs('step*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Step::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Step::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('step', \App\Models\Admin\Step::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'University',
+                'icon' => 'fa fa-graduation-cap',
+                'is_active' => request()->routeIs('university*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\University::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\University::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('university', \App\Models\Admin\University::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'Candidate',
+                'icon' => 'fa fa-user-plus',
+                'is_active' => request()->routeIs('candidate*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Candidate::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Candidate::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('candidate', \App\Models\Admin\Candidate::class),
+
+            ], [
+                'type' => 'menu',
+                'name' => 'Test',
+                'icon' => 'fa fa-newspaper',
+                'is_active' => request()->routeIs('test*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Test::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Test::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('test', \App\Models\Admin\Test::class),
+
+            ],
+            [
+                'type' => 'menu',
                 'name' => 'Visa',
-                'icon' => 'fa fa-wrench',
+                'icon' => 'fab fa-cc-visa',
                 'is_active' => request()->routeIs('visa*') ? 'active' : '',
                 'conditions' => [
                     [
@@ -271,7 +288,7 @@ class MyMenu implements SidebarInterface
             ], [
                 'type' => 'menu',
                 'name' => 'Course',
-                'icon' => 'fa fa-wrench',
+                'icon' => 'fa fa-book',
                 'is_active' => request()->routeIs('course*') ? 'active' : '',
                 'conditions' => [
                     [
@@ -288,7 +305,7 @@ class MyMenu implements SidebarInterface
             ], [
                 'type' => 'menu',
                 'name' => 'Country',
-                'icon' => 'fa fa-wrench',
+                'icon' => 'fa fa-globe-americas',
                 'is_active' => request()->routeIs('country*') ? 'active' : '',
                 'conditions' => [
                     [

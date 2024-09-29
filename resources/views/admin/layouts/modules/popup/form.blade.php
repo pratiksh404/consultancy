@@ -52,9 +52,9 @@
                 <div class="mt-4">
                     <label for="expire">{{ label('popups', 'expire', 'Expire Date') }}</label>
                     <div class="input-group">
-                        <span class="input-group-text"><i class="fa fa-clock"></i></span>
-                        <input type="text" name="expire" id="expire" class="form-control"
-                            value="{{ $popup->expire ?? old('expire') }}">
+                        <span class="input-group-text">URL</span>
+                        <input type="text" name="data[url]" id="expire" class="form-control"
+                            value="{{ $popup->url ?? old('expire') }}">
                     </div>
                 </div>
             </div>

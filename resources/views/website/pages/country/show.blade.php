@@ -18,6 +18,7 @@
             object-fit: cover;
         }
     </style>
+    @include('website.layouts.assets.show_page_style')
 @endsection
 
 @section('content')

@@ -2,6 +2,9 @@
 
 @section('content')
     <main>
+        <!-- Popups start -->
+        <x-website.popups />
+        <!-- Popups end -->
 
         <!-- hero start -->
         @include('website.layouts.pages.home.hero')

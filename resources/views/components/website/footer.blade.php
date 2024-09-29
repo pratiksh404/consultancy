@@ -100,7 +100,7 @@
                     </li>
                     </li>
                     @if ((pages()->count() ?? 0) > 0)
-                        @foreach (pages() as $footer_page)
+                        @foreach (pages()->filter(fn($p) => $p->featured) as $footer_page)
                             <li style="margin-right: 15px;"><a style="color: black"
                                     href="{{ route('website.page', ['page' => $footer_page->slug]) }}"><span>{{ $footer_page->name }}</span></a>
                             </li>

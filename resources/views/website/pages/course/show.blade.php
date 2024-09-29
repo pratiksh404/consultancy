@@ -1,12 +1,7 @@
 @extends('website.layouts.app')
 
 @section('custom_css')
-    <style>
-        h2 {
-            font-size: 25px;
-            padding-top: 12px;
-        }
-    </style>
+    @include('website.layouts.assets.show_page_style')
 @endsection
 
 @section('content')

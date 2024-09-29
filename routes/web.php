@@ -17,3 +17,5 @@ Route::admineticAuth();
 
 Route::admin();
 Route::website();
+
+Route::resource('admin/branch',\App\Http\Controllers\Admin\BranchController::class);

@@ -48,12 +48,17 @@ class Popup extends Model implements HasMedia
         'data' => 'array',
     ];
 
-    protected $appends = ['image'];
+    protected $appends = ['image', 'url'];
 
     // Accessors
     public function getImageAttribute()
     {
         return $this->getMedia('image')->count() > 0 ? $this->getFirstMediaUrl('image') : null;
+    }
+
+    public function getUrlAttribute()
+    {
+        return $this->data['url'] ?? null;
     }
 
     // Relationships

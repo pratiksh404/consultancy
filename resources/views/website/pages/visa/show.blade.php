@@ -1,5 +1,9 @@
 @extends('website.layouts.app')
 
+@section('custom_css')
+    @include('website.layouts.assets.show_page_style')
+@endsection
+
 @section('content')
     <x-website.breadcrumb :menus="[
         [

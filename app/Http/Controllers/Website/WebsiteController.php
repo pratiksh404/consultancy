@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Country;
 use App\Models\Admin\Course;
+use App\Models\Admin\Page;
 use App\Models\Admin\Service;
 use App\Models\Admin\Team;
 use App\Models\Admin\Test;
@@ -58,5 +59,11 @@ class WebsiteController extends Controller
     public function test(Test $test)
     {
         return view('website.pages.test.show', compact('test'));
+    }
+
+    // Page
+    public function page(Page $page)
+    {
+        return view('website.pages.others.page', compact('page'));
     }
 }

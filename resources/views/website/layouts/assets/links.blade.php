@@ -31,4 +31,78 @@
         background: linear-gradient(transparent, white);
         /* Gradual fade to white (or the background color) */
     }
+
+    /* Basic table styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Arial', sans-serif;
+        margin: 20px 0;
+        background-color: #f4f4f9;
+    }
+
+    /* Table header */
+    table th {
+        background-color: #6c7ae0;
+        color: #ffffff;
+        font-weight: bold;
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    /* Table rows */
+    table td {
+        padding: 12px 15px;
+        border: 1px solid #dddddd;
+        color: #333;
+    }
+
+    /* Even row shading */
+    table tr:nth-child(even) {
+        background-color: #f3f3f7;
+    }
+
+    /* Hover effect for rows */
+    table tr:hover {
+        background-color: #f1f1f9;
+    }
+
+    /* Responsive design for smaller screens */
+    @media screen and (max-width: 600px) {
+
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+            display: block;
+            width: 100%;
+        }
+
+        table thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        table tr {
+            margin-bottom: 10px;
+        }
+
+        table td {
+            border: none;
+            position: relative;
+            padding-left: 50%;
+            text-align: right;
+        }
+
+        table td:before {
+            content: attr(data-label);
+            position: absolute;
+            left: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+    }
 </style>

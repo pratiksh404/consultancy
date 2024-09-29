@@ -5,6 +5,7 @@ use App\Models\Admin\Country;
 use App\Models\Admin\Course;
 use App\Models\Admin\Faq;
 use App\Models\Admin\Page;
+use App\Models\Admin\Popup;
 use App\Models\Admin\Service;
 use App\Models\Admin\Step;
 use App\Models\Admin\Testimonial;
@@ -145,6 +146,14 @@ if (! function_exists('courses')) {
     {
         return Cache::has('website_courses') ? Cache::get('website_courses') : Cache::rememberForever('website_courses', function () {
             return Course::active()->position()->get();
+        });
+    }
+}
+if (! function_exists('popups')) {
+    function popups()
+    {
+        return Cache::has('website_popups') ? Cache::get('website_popups') : Cache::rememberForever('website_popups', function () {
+            return Popup::active()->position()->get();
         });
     }
 }
