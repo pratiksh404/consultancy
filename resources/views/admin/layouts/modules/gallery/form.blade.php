@@ -1,23 +1,10 @@
 <div class="card">
     <div class="card-header">
         <div class="row">
-            <div class="col-lg-7">
+            <div class="col-lg-12">
                 <label for="name">{{ label('galleries', 'name') }}</label>
                 <input type="text" name="name" class="form-control" value="{{ $gallery->name ?? old('name') }}"
                     placeholder="Gallery Name" />
-            </div>
-            <div class="col-lg-5">
-                <label for="adventurer_id">{{ label('galleries', 'adventurer_id', 'Adventurer') }}</label>
-                <select name="adventurer_id" id="adventurer_id" class="form-control" style="width: 100%">
-                    <option selected disabled>Select Adventurer ...</option>
-                    @if ($adventurers->count() > 0)
-                        @foreach ($adventurers as $adventurer)
-                            <option value="{{ $adventurer->id }}"
-                                {{ isset($gallery) ? ($gallery->adventurer_id == $adventurer->id ? 'selected' : '') : '' }}>
-                                {{ $adventurer->title ?? $adventurer->name }}</option>
-                        @endforeach
-                    @endif
-                </select>
             </div>
         </div>
     </div>

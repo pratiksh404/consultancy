@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Country;
 use App\Models\Admin\Course;
 use App\Models\Admin\Page;
+use App\Models\Admin\Post;
 use App\Models\Admin\Service;
 use App\Models\Admin\Team;
 use App\Models\Admin\Test;
@@ -65,5 +66,18 @@ class WebsiteController extends Controller
     public function page(Page $page)
     {
         return view('website.pages.others.page', compact('page'));
+    }
+
+    //Post
+    public function posts()
+    {
+        $query = Post::published()->active()->latest();
+
+        return view('website.pages.post.index', compact('query'));
+    }
+
+    public function post(Post $post)
+    {
+        return view('website.pages.post.show', compact('post'));
     }
 }

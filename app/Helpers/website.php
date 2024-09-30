@@ -1,10 +1,14 @@
 <?php
 
+use App\Models\Admin\Association;
+use App\Models\Admin\Branch;
 use App\Models\Admin\Counter;
 use App\Models\Admin\Country;
 use App\Models\Admin\Course;
 use App\Models\Admin\Faq;
+use App\Models\Admin\Gallery;
 use App\Models\Admin\Page;
+use App\Models\Admin\Partner;
 use App\Models\Admin\Popup;
 use App\Models\Admin\Service;
 use App\Models\Admin\Step;
@@ -14,6 +18,7 @@ use App\Models\Admin\Visa;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Pratiksh\Adminetic\Models\Admin\Data;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\OpeningHours\OpeningHours;
 
 if (! function_exists('website')) {
@@ -81,6 +86,45 @@ if (! function_exists('universities')) {
             return University::active()->position()->get()->filter(function ($university) {
                 return $university->logo;
             });
+        });
+    }
+}
+
+if (! function_exists('branches')) {
+    function branches()
+    {
+        return Cache::has('website_branches') ? Cache::get('website_branches') : Cache::rememberForever('website_branches', function () {
+            return Branch::active()->position()->get();
+        });
+    }
+}
+
+if (! function_exists('partners')) {
+
+    function partners()
+    {
+        return Cache::has('website_partners') ? Cache::get('website_partners') : Cache::rememberForever('website_partners', function () {
+            return Partner::active()->position()->get();
+        });
+    }
+}
+if (! function_exists('associations')) {
+
+    function associations()
+    {
+        return Cache::has('website_associations') ? Cache::get('website_associations') : Cache::rememberForever('website_associations', function () {
+            return Association::active()->position()->get();
+        });
+    }
+}
+if (! function_exists('gallery_images')) {
+
+    function gallery_images()
+    {
+        return Cache::has('gallery_images')
+        ? Cache::get('gallery_images')
+        : Cache::rememberForever('gallery_images', function () {
+            return Media::where('model_type', Gallery::class)->latest()->take(12)->get();
         });
     }
 }

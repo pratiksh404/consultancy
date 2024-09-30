@@ -33,7 +33,7 @@ class Association extends Model implements HasMedia
     private static function cacheKey()
     {
         Cache::has('associations') ? Cache::forget('associations') : '';
-        Cache::has('home_associations') ? Cache::forget('home_associations') : '';
+        Cache::has('website_associations') ? Cache::forget('website_associations') : '';
     }
 
     // Logs

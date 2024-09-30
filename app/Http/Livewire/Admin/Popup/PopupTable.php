@@ -20,11 +20,19 @@ class PopupTable extends DataTableComponent
 
     public array $bulkActions = [
         'bulkDelete' => 'Bulk Delete',
+        'toggleActive' => 'Toggle Active',
     ];
 
     public function bulkDelete()
     {
         Popup::whereIn('id', $this->getSelected())->delete();
+    }
+
+    public function toggleActive()
+    {
+        Popup::whereIn('id', $this->getSelected())->each(function ($branch) {
+            $branch->update(['active' => ! $branch->active]);
+        });
     }
 
     public function filters(): array

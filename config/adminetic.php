@@ -131,7 +131,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'spa' => true,
+    'spa' => false,
     'caching' => true,
     'migrate_with_dummy' => false,
 

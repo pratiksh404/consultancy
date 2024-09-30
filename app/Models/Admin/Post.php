@@ -4,7 +4,6 @@ namespace App\Models\Admin;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\LogOptions;
@@ -73,9 +72,9 @@ class Post extends Model implements HasMedia
         return $this->belongsTo(User::class, 'approved_by');
     }
 
-    public function tags(): MorphToMany
+    public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        return $this->belongsToMany(Tag::class);
     }
 
     // Accessors
@@ -103,6 +102,12 @@ class Post extends Model implements HasMedia
                 2 => 'Pending',
                 3 => 'Draft',
             ][$attribute] : null;
+    }
+
+    // Scopes
+    public function scopePosition($qry)
+    {
+        return $qry->where('position', 1);
     }
 
     // Scopes

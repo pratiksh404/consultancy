@@ -48,7 +48,7 @@ class WebsiteRouteMixin
                     // Single Pages
                     Route::get('/test/{test:code}', [WebsiteController::class, 'test'])->name('test');
                     Route::get('/about-us', [WebsiteController::class, 'about_us'])->name('about_us');
-                    Route::view('/contact-us', 'website.pages.extra.contact_us')->name('contact_us');
+                    Route::view('/contact-us', 'website.pages.others.contact')->name('contact_us');
                     Route::get('/page/{page:slug}', [WebsiteController::class, 'page'])->name('page');
                 });
         };

@@ -73,12 +73,8 @@ class Category extends Model implements HasMedia
         return $this->hasMany(Post::class);
     }
 
-    public function foods()
-    {
-        return $this->hasMany(Food::class);
-    }
-
     // Scopes
+
     public function scopeWhoIsParent($qry)
     {
         return $qry->whereNull('parent_id');

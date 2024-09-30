@@ -100,6 +100,8 @@
                                         <li><a href="{{ route('website.about_us') }}"><span>About Us</span></a></li>
                                         <li><a href="{{ route('website.testimonials') }}"><span>Testimonials</span></a>
                                         </li>
+                                        <li><a href="{{ route('website.posts') }}"><span>Article & News</span></a>
+                                        </li>
                                         @if ((pages()->count() ?? 0) > 0)
                                             @foreach (pages() as $heading_page)
                                                 <li><a
@@ -215,6 +217,8 @@
                                             href="{{ route('website.testimonials') }}"><span>Testimonials</span></a>
                                     <li class="menu-item"><a href="{{ route('website.about_us') }}"><span>About
                                                 Us</span></a></li>
+                                    <li class="menu-item"><a href="{{ route('website.posts') }}"><span>Article &
+                                                News</span></a></li>
                                     @if ((pages()->count() ?? 0) > 0)
                                         @foreach (pages() as $heading_page)
                                             <li class="menu-item"><a

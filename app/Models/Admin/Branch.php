@@ -31,6 +31,7 @@ class Branch extends Model
     private static function cacheKey()
     {
         Cache::has('branches') ? Cache::forget('branches') : '';
+        Cache::has('website_branches') ? Cache::forget('website_branches') : '';
     }
 
     // Logs
@@ -60,5 +61,16 @@ class Branch extends Model
     public function getMapAttribute()
     {
         return $this->data['map'] ?? null;
+    }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+
+    public function scopePosition($query)
+    {
+        return $query->orderBy('position');
     }
 }

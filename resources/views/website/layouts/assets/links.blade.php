@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="{{ asset('website/assets/css/jquery-ui.min.css') }}">
 <link rel="stylesheet" href="{{ asset('website/assets/css/magnific-popup.css') }}">
 <link rel="stylesheet" href="{{ asset('website/assets/css/main.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
     integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -104,5 +106,84 @@
             font-weight: bold;
             text-align: left;
         }
+    }
+
+    .footer-contact {
+        height: auto;
+        margin-bottom: 5vh;
+    }
+
+    .footer-partner-association {
+        height: auto;
+        margin: 10px 0;
+    }
+
+    .footer-partner-association .footer-partner {
+        height: 100%
+    }
+
+    .footer-partner-association .footer-partner h5 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: black;
+    }
+
+    .footer-partner-association .footer-partner img {
+        height: 40px;
+        width: auto;
+    }
+
+    .branch-contact {
+        height: 100%;
+        padding: 25px;
+    }
+
+    .branch-contact-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: black;
+    }
+
+    .branch-contact-list-title {
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: black;
+    }
+
+    .branch-contact-list-group {
+        list-style: none;
+
+    }
+
+    .branch-contact-list a {
+        color: black;
+    }
+
+    li.branch-contact-list a {
+        color: black;
+    }
+
+    li.branch-contact-list a:hover {
+        color: #5e2ced;
+    }
+
+    .footer-gallery-images .swiper-slide {
+        width: 35vw;
+        height: 35vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .footer-gallery-images .swiper-slide img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>

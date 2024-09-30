@@ -33,7 +33,7 @@ class Partner extends Model implements HasMedia
     private static function cacheKey()
     {
         Cache::has('partners') ? Cache::forget('partners') : '';
-        Cache::has('home_partners') ? Cache::forget('home_partners') : '';
+        Cache::has('website_partners') ? Cache::forget('website_partners') : '';
     }
 
     // Logs

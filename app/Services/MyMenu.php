@@ -17,25 +17,7 @@ class MyMenu implements SidebarInterface
                 'name' => 'General',
                 'description' => 'Administration Control',
 
-            
-],[
-'type' => 'menu',
-'name' => 'Branch',
-'icon' => 'fa fa-wrench',
-'is_active' => request()->routeIs('branch*') ? 'active' : '',
-'conditions' => [
-[
-'type' => 'or',
-'condition' => auth()->user()->can('view-any', \App\Models\Admin\Branch::class),
-],
-[
-'type' => 'or',
-'condition' => auth()->user()->can('create', \App\Models\Admin\Branch::class),
-],
-],
-"children" => $this->indexCreateChildren("branch", \App\Models\Admin\Branch::class),
-
-],
+            ],
             [
                 'type' => 'link',
                 'name' => 'Dashboard',
@@ -135,19 +117,6 @@ class MyMenu implements SidebarInterface
                 ],
             ],
             [
-                'type' => 'link',
-                'name' => 'Contact Management',
-                'icon' => 'fa fa-cog',
-                'link' => route('admin.widgets.contact_management'),
-                'is_active' => request()->routeIs('home') ? 'active' : '',
-                'conditions' => [
-                    [
-                        'type' => 'or',
-                        'condition' => auth()->user()->hasRole('admin'),
-                    ],
-                ],
-            ],
-            [
                 'type' => 'menu',
                 'name' => 'Preference',
                 'icon' => 'fa fa-wrench',
@@ -181,6 +150,24 @@ class MyMenu implements SidebarInterface
                 'type' => 'breaker',
                 'name' => 'Consultancy',
                 'description' => 'Website Module',
+            ],
+            [
+                'type' => 'menu',
+                'name' => 'Branch',
+                'icon' => 'fa fa-code-branch',
+                'is_active' => request()->routeIs('branch*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', \App\Models\Admin\Branch::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', \App\Models\Admin\Branch::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('branch', \App\Models\Admin\Branch::class),
+
             ],
             [
                 'type' => 'menu',
