@@ -173,7 +173,10 @@ return [
     ],
 
     // Plugin Adapters
-    'adapters' => [],
+    'adapters' => [
+        Adminetic\Notify\Adapter\NotifyAdapter::class,
+        Adminetic\GoogleAnalytics\Adapter\AdmineticGoogleAnalyticsAdapter::class,
+    ],
 
     // Profile Tabs
     'profile_tab' => null,

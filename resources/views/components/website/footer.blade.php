@@ -145,11 +145,15 @@
   margin: 0;
   display: flex; ">
                     <li style="margin-right: 15px;"><a style="color: black"
+                            href="{{ route('website.posts') }}"><span>News & Articles</span></a>
+                    </li>
+                    <li style="margin-right: 15px;"><a style="color: black"
                             href="{{ route('website.testimonials') }}"><span>Testimonials</span></a>
+                    </li>
                     <li style="margin-right: 15px;"><a style="color: black"
                             href="{{ route('website.about_us') }}"><span>About Us</span></a>
                     </li>
-                    </li>
+
                     @if ((pages()->count() ?? 0) > 0)
                         @foreach (pages()->filter(fn($p) => $p->featured) as $footer_page)
                             <li style="margin-right: 15px;"><a style="color: black"

@@ -49,6 +49,17 @@ class TestProfile extends Component
 
     public $publish_type = self::TABLE_PUBLISH;
 
+    // Email Settings
+
+    // Confirmation Email
+    public $registration_email_status = true;
+
+    public $confirmation_email_status = true;
+
+    public $participation_email_status = true;
+
+    public $result_email_status = true;
+
     protected $listeners = [
         'candidateUpdated' => '$refresh',
         'printReportCard',
@@ -157,6 +168,10 @@ class TestProfile extends Component
         $data = $this->test->data;
         $data['description'] = $this->description;
         $data['publish_type'] = $this->publish_type ?? self::TABLE_PUBLISH;
+        $data['email']['registration']['status'] = $this->registration_email_status ?? true;
+        $data['email']['participation']['status'] = $this->participation_email_status ?? true;
+        $data['email']['result']['status'] = $this->result_email_status ?? true;
+        $data['email']['confirmation']['status'] = $this->confirmation_email_status ?? true;
         $this->test->update([
             'data' => $data,
         ]);

@@ -510,7 +510,7 @@
                                     @livewire('admin.system.trix', ['value' => $test->description ?? ''])
                                     <br>
                                     <div class="mt-2">
-                                        <label for="publish_type">Result Publish Type</label>
+                                        <label for="publish_type"><b>Result Publish Type</b></label>
                                         <ul>
                                             <li><input type="radio" name="publish_type"
                                                     value="{{ \App\Http\Livewire\Admin\Test\TestProfile::TABLE_PUBLISH }}"
@@ -522,6 +522,60 @@
                                                     value="{{ \App\Http\Livewire\Admin\Test\TestProfile::PHYSICAL_PUBLISH }}"
                                                     wire:model.defer="publish_type">Physicial Publish</li>
                                         </ul>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mt-2">
+                                                <label for="registration_email_status"><b>Registration
+                                                        Email</b></label>
+                                                <ul>
+                                                    <li><input type="radio" name="registration_email_status"
+                                                            value="1" wire:model.defer="publish_type">Active</li>
+                                                    <li><input type="radio" name="registration_email_status"
+                                                            value="0" wire:model.defer="publish_type">Inactive
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mt-2">
+                                                <label for="confirmation_email_status"><b>Confirmation
+                                                        Email</b></label>
+                                                <ul>
+                                                    <li><input type="radio" name="confirmation_email_status"
+                                                            value="1" wire:model.defer="publish_type">Active</li>
+                                                    <li><input type="radio" name="confirmation_email_status"
+                                                            value="0" wire:model.defer="publish_type">Inactive
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mt-2">
+                                                <label for="participation_email_status"><b>Participation
+                                                        Email</b></label>
+                                                <ul>
+                                                    <li><input type="radio" name="participation_email_status"
+                                                            value="1" wire:model.defer="publish_type">Active</li>
+                                                    <li><input type="radio" name="participation_email_status"
+                                                            value="0" wire:model.defer="publish_type">Inactive
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mt-2">
+                                                <label for="result_email_status"><b>Result
+                                                        Email</b></label>
+                                                <ul>
+                                                    <li><input type="radio" name="result_email_status"
+                                                            value="1" wire:model.defer="publish_type">Active</li>
+                                                    <li><input type="radio" name="result_email_status"
+                                                            value="0" wire:model.defer="publish_type">Inactive
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr>
                                     <input type="submit" value="Save" class="btn btn-primary btn-air-primary">
