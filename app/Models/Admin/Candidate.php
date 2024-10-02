@@ -2,14 +2,23 @@
 
 namespace App\Models\Admin;
 
+use App\Mail\Test\ConfirmationMail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Candidate extends Model
 {
     use LogsActivity;
+
+    // Candidate Types
+    const TEST = 1;
+
+    const COURSE = 2;
+
+    const EVENT = 3;
 
     protected $guarded = [];
 
@@ -20,6 +29,7 @@ class Candidate extends Model
 
         static::saving(function () {
             self::cacheKey();
+
         });
 
         static::deleting(function () {
@@ -72,5 +82,30 @@ class Candidate extends Model
         $last_name = $this->last_name;
 
         return $first_name.(! is_null($middle_name) ? ' '.$middle_name : '').(! is_null($last_name) ? ' '.$last_name : '');
+    }
+
+    public function verify()
+    {
+        $this->update([
+            'verified' => true,
+        ]);
+        $receiver =
+        (object) [
+            'email' => $this->email,
+            'name' => $this->name,
+        ];
+        if ($this->candidateable_type == 'App\Models\Admin\Test') {
+            // System Notification
+            generalNotify([
+                'title' => $this->candidateable->name.' Confirmation Alert',
+                'subject' => 'Candidate confirmation verified for '.$this->candidateable->name,
+                'message' => 'Candidate '.$this->name.'('.$this->code.') confirmation verified for '.$this->candidateable->name,
+            ]);
+
+            // Mail To Candidate
+            if ($candidate->candidateable->confirmation_email_status ?? true) {
+                Mail::to($receiver)->send(new ConfirmationMail($this->candidateable, $this));
+            }
+        }
     }
 }

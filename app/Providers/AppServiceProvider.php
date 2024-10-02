@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Admin\Candidate;
+use App\Observers\CandidateObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->registerObserver();
+    }
+
+    private function registerObserver()
+    {
+        Candidate::observe(CandidateObserver::class);
     }
 }

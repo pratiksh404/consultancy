@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\Test\RegistrationMail;
+use App\Models\Admin\Test;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +20,9 @@ Route::admineticAuth();
 Route::admin();
 Route::website();
 
-Route::resource('admin/branch',\App\Http\Controllers\Admin\BranchController::class);
+Route::get('/registration-mail', function () {
+    $test = Test::has('candidates')->first();
+    $candidate = $test->candidates()->inRandomOrder()->first();
+
+    return new RegistrationMail($test, $candidate);
+});

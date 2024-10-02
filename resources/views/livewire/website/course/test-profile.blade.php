@@ -169,9 +169,17 @@ border:none">
                             @enderror
                         </div>
                         <div class="xb-item--btn mt-35">
-                            <button type="submit" class="grd-btn">Register<span><img
-                                        src="{{ asset('website/assets/img/icon/arrow_right.svg') }}"
-                                        alt=""></span></button>
+                            <div wire:loading wire:target="saveCandidate">
+                                <button type="button" disabled class="grd-btn">Processing ... <i
+                                        class="fa fa-spinner fa-spin"></i><span><img
+                                            src="{{ asset('website/assets/img/icon/arrow_right.svg') }}"
+                                            alt=""></span></button>
+                            </div>
+                            <div wire:loading.remove wire:target="saveCandidate">
+                                <button type="submit" class="grd-btn">Register<span><img
+                                            src="{{ asset('website/assets/img/icon/arrow_right.svg') }}"
+                                            alt=""></span></button>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Candidate;
 use App\Models\Admin\Country;
 use App\Models\Admin\Course;
 use App\Models\Admin\Page;
@@ -79,5 +80,12 @@ class WebsiteController extends Controller
     public function post(Post $post)
     {
         return view('website.pages.post.show', compact('post'));
+    }
+
+    public function verify(Test $test, Candidate $candidate)
+    {
+        $candidate->verify();
+
+        return view('mail.test.confirmation-mail', compact('test', 'candidate'));
     }
 }

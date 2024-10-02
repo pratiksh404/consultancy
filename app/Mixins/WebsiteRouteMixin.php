@@ -50,6 +50,9 @@ class WebsiteRouteMixin
                     Route::get('/about-us', [WebsiteController::class, 'about_us'])->name('about_us');
                     Route::view('/contact-us', 'website.pages.others.contact')->name('contact_us');
                     Route::get('/page/{page:slug}', [WebsiteController::class, 'page'])->name('page');
+
+                    // Verification
+                    Route::get('/mock-test-verify/{test:code}/{candidate:code}', [WebsiteController::class, 'verify'])->name('test.verify');
                 });
         };
     }
