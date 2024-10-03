@@ -89,22 +89,22 @@ class Test extends Model
 
     public function getRegistrationEmailStatusAttribute()
     {
-        return $this->data['email']['registration']['status'] ?? false;
+        return $this->data['email']['registration']['status'] ?? true;
     }
 
     public function getParticipationEmailStatusAttribute()
     {
-        return $this->data['email']['participation']['status'] ?? false;
+        return $this->data['email']['participation']['status'] ?? true;
     }
 
     public function getResultEmailStatusAttribute()
     {
-        return $this->data['email']['result']['status'] ?? false;
+        return $this->data['email']['result']['status'] ?? true;
     }
 
     public function getConfirmationEmailStatusAttribute()
     {
-        return $this->data['email']['confirmation']['status'] ?? false;
+        return $this->data['email']['confirmation']['status'] ?? true;
     }
 
     public function getMarksAttribute()

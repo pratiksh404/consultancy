@@ -23,6 +23,7 @@
         "pratiksh/adminetic": "^2.2",
         "pratiksh/nepalidate": "^1.4",
         "rappasoft/laravel-livewire-tables": "^2.15",
+        "sendgrid/sendgrid": "^8.1",
         "spatie/laravel-medialibrary-pro": "dev-main",
         "spatie/schema-org": "^3.23"
     },

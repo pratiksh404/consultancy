@@ -2,6 +2,7 @@
 
 use App\Mail\Test\RegistrationMail;
 use App\Models\Admin\Test;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,11 @@ Route::get('/registration-mail', function () {
     $test = Test::has('candidates')->first();
     $candidate = $test->candidates()->inRandomOrder()->first();
 
-    return new RegistrationMail($test, $candidate);
+    $receiver =
+    (object) [
+        'email' => 'pratikdai404@gmail.com',
+        'name' => $candidate->name,
+    ];
+
+    Mail::to($receiver)->send(new RegistrationMail($test, $candidate));
 });
