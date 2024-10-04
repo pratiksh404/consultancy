@@ -50,6 +50,7 @@ class TestProfile extends Component
     public $publish_type = self::TABLE_PUBLISH;
 
     // Email Settings
+    public $send_result_email = false;
 
     // Confirmation Email
     public $registration_email_status = true;
@@ -172,6 +173,7 @@ class TestProfile extends Component
         $data['email']['participation']['status'] = $this->participation_email_status ?? true;
         $data['email']['result']['status'] = $this->result_email_status ?? true;
         $data['email']['confirmation']['status'] = $this->confirmation_email_status ?? true;
+        $data['email']['send_result_in_email'] = $this->publish_type != self::PHYSICAL_PUBLISH ? $this->send_result_email : false;
         $this->test->update([
             'data' => $data,
         ]);

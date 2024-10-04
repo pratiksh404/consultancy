@@ -654,7 +654,7 @@
                     style="line-height: 100%;padding-left: 48px;padding-right: 48px;padding-top: 32px;padding-bottom: 24px;font-size: 0 !important;">
                     <a class="o_text o_text-sans o_text-dark o_link" href="#"
                         style="font-family: Arial,&quot;Helvetica Neue&quot;,Helvetica,sans-serif;word-break: break-word;transition: all .15s ease-in;color: #212932;text-decoration: none;outline: none;display: inline-block;font-size: 16px;line-height: 24px;"><img
-                            src="{{ logo() }}" height="50" alt="TL;DR"
+                            src="{{ logo() }}" height="50" alt="{{ website('name') ?? title() }}"
                             style="max-width: 114px;-ms-interpolation-mode: bicubic;display: block;border: 0;line-height: 100%;height: auto;outline: none;text-decoration: none;"></a>
                 </td>
             </tr>

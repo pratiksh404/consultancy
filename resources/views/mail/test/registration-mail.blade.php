@@ -805,7 +805,7 @@
                             you didn't enter this email address when signing up for {{ $test->name }} hosted by
                             {{ website('name') ?? title() }}, disregard
                             this message. This email was sent by individual named <a class="o_text-muted"
-                                href="mailto:pierce.b@company.com"
+                                href="mailto:{{ $candidate->email }}"
                                 style="color: #687887;text-decoration: none;outline: none;display: inline-block;"><span
                                     style="color: #262626;">{{ $candidate->name }}</span></a>. </p>
                         <p class="o_text-headline o_text-xxs o_text-muted o_mb"

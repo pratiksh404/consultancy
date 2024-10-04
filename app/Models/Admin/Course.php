@@ -8,6 +8,7 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\SchemaOrg\Schema;
 
 class Course extends Model implements HasMedia
 {
@@ -97,5 +98,27 @@ class Course extends Model implements HasMedia
         $path = 'components.admin.test.result.'.strtolower(str_replace(' ', '-', $this->name));
 
         return view()->exists($path) ? $path : null;
+    }
+
+    public function searchSchema()
+    {
+        $schema = Schema::course()
+            ->name($this->name)
+            ->description($this->excerpt)
+            ->provider(
+                Schema::organization()
+                    ->name(website('name') ?? title())
+                    ->url(route('website.course', ['course' => $this->slug]))
+            )
+            ->courseMode('Physical')
+            ->educationalCredentialAwarded('Certificate')
+            ->hasCourseInstance(
+                Schema::courseInstance()
+                    ->courseMode('Online')
+                    ->location(website('address'))
+                    ->instructor(website('name') ?? title())
+            );
+
+        return $schema;
     }
 }

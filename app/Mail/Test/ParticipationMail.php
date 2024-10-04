@@ -2,9 +2,11 @@
 
 namespace App\Mail\Test;
 
+use App\Models\Admin\Candidate;
+use App\Models\Admin\Test;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -13,12 +15,17 @@ class ParticipationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $test;
+
+    public $candidate;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(Test $test, Candidate $candidate)
     {
-        //
+        $this->test = $test;
+        $this->candidate = $candidate;
     }
 
     /**
@@ -27,7 +34,11 @@ class ParticipationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Participation Mail',
+            from: new Address(env('MAIL_FROM_ADDRESS'), title()),
+            replyTo: [
+                new Address($this->candidate->email),
+            ],
+            subject: 'Thank you for your participation in '.$this->test->name,
         );
     }
 
@@ -37,7 +48,7 @@ class ParticipationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mail.test.participation-mail',
         );
     }
 

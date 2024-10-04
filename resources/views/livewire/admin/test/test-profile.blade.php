@@ -510,7 +510,7 @@
                                     @livewire('admin.system.trix', ['value' => $test->description ?? ''])
                                     <br>
                                     <div class="mt-2">
-                                        <label for="publish_type"><b>Result Publish Type</b></label>
+                                        <label for="publish_type"><b>Result Publish Type (<b>Website</b>)</label>
                                         <ul>
                                             <li><input type="radio" name="publish_type"
                                                     value="{{ \App\Http\Livewire\Admin\Test\TestProfile::TABLE_PUBLISH }}"
@@ -524,9 +524,10 @@
                                         </ul>
                                     </div>
                                     <div class="row">
+                                        <b>Notification</b>
                                         <div class="col-lg-6">
                                             <div class="mt-2">
-                                                <label for="registration_email_status"><b>Registration
+                                                <label for="registration_email_status"><b>Registration Notification
                                                         Email</b></label>
                                                 <ul>
                                                     <li><input type="radio" name="registration_email_status"
@@ -539,7 +540,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mt-2">
-                                                <label for="confirmation_email_status"><b>Confirmation
+                                                <label for="confirmation_email_status"><b>Confirmation Notification
                                                         Email</b></label>
                                                 <ul>
                                                     <li><input type="radio" name="confirmation_email_status"
@@ -552,7 +553,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mt-2">
-                                                <label for="participation_email_status"><b>Participation
+                                                <label for="participation_email_status"><b>Participation Notification
                                                         Email</b></label>
                                                 <ul>
                                                     <li><input type="radio" name="participation_email_status"
@@ -565,7 +566,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mt-2">
-                                                <label for="result_email_status"><b>Result
+                                                <label for="result_email_status"><b>Result Notification
                                                         Email</b></label>
                                                 <ul>
                                                     <li><input type="radio" name="result_email_status"
@@ -576,6 +577,24 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                        @if ($publish_type != \App\Http\Livewire\Admin\Test\TestProfile::PHYSICAL_PUBLISH)
+                                            <div class="col-lg-6">
+                                                <div class="mt-2">
+                                                    <label for="result_email_status"><b>Send Result In
+                                                            Email</b></label>
+                                                    <ul>
+                                                        <li><input type="radio" name="send_result_email"
+                                                                value="1"
+                                                                wire:model.defer="send_result_email">Send
+                                                        </li>
+                                                        <li><input type="radio" name="send_result_email"
+                                                                value="0"
+                                                                wire:model.defer="send_result_email">Don't Send
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                     <hr>
                                     <input type="submit" value="Save" class="btn btn-primary btn-air-primary">

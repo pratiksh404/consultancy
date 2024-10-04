@@ -42,7 +42,7 @@ class Test extends Model
         return LogOptions::defaults();
     }
 
-    protected $appends = ['name', 'marks', 'description', 'publish_type', 'registration_email_status', 'confirmation_email_status', 'participation_email_status', 'result_email_status'];
+    protected $appends = ['name', 'marks', 'description', 'publish_type', 'registration_email_status', 'confirmation_email_status', 'participation_email_status', 'result_email_status', 'send_result_in_email'];
 
     protected $casts = [
         'data' => 'array',
@@ -105,6 +105,11 @@ class Test extends Model
     public function getConfirmationEmailStatusAttribute()
     {
         return $this->data['email']['confirmation']['status'] ?? true;
+    }
+
+    public function getSendResultInEmailAttribute()
+    {
+        return $this->data['email']['send_result_in_email'] ?? false;
     }
 
     public function getMarksAttribute()

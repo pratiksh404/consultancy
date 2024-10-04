@@ -1,8 +1,7 @@
 <?php
 
-use App\Mail\Test\RegistrationMail;
+use App\Mail\Test\ParticipationMail;
 use App\Models\Admin\Test;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,15 +20,9 @@ Route::admineticAuth();
 Route::admin();
 Route::website();
 
-Route::get('/registration-mail', function () {
+Route::get('/participation-mail', function () {
     $test = Test::has('candidates')->first();
     $candidate = $test->candidates()->inRandomOrder()->first();
 
-    $receiver =
-    (object) [
-        'email' => 'pratikdai404@gmail.com',
-        'name' => $candidate->name,
-    ];
-
-    Mail::to($receiver)->send(new RegistrationMail($test, $candidate));
+    return new ParticipationMail($test, $candidate);
 });
