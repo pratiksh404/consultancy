@@ -3,6 +3,7 @@
 namespace App\Models\Admin;
 
 use App\Mail\Test\ConfirmationMail;
+use App\Mail\Test\ParticipationMail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
@@ -105,6 +106,26 @@ class Candidate extends Model
             // Mail To Candidate
             if ($candidate->candidateable->confirmation_email_status ?? true) {
                 Mail::to($receiver)->send(new ConfirmationMail($this->candidateable, $this));
+            }
+        }
+    }
+
+    public function attend()
+    {
+
+        $this->update([
+            'attended' => true,
+        ]);
+
+        $receiver =
+        (object) [
+            'email' => $this->email,
+            'name' => $this->name,
+        ];
+        if ($this->candidateable_type == 'App\Models\Admin\Test') {
+            // Mail To Candidate
+            if ($candidate->candidateable->participation_email_status ?? true) {
+                Mail::to($receiver)->send(new ParticipationMail($this->candidateable, $this));
             }
         }
     }

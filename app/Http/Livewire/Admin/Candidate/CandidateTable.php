@@ -56,7 +56,9 @@ class CandidateTable extends DataTableComponent
 
     public function present()
     {
-        Candidate::whereIn('id', $this->getSelected())->update(['attended' => true]);
+        Candidate::whereIn('id', $this->getSelected())->get()->each(function ($candidate) {
+            $candidate->attend();
+        });
         $this->emit('candidateUpdated');
     }
 

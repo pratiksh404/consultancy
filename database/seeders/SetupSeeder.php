@@ -34,5 +34,7 @@ class SetupSeeder extends Seeder
         Artisan::call('make:permission Test --all --onlyFlags');
         Artisan::call('make:permission University --all --onlyFlags');
         Artisan::call('make:permission Step --all --onlyFlags');
+        Artisan::call('make:permission Team --all --onlyFlags');
+        Artisan::call('make:permission Branch --all --onlyFlags');
     }
 }

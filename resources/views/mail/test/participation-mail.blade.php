@@ -762,9 +762,10 @@
                                                         <td class="o_pbtn o_text-md o_br-max o_bg-white"
                                                             align="center"
                                                             style="padding: 14px 32px;vertical-align: top;background-color: #ffffff;border-radius: 56px;font-size: 18px;line-height: 27px;">
-                                                            <a class="o_text-headline o_text-dark" href="#"
+                                                            <a class="o_text-headline o_text-dark"
+                                                                href="{{ route('website.test', ['test' => $test->code]) }}"
                                                                 style="font-family: Arial,&quot;Helvetica Neue&quot;,Helvetica,sans-serif;word-break: break-word;font-weight: bold;color: #212932;text-decoration: none;outline: none;display: block;"><span
-                                                                    style="color: #212932;">Account Settings</span></a>
+                                                                    style="color: #212932;">My Test</span></a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -782,12 +783,14 @@
                                             </table>
                                             <p class="o_text-xs o_text-sans o_mt-md o_mb-xs o_text-white"
                                                 style="font-family: Arial,&quot;Helvetica Neue&quot;,Helvetica,sans-serif;word-break: break-word;color: #ffffff;margin-top: 24px;margin-bottom: 8px;font-size: 14px;line-height: 21px;">
-                                                For your reference, your username is</p>
+                                                The result will be announced soon.
+                                                <br>Candidate ID
+                                            </p>
                                             <h4 class="o_text-headline"
                                                 style="font-family: Arial,&quot;Helvetica Neue&quot;,Helvetica,sans-serif;word-break: break-word;font-weight: bold;margin-top: 0px;margin-bottom: 0px;font-size: 16px;line-height: 24px;">
                                                 <a class="o_text-white" href="mailto:pierc.b@company.com"
                                                     style="color: #ffffff;text-decoration: none;outline: none;display: inline-block;"><span
-                                                        style="color: #ffffff;">pierc.b@company.com</span></a>
+                                                        style="color: #ffffff;">{{ $candidate->code }}</span></a>
                                             </h4>
                                         </div>
                                     </div>
