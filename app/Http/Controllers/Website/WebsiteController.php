@@ -88,4 +88,12 @@ class WebsiteController extends Controller
 
         return view('mail.test.confirmation-mail', compact('test', 'candidate'));
     }
+
+    public function result(Test $test, Candidate $candidate)
+    {
+        $candidate->verify();
+        $candidate_ids = [$candidate->id];
+
+        return view('admin.layouts.modules.test.results.report_card', compact('test', 'candidate_ids'));
+    }
 }

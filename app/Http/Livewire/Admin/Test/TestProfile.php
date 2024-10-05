@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Admin\Test;
 
 use App\Exports\Admin\Test\ResultTableExport;
+use App\Mail\Test\ResultMail;
+use App\Models\Admin\Candidate;
 use App\Models\Admin\Test;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
@@ -47,10 +50,19 @@ class TestProfile extends Component
 
     const PHYSICAL_PUBLISH = 3;
 
+    // Result In Email
+    const RESULT_TABLE = 1;
+
+    const DOWNLOADABLE_RESULT = 2;
+
+    const DOWNLOADABLE_AND_TABLE_RESULT = 3;
+
+    const RESULT_NOTIFY_ONLY = 4;
+
     public $publish_type = self::TABLE_PUBLISH;
 
     // Email Settings
-    public $send_result_email = false;
+    public $result_in_email = self::RESULT_TABLE;
 
     // Confirmation Email
     public $registration_notification_email = true;
@@ -73,6 +85,14 @@ class TestProfile extends Component
         $this->test = $test;
         $this->marks = $test->marks;
         $this->description = $test->description;
+
+        $this->publish_type = $test->publish_type ?? self::TABLE_PUBLISH;
+
+        $this->result_in_email = $test->result_in_email ?? self::RESULT_TABLE;
+        $this->registration_notification_email = $test->registration_notification_email ?? true;
+        $this->confirmation_notification_email = $test->confirmation_notification_email ?? true;
+        $this->participation_notification_email = $test->participation_notification_email ?? true;
+        $this->result_notification_email = $test->result_notification_email ?? true;
     }
 
     public function trix_value_updated($value)
@@ -173,7 +193,7 @@ class TestProfile extends Component
         $data['email']['participation']['status'] = $this->participation_notification_email ?? true;
         $data['email']['result']['status'] = $this->result_notification_email ?? true;
         $data['email']['confirmation']['status'] = $this->confirmation_notification_email ?? true;
-        $data['email']['send_result_in_email'] = $this->publish_type != self::PHYSICAL_PUBLISH ? $this->send_result_email : false;
+        $data['email']['result_in_email'] = $this->publish_type != self::PHYSICAL_PUBLISH ? $this->result_in_email : self::RESULT_NOTIFY_ONLY;
         $this->test->update([
             'data' => $data,
         ]);
@@ -184,6 +204,22 @@ class TestProfile extends Component
         return $this->test->update([
             'is_published' => ! $this->test->is_published,
         ]);
+    }
+
+    public function dispatchResultEmail()
+    {
+        $test = $this->test;
+        $candidates = Candidate::whereIn('id', array_keys(collect($test->marks)->filter(fn ($m) => ! is_null($m['overall']))->toArray()))->get();
+        if ($candidates->count() > 0) {
+            foreach ($candidates as $candidate) {
+                $receiver =
+                (object) [
+                    'email' => $candidate->email,
+                    'name' => $candidate->name,
+                ];
+                Mail::to($receiver)->send(new ResultMail($this->test, $candidate));
+            }
+        }
     }
 
     public function render()

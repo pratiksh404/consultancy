@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Http\Livewire\Admin\Test\TestProfile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Activitylog\LogOptions;
@@ -42,7 +43,7 @@ class Test extends Model
         return LogOptions::defaults();
     }
 
-    protected $appends = ['name', 'marks', 'description', 'publish_type', 'registration_notification_email', 'confirmation_notification_email', 'participation_notification_email', 'result_notification_email', 'send_result_in_email'];
+    protected $appends = ['name', 'marks', 'description', 'publish_type', 'registration_notification_email', 'confirmation_notification_email', 'participation_notification_email', 'result_notification_email', 'result_in_email'];
 
     protected $casts = [
         'data' => 'array',
@@ -107,9 +108,9 @@ class Test extends Model
         return $this->data['email']['confirmation']['status'] ?? true;
     }
 
-    public function getSendResultInEmailAttribute()
+    public function getResultInEmailAttribute()
     {
-        return $this->data['email']['send_result_in_email'] ?? false;
+        return $this->data['email']['result_in_email'] ?? TestProfile::DOWNLOADABLE_AND_TABLE_RESULT;
     }
 
     public function getMarksAttribute()

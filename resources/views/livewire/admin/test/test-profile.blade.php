@@ -80,6 +80,17 @@
                     style="width: 100%">{{ $test->is_published ? 'Unpublish' : 'Publish' }} The
                     Results</button>
             @endif
+            @if ($test->is_published && $result_notification_email)
+                <div wire:loading.remove wire:target="dispatchResultEmail">
+                    <button type="button" style="width: 100%" wire:click="dispatchResultEmail"
+                        class="btn btn-primary btn-air-primary">Dispatch
+                        Result Email</button>
+                </div>
+                <div wire:loading wire:target="dispatchResultEmail">
+                    <button type="button" disabled style="width: 100%" class="btn btn-primary btn-air-primary">Sending
+                        Emails ... <i class="fa fa-spiner fa-spin"></i></button>
+                </div>
+            @endif
             <div class="card">
                 <div class="card-body shadow-lg p-2">
                     <img src="{{ $test->course->thumbnail }}" alt="{{ $test->course->thumbnail }}" class="img-fluid">
@@ -594,16 +605,26 @@
                                         @if ($publish_type != \App\Http\Livewire\Admin\Test\TestProfile::PHYSICAL_PUBLISH)
                                             <div class="col-lg-6">
                                                 <div class="mt-2">
-                                                    <label for="result_notification_email"><b>Send Result In
+                                                    <label for="result_notification_email"><b>Result In
                                                             Email</b></label>
                                                     <ul>
-                                                        <li><input type="radio" name="send_result_email"
-                                                                value="1"
-                                                                wire:model.defer="send_result_email">Send
+                                                        <li><input type="radio" name="result_in_email"
+                                                                value="{{ \App\Http\Livewire\Admin\Test\TestProfile::RESULT_TABLE }}"
+                                                                wire:model.defer="result_in_email">Table Structured
+                                                            Result
                                                         </li>
-                                                        <li><input type="radio" name="send_result_email"
-                                                                value="0"
-                                                                wire:model.defer="send_result_email">Don't Send
+                                                        <li><input type="radio" name="result_in_email"
+                                                                value="{{ \App\Http\Livewire\Admin\Test\TestProfile::DOWNLOADABLE_RESULT }}"
+                                                                wire:model.defer="result_in_email">Downloadable Result
+                                                        </li>
+                                                        <li><input type="radio" name="result_in_email"
+                                                                value="{{ \App\Http\Livewire\Admin\Test\TestProfile::DOWNLOADABLE_AND_TABLE_RESULT }}"
+                                                                wire:model.defer="result_in_email">Downloadable and
+                                                            Table Result
+                                                        </li>
+                                                        <li><input type="radio" name="result_in_email"
+                                                                value="{{ \App\Http\Livewire\Admin\Test\TestProfile::RESULT_NOTIFY_ONLY }}"
+                                                                wire:model.defer="result_in_email">Result Notify Only
                                                         </li>
                                                     </ul>
                                                 </div>

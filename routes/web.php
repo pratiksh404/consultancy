@@ -1,6 +1,6 @@
 <?php
 
-use App\Mail\Test\ParticipationMail;
+use App\Mail\Test\ResultMail;
 use App\Models\Admin\Test;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +20,9 @@ Route::admineticAuth();
 Route::admin();
 Route::website();
 
-Route::get('/participation-mail', function () {
-    $test = Test::has('candidates')->first();
-    $candidate = $test->candidates()->inRandomOrder()->first();
+Route::get('/result-mail', function () {
+    $test = Test::has('candidates')->latest()->first();
+    $candidate = $test->candidates()->where('attended', true)->first();
 
-    return new ParticipationMail($test, $candidate);
+    return new ResultMail($test, $candidate);
 });
