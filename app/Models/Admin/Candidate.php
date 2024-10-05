@@ -104,7 +104,7 @@ class Candidate extends Model
             ]);
 
             // Mail To Candidate
-            if ($candidate->candidateable->confirmation_email_status ?? true) {
+            if ($candidate->candidateable->confirmation_notification_email ?? true) {
                 Mail::to($receiver)->send(new ConfirmationMail($this->candidateable, $this));
             }
         }
@@ -124,7 +124,7 @@ class Candidate extends Model
         ];
         if ($this->candidateable_type == 'App\Models\Admin\Test') {
             // Mail To Candidate
-            if ($candidate->candidateable->participation_email_status ?? true) {
+            if ($candidate->candidateable->participation_notification_email ?? true) {
                 Mail::to($receiver)->send(new ParticipationMail($this->candidateable, $this));
             }
         }

@@ -527,52 +527,66 @@
                                         <b>Notification</b>
                                         <div class="col-lg-6">
                                             <div class="mt-2">
-                                                <label for="registration_email_status"><b>Registration Notification
+                                                <label for="registration_notification_email"><b>Registration
+                                                        Notification
                                                         Email</b></label>
                                                 <ul>
-                                                    <li><input type="radio" name="registration_email_status"
-                                                            value="1" wire:model.defer="publish_type">Active</li>
-                                                    <li><input type="radio" name="registration_email_status"
-                                                            value="0" wire:model.defer="publish_type">Inactive
+                                                    <li><input type="radio" name="registration_notification_email"
+                                                            value="1"
+                                                            wire:model.defer="registration_notification_email">Active
+                                                    </li>
+                                                    <li><input type="radio" name="registration_notification_email"
+                                                            value="0"
+                                                            wire:model.defer="registration_notification_email">Inactive
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mt-2">
-                                                <label for="confirmation_email_status"><b>Confirmation Notification
+                                                <label for="confirmation_notification_email"><b>Confirmation
+                                                        Notification
                                                         Email</b></label>
                                                 <ul>
-                                                    <li><input type="radio" name="confirmation_email_status"
-                                                            value="1" wire:model.defer="publish_type">Active</li>
-                                                    <li><input type="radio" name="confirmation_email_status"
-                                                            value="0" wire:model.defer="publish_type">Inactive
+                                                    <li><input type="radio" name="confirmation_notification_email"
+                                                            value="1"
+                                                            wire:model.defer="confirmation_notification_email">Active
+                                                    </li>
+                                                    <li><input type="radio" name="confirmation_notification_email"
+                                                            value="0"
+                                                            wire:model.defer="confirmation_notification_email">Inactive
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mt-2">
-                                                <label for="participation_email_status"><b>Participation Notification
+                                                <label for="participation_notification_email"><b>Participation
+                                                        Notification
                                                         Email</b></label>
                                                 <ul>
-                                                    <li><input type="radio" name="participation_email_status"
-                                                            value="1" wire:model.defer="publish_type">Active</li>
-                                                    <li><input type="radio" name="participation_email_status"
-                                                            value="0" wire:model.defer="publish_type">Inactive
+                                                    <li><input type="radio" name="participation_notification_email"
+                                                            value="1"
+                                                            wire:model.defer="participation_notification_email">Active
+                                                    </li>
+                                                    <li><input type="radio" name="participation_notification_email"
+                                                            value="0"
+                                                            wire:model.defer="participation_notification_email">Inactive
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mt-2">
-                                                <label for="result_email_status"><b>Result Notification
+                                                <label for="result_notification_email"><b>Result Notification
                                                         Email</b></label>
                                                 <ul>
-                                                    <li><input type="radio" name="result_email_status"
-                                                            value="1" wire:model.defer="publish_type">Active</li>
-                                                    <li><input type="radio" name="result_email_status"
-                                                            value="0" wire:model.defer="publish_type">Inactive
+                                                    <li><input type="radio" name="result_notification_email"
+                                                            value="1"
+                                                            wire:model.defer="result_notification_email">Active</li>
+                                                    <li><input type="radio" name="result_notification_email"
+                                                            value="0"
+                                                            wire:model.defer="result_notification_email">Inactive
                                                     </li>
                                                 </ul>
                                             </div>
@@ -580,7 +594,7 @@
                                         @if ($publish_type != \App\Http\Livewire\Admin\Test\TestProfile::PHYSICAL_PUBLISH)
                                             <div class="col-lg-6">
                                                 <div class="mt-2">
-                                                    <label for="result_email_status"><b>Send Result In
+                                                    <label for="result_notification_email"><b>Send Result In
                                                             Email</b></label>
                                                     <ul>
                                                         <li><input type="radio" name="send_result_email"

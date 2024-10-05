@@ -34,7 +34,7 @@ class CandidateObserver
                 ]);
 
                 // Mail To Candidate
-                if ($candidate->candidateable->confirmation_email_status ?? true) {
+                if ($candidate->candidateable->confirmation_notification_email ?? true) {
                     Mail::to($receiver)->send(new ConfirmationMail($candidate->candidateable, $candidate));
                 }
             } else {
@@ -46,7 +46,7 @@ class CandidateObserver
                 ]);
 
                 // Mail To Candidate
-                if ($candidate->candidateable->registration_email_status ?? true) {
+                if ($candidate->candidateable->registration_notification_email ?? true) {
                     Mail::to($receiver)->send(new RegistrationMail($candidate->candidateable, $candidate));
                 }
             }

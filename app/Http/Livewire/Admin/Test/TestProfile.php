@@ -53,13 +53,13 @@ class TestProfile extends Component
     public $send_result_email = false;
 
     // Confirmation Email
-    public $registration_email_status = true;
+    public $registration_notification_email = true;
 
-    public $confirmation_email_status = true;
+    public $confirmation_notification_email = true;
 
-    public $participation_email_status = true;
+    public $participation_notification_email = true;
 
-    public $result_email_status = true;
+    public $result_notification_email = true;
 
     protected $listeners = [
         'candidateUpdated' => '$refresh',
@@ -169,10 +169,10 @@ class TestProfile extends Component
         $data = $this->test->data;
         $data['description'] = $this->description;
         $data['publish_type'] = $this->publish_type ?? self::TABLE_PUBLISH;
-        $data['email']['registration']['status'] = $this->registration_email_status ?? true;
-        $data['email']['participation']['status'] = $this->participation_email_status ?? true;
-        $data['email']['result']['status'] = $this->result_email_status ?? true;
-        $data['email']['confirmation']['status'] = $this->confirmation_email_status ?? true;
+        $data['email']['registration']['status'] = $this->registration_notification_email ?? true;
+        $data['email']['participation']['status'] = $this->participation_notification_email ?? true;
+        $data['email']['result']['status'] = $this->result_notification_email ?? true;
+        $data['email']['confirmation']['status'] = $this->confirmation_notification_email ?? true;
         $data['email']['send_result_in_email'] = $this->publish_type != self::PHYSICAL_PUBLISH ? $this->send_result_email : false;
         $this->test->update([
             'data' => $data,
