@@ -10,8 +10,10 @@ use App\Models\Admin\Gallery;
 use App\Models\Admin\Page;
 use App\Models\Admin\Partner;
 use App\Models\Admin\Popup;
+use App\Models\Admin\Post;
 use App\Models\Admin\Service;
 use App\Models\Admin\Step;
+use App\Models\Admin\Test;
 use App\Models\Admin\Testimonial;
 use App\Models\Admin\University;
 use App\Models\Admin\Visa;
@@ -20,6 +22,7 @@ use Illuminate\Support\Facades\Cache;
 use Pratiksh\Adminetic\Models\Admin\Data;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\OpeningHours\OpeningHours;
+use Spatie\SchemaOrg\Schema;
 
 if (! function_exists('website')) {
     function website($keyword)
@@ -28,7 +31,100 @@ if (! function_exists('website')) {
     }
 }
 
+if (! function_exists('website_schema')) {
+    function website_schema()
+    {
+        $todays_business_hour = todays_business_hour();
+        $schema = Schema::localBusiness()
+            ->name(website('name') ?? title())
+            ->description(website('short_description') ?? description())
+            ->url(route('website.home'))
+            ->telephone(website('phone'))
+            ->email(website('email'))
+            ->address(
+                Schema::postalAddress()
+                    ->streetAddress(website('address'))
+                    ->addressLocality('Kathmandu')
+                    ->addressRegion('KTM')
+                    ->postalCode('44800')
+                    ->addressCountry('NP')
+            )
+            ->sameAs(website('social_media.facebook'))
+            ->openingHoursSpecification(
+                Schema::openingHoursSpecification()
+                    ->dayOfWeek(array_keys(business_hour()))
+                    ->opens($todays_business_hour ? $todays_business_hour->start()->format('H:i') : '09:00')
+                    ->closes($todays_business_hour ? $todays_business_hour->end()->format('H:i') : '17:00')
+            )
+            ->contactPoint(
+                Schema::contactPoint()
+                    ->telephone(website('phone'))
+                    ->contactType('Customer Service')
+                    ->areaServed('Nepal')
+                    ->availableLanguage('Nepali')
+            );
+
+        if (services()->count() > 0) {
+            foreach (services() as $service) {
+                $schema->service(
+                    Schema::service()
+                        ->name($service->name)
+                        ->description($service->excerpt)
+                        ->provider(Schema::organization()->name($service->name))
+                );
+            }
+        }
+
+        $posts = Cache::has('website_posts') ? Cache::get('website_posts') : Cache::rememberForever('website_posts', function () {
+            return Post::with('author')->published()->position()->get();
+        });
+
+        if ($posts->count() > 0) {
+            foreach ($posts as $post) {
+                $schema->headline($post->name)
+                    ->author($post->author->name)
+                    ->datePublished($post->created_at->format('Y-m-d'))
+                    ->description($post->excerpt)
+                    ->url(route('website.post', ['post' => $post->slug]))
+                    ->articleBody($post->description)
+                    ->image($post->getFirstMediaUrl('image'));
+            }
+        }
+
+        if (courses()->count() > 0) {
+            foreach (courses() as $course) {
+                $schema->course(
+                    Schema::course()
+                        ->name($course->name)
+                        ->description($course->excerpt)
+                        ->provider(Schema::organization()->name($course->name))
+                );
+            }
+        }
+
+        if (testimonials()->count() > 0) {
+            foreach (testimonials() as $testimonial) {
+                $schema->review(
+                    $testimonial->searchSchema(),
+                );
+            }
+        }
+
+        return $schema;
+    }
+}
+
 // DB Data
+if (! function_exists('tests')) {
+    function tests()
+    {
+        return Cache::has('website_tests')
+        ? Cache::get('website_tests')
+        : Cache::rememberForever('website_tests', function () {
+            return Test::notExpired()->latest()->get();
+        });
+    }
+}
 if (! function_exists('pages')) {
     function pages()
     {
@@ -75,7 +171,8 @@ if (! function_exists('todays_business_hour')) {
     function todays_business_hour()
     {
         $business_hours = OpeningHours::create(business_hour());
-        $todays_business_hours = $business_hours->currentOpenRange(Carbon::now());
+
+        return $business_hours->currentOpenRange(Carbon::now());
     }
 }
 

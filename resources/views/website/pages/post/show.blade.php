@@ -1,4 +1,13 @@
-@extends('website.layouts.app')
+@extends('website.layouts.app', [
+    'title' => $post->meta_name ?? $post->name,
+    'description' => $post->meta_description ?? website('short_description'),
+    'keywords' => $post->meta_keywords ?? website('keywords'),
+    'image' => $post->image,
+])
+
+@section('schema_org')
+    {!! $post->searchSchema() !!}
+@endsection
 
 @section('content')
     <x-website.breadcrumb :menus="[

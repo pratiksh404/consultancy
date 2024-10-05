@@ -1,4 +1,13 @@
-@extends('website.layouts.app')
+@extends('website.layouts.app', [
+    'title' => $service->meta_name ?? $service->name,
+    'description' => $service->meta_description ?? website('short_description'),
+    'keywords' => $service->meta_keywords ?? website('keywords'),
+    'image' => $service->thumbnail,
+])
+
+@section('schema_org')
+    {!! $service->searchSchema() !!}
+@endsection
 
 @section('custom_css')
     @include('website.layouts.assets.show_page_style')

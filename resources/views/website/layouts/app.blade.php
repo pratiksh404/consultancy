@@ -11,6 +11,10 @@
     @include('website.layouts.assets.links')
     {{-- Links End --}}
     @yield('custom_css')
+    {{-- Start Schema Org --}}
+    {!! website_schema() !!}
+    @yield('schema_org')
+    {{-- End Schema Org --}}
 </head>
 
 <body>

@@ -1,4 +1,11 @@
-@extends('website.layouts.app')
+@extends('website.layouts.app',[
+    'title' => $testimonial->name ' Testimonial',
+])
+
+@section('schema_org')
+    {!! $testimonial->searchSchema() !!}
+@endsection
+
 
 @section('content')
     <x-website.breadcrumb :menus="[

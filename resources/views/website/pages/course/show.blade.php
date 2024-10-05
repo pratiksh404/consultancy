@@ -1,4 +1,13 @@
-@extends('website.layouts.app')
+@extends('website.layouts.app', [
+    'title' => $course->meta_name ?? $course->name,
+    'description' => $course->meta_description ?? website('short_description'),
+    'keywords' => $course->meta_keywords ?? website('keywords'),
+    'image' => $course->thumbnail,
+])
+
+@section('schema_org')
+    {!! $course->searchSchema() !!}
+@endsection
 
 @section('custom_css')
     @include('website.layouts.assets.show_page_style')

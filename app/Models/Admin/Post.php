@@ -37,7 +37,7 @@ class Post extends Model implements HasMedia
     private static function cacheKey()
     {
         Cache::has('posts') ? Cache::forget('posts') : '';
-        Cache::has('home_posts') ? Cache::forget('home_posts') : '';
+        Cache::has('website_posts') ? Cache::forget('website_posts') : '';
 
     }
 

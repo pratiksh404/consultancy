@@ -1,4 +1,8 @@
-@extends('website.layouts.app')
+@extends('website.layouts.app', [
+    'title' => $country->meta_name ?? $country->name,
+    'description' => $country->meta_description ?? website('short_description'),
+    'keywords' => $country->meta_keywords ?? website('keywords'),
+])
 
 @section('custom_css')
     <style>
