@@ -1,7 +1,5 @@
 <?php
 
-use App\Mail\Test\ResultMail;
-use App\Models\Admin\Test;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +17,14 @@ Route::admineticAuth();
 
 Route::admin();
 Route::website();
+Route::get('/robots.txt', function () {
+    $content = "User-agent: *\n";
+    $content .= "Disallow: /admin/\n";
+    $content .= "Disallow: /login/\n";
+    $content .= "Disallow: /register/\n";
+    $content .= 'Sitemap: '.url('/sitemap.xml')."\n";
 
-Route::get('/result-mail', function () {
-    $test = Test::has('candidates')->latest()->first();
-    $candidate = $test->candidates()->where('attended', true)->first();
-
-    return new ResultMail($test, $candidate);
+    return response($content, 200, [
+        'Content-Type' => 'text/plain',
+    ]);
 });
