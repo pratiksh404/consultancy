@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Admin\Category;
 
 use App\Models\Admin\Category;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -30,7 +29,7 @@ class QuickCategory extends Component
 
     public function __construct($model = null, $attribute = 'category_id', $category_id = null, $label = 'Category')
     {
-        $this->parent_categories = Cache::get('parent_categories', Category::whoIsParent()->position()->get());
+        $this->parent_categories = Category::whoIsParent()->where('model', $model)->position()->get();
         $this->model = $model;
         $this->attribute = $attribute;
         $this->category_id = $category_id;

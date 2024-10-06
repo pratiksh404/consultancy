@@ -29,6 +29,8 @@
         </div>
         <div class="left-header col horizontal-wrapper ps-0">
             <ul class="horizontal-menu">
+                <a href="{{ route('website.home') }}" class="btn btn-primary btn-air-primary"
+                    target="_blank">Website</a>
                 @if (config('adminetic.mega_menu', false))
                     <li class="mega-menu outside"><a class="nav-link" href="#!"><i
                                 data-feather="layers"></i><span>Mega

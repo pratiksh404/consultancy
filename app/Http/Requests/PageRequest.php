@@ -46,6 +46,7 @@ class PageRequest extends FormRequest
             'featured' => 'sometimes|boolean',
             'position' => 'nullable|numeric',
             'icon' => 'nullable|max:255',
+            'data' => 'nullable',
             'color' => 'nullable|max:255',
             'meta_name' => 'nullable|max:100',
             'meta_description' => 'nullable|max:255',

@@ -48,7 +48,20 @@ class Page extends Model implements HasMedia
         'data' => 'array',
     ];
 
-    protected $appends = ['image'];
+    protected $appends = ['thumbnail', 'downloads', 'parent_page'];
+
+    // Accessors
+    public function getParentPageAttribute()
+    {
+        $id = $this->data['parent_page'] ?? null;
+
+        return Page::find($id);
+    }
+
+    public function getDownloadsAttribute()
+    {
+        return $this->getMedia('downloads');
+    }
 
     // Relationships
     public function category()
@@ -72,8 +85,14 @@ class Page extends Model implements HasMedia
         return $qry->where('featured', 1);
     }
 
-    public function getImageAttribute()
+    public function getThumbnailAttribute()
     {
-        return ! is_null($this->getFirstMedia('image')) ? $this->getFirstMediaUrl('image') : null;
+        return ! is_null($this->getFirstMedia('thumbnail')) ? $this->getFirstMediaUrl('thumbnail') : null;
+    }
+
+    // Helper Function
+    public function subPages()
+    {
+        return Page::active()->position()->where('data->parent_page', $this->id)->get();
     }
 }

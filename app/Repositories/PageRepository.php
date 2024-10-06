@@ -24,7 +24,9 @@ class PageRepository implements PageRepositoryInterface
     // Page Create
     public function createPage()
     {
-        //
+        $parent_pages = Page::latest()->get();
+
+        return compact('parent_pages');
     }
 
     // Page Store
@@ -43,7 +45,9 @@ class PageRepository implements PageRepositoryInterface
     // Page Edit
     public function editPage(Page $page)
     {
-        return compact('page');
+        $parent_pages = Page::where('id', '!=', $page->id)->latest()->get();
+
+        return compact('page', 'parent_pages');
     }
 
     // Page Update
@@ -62,15 +66,20 @@ class PageRepository implements PageRepositoryInterface
     // Upload Image
     private function uploadImage(Page $page)
     {
-        if (request()->has('image')) {
+        if (request()->has('thumbnail')) {
             $page
-                ->addFromMediaLibraryRequest(request()->image)
-                ->toMediaCollection('image');
+                ->addFromMediaLibraryRequest(request()->thumbnail)
+                ->toMediaCollection('thumbnail');
         }
-        if (request()->has('icon_image')) {
+        if (request()->has('downloads')) {
             $page
-                ->addFromMediaLibraryRequest(request()->icon_image)
-                ->toMediaCollection('icon_image');
+                ->addFromMediaLibraryRequest(request()->downloads)
+                ->toMediaCollection('downloads');
+        }
+        if (request()->has('images')) {
+            $page
+                ->addFromMediaLibraryRequest(request()->images)
+                ->toMediaCollection('images');
         }
     }
 }

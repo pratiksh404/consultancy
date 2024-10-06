@@ -69,6 +69,14 @@ class WebsiteController extends Controller
         return view('website.pages.others.page', compact('page'));
     }
 
+    // Page
+    public function sub_page(Page $page, Page $sub_page)
+    {
+        $page = $sub_page;
+
+        return view('website.pages.others.page', compact('page'));
+    }
+
     //Post
     public function posts()
     {
