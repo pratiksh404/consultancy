@@ -20,6 +20,9 @@
                     <label>Course's Gallery Images</label> <br>
                     @livewire('admin.system.upload-image', ['model' => $course ?? null, 'attribute' => 'images', 'multiple' => true])
                 </div>
+                <div class="mt-2">
+                    @livewire('admin.counter.appended-counter', ['counters' => $course->counters ?? null])
+                </div>
             </div>
         </div>
         <div class="card">

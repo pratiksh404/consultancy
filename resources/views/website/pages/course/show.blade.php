@@ -23,11 +23,37 @@
         ],
     ]" :title="$course->name" />
 
-    <section class="coaching-single pt-120 pb-130" x-data="{ menu: 'introduction' }" x-cloak>
+    <section class="about pos-rel pt-120">
+        <div class="container">
+            <div class="sec-title sec-title--big style-2">
+                <span class="sec-title--sub"><img src="{{ asset('website/assets/img/icon/h_star.png') }}" alt="">We
+                    Provde<img src="{{ asset('website/assets/img/icon/h_star.png') }}" alt=""></span>
+                <h3 class="sec-title--heading mb-5">{{ $course->name }} <br> Classes and Mock Tests
+                </h3>
+                <p>{{ $course->excerpt }}</p>
+            </div>
+        </div>
+        <div class="about-shape">
+            <div class="shape shape--1">
+                <div class="shape-inner" data-parallax="{&quot;x&quot;:-50,&quot;y&quot;:-80}"
+                    style="transform:translate3d(-23.829px, -38.127px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(-23.829px, -38.127px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                    <img src="{{ asset('website/assets/img/shape/a_shape1.png') }}" alt="">
+                </div>
+            </div>
+            <div class="shape shape--2">
+                <div class="shape-inner" data-parallax="{&quot;x&quot;:50,&quot;y&quot;:-80}"
+                    style="transform:translate3d(23.859px, -38.127px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(23.859px, -38.127px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                    <img src="{{ asset('website/assets/img/shape/a_shape2.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="coaching-single pt-20 pb-130" x-data="{ menu: 'introduction' }" x-cloak>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="sidebar-widget">
+                        <img src="{{ asset('website/assets/img/about/about_img2.png') }}" alt="">
                         <div class="widget">
                             <ul class="widget-category list-unstyled">
 
@@ -104,7 +130,11 @@
                             </div>
                         @endif
                         <p>
-                            {!! $course->description !!}
+                            @if (view()->exists('website.pages.course.custom.' . $course->slug))
+                                @include('website.pages.course.custom.' . $course->slug)
+                            @else
+                                {!! $course->description !!}
+                            @endif
                         </p>
                         @if (count($course->counters ?? []) > 0)
                             <div class="row mt-none-30 mb-80 d-flex justify-content-around">
@@ -123,26 +153,6 @@
                                     </div>
                                 @endforeach
                             </div>
-                        @endif
-                        @if (steps()->count() > 0)
-                            <h3>How {{ $course->name }} work</h3>
-                            <ul class="about-list ul_li list-unstyled">
-                                @foreach (steps() as $step)
-                                    <li>
-                                        <div class="xb-item--inner">
-                                            <div
-                                                class="xb-item--number color-{{ !$loop->first ? ($loop->iteration <= 4 ? $loop->iteration : ($loop->iteration % 4 == 1 ? 1 : $loop->iteration % 4)) : '' }}">
-                                                1</div>
-                                            <div class="xb-item--holder">
-                                                <h3 class="xb-item--title mb-10">{{ $step->name }}</h3>
-                                                <div class="xb-item--description">
-                                                    {{ $step->excerpt }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
                         @endif
                     </div>
                     <div class="single-content" x-show="menu == 'tests'">
