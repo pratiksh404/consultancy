@@ -23,6 +23,9 @@
                 <div class="mt-2">
                     @livewire('admin.counter.appended-counter', ['counters' => $course->counters ?? null])
                 </div>
+                <div class="mt-2">
+                    @livewire('admin.faq.appended-faq', ['faqs' => $course->faqs ?? null])
+                </div>
             </div>
         </div>
         <div class="card">

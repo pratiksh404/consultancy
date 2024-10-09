@@ -49,11 +49,16 @@ class Course extends Model implements HasMedia
         'data' => 'array',
     ];
 
-    protected $appends = ['thumbnail', 'sections', 'downloads', 'counters'];
+    protected $appends = ['thumbnail', 'sections', 'downloads', 'counters', 'faqs'];
 
     public function getCountersAttribute()
     {
         return $this->data['counters'] ?? null;
+    }
+
+    public function getFaqsAttribute()
+    {
+        return $this->data['faqs'] ?? null;
     }
 
     public function getThumbnailAttribute()

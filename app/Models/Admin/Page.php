@@ -48,9 +48,18 @@ class Page extends Model implements HasMedia
         'data' => 'array',
     ];
 
-    protected $appends = ['thumbnail', 'downloads', 'parent_page'];
+    protected $appends = ['thumbnail', 'downloads', 'parent_page', 'counters', 'faqs'];
 
-    // Accessors
+    public function getCountersAttribute()
+    {
+        return $this->data['counters'] ?? null;
+    }
+
+    public function getFaqsAttribute()
+    {
+        return $this->data['faqs'] ?? null;
+    }
+
     public function getParentPageAttribute()
     {
         $id = $this->data['parent_page'] ?? null;

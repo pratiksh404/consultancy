@@ -15,6 +15,12 @@
                     <label>Page's Gallery Images</label> <br>
                     @livewire('admin.system.upload-image', ['model' => $page ?? null, 'attribute' => 'images', 'multiple' => true])
                 </div>
+                <div class="mt-2">
+                    @livewire('admin.counter.appended-counter', ['counters' => $page->counters ?? null])
+                </div>
+                <div class="mt-2">
+                    @livewire('admin.faq.appended-faq', ['faqs' => $page->faqs ?? null])
+                </div>
                 <br>
                 <div class="row">
                     <div class="col-12 mt-3">
@@ -50,7 +56,7 @@
                 <div class="mt-2">
                     <label for="parent_page">Parent Page</label>
                     <div class="input-group">
-                        <select name="data[parent_page]" id="parent_page" id="parent_page" class="form-control">
+                        <select name="data[parent_page]" id="parent_page" id="parent_page" class="select2 form-control">
                             <option value="">None</option>
                             @foreach ($parent_pages as $parent_page)
                                 <option value="{{ $parent_page->id }}"

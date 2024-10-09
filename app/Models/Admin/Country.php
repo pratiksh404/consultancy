@@ -44,7 +44,7 @@ class Country extends Model implements HasMedia
         return LogOptions::defaults();
     }
 
-    protected $appends = ['flag', 'description', 'counters', 'downloads'];
+    protected $appends = ['flag', 'description', 'counters', 'downloads', 'faqs'];
 
     protected $casts = [
         'data' => 'array',
@@ -54,6 +54,11 @@ class Country extends Model implements HasMedia
     public function getDownloadsAttribute()
     {
         return $this->getMedia('downloads');
+    }
+
+    public function getFaqsAttribute()
+    {
+        return $this->data['faqs'] ?? null;
     }
 
     public function getCountersAttribute()

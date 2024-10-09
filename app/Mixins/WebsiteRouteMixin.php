@@ -50,7 +50,7 @@ class WebsiteRouteMixin
                     Route::get('/about-us', [WebsiteController::class, 'about_us'])->name('about_us');
                     Route::view('/contact-us', 'website.pages.others.contact')->name('contact_us');
                     Route::get('/page/{page:slug}', [WebsiteController::class, 'page'])->name('page');
-                    Route::get('/page/{page:slug}/{page:slug}', [WebsiteController::class, 'sub_page'])->name('page.sub-page');
+                    Route::get('/page/{page:slug}/{sub_page}', [WebsiteController::class, 'sub_page'])->name('page.sub-page');
 
                     Route::get('/mock-test-result/{test:code}/{candidate:code}', [WebsiteController::class, 'result'])->name('test.result');
 

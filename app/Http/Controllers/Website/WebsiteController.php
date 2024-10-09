@@ -66,15 +66,15 @@ class WebsiteController extends Controller
     // Page
     public function page(Page $page)
     {
-        return view('website.pages.others.page', compact('page'));
+        return view('website.pages.page.show', compact('page'));
     }
 
     // Page
-    public function sub_page(Page $page, Page $sub_page)
+    public function sub_page(Page $page, $sub_page)
     {
-        $page = $sub_page;
+        $page = Page::where('slug', $sub_page)->first();
 
-        return view('website.pages.others.page', compact('page'));
+        return view('website.pages.page.show', compact('page'));
     }
 
     //Post

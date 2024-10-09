@@ -22,7 +22,7 @@
                         <li><img src="{{ asset('website/assets/img/icon/time.svg') }}" alt="">
                             <b> {{ \Carbon\Carbon::now()->format('l') }} : </b>
                             @if ($todays_business_hours)
-                                <span class="text-light">
+                                <span class="text-success">
                                     {{ $todays_business_hours->start()->format('H:i') }} -
                                     {{ $todays_business_hours->end()->format('H:i') }}
                                 </span>
@@ -103,7 +103,7 @@
                                         <li><a href="{{ route('website.posts') }}"><span>Article & News</span></a>
                                         </li>
                                         @if ((pages()->count() ?? 0) > 0)
-                                            @foreach (pages() as $heading_page)
+                                            @foreach (pages()->filter(fn($p) => is_null($p->parent_page)) as $heading_page)
                                                 <li><a
                                                         href="{{ route('website.page', ['page' => $heading_page->slug]) }}"><span>{{ $heading_page->name }}</span></a>
                                                 </li>
@@ -220,7 +220,7 @@
                                     <li class="menu-item"><a href="{{ route('website.posts') }}"><span>Article &
                                                 News</span></a></li>
                                     @if ((pages()->count() ?? 0) > 0)
-                                        @foreach (pages() as $heading_page)
+                                        @foreach (pages()->filter(fn($p) => is_null($p->parent_page)) as $heading_page)
                                             <li class="menu-item"><a
                                                     href="{{ route('website.page', ['page' => $heading_page->slug]) }}"><span>{{ $heading_page->name }}</span></a>
                                             </li>

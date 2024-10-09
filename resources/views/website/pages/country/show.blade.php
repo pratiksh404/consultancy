@@ -36,93 +36,131 @@
     ]" :title="$country->name" />
     <section class="coaching-single pt-120 pb-130">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="sidebar-widget">
-                        @if (countries()->count() > 0)
-                            <div class="widget">
-                                <ul class="widget-category list-unstyled">
-                                    @foreach (countries() as $side_menu_country)
-                                        <li><a class="{{ $country->id == $side_menu_country->id ? 'active' : '' }}"
-                                                href="{{ route('website.country', $side_menu_country->slug) }}">{{ $side_menu_country->name }}<span><img
-                                                        src="{{ $side_menu_country->flag }}" alt=""></span></a></li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+            <div class="sidebar-widget">
+                @if (countries()->count() > 0)
+                    <div class="widget" style="width: 100vw;overflow-x:auto">
+                        <ul class="widget-category list-unstyled d-flex justify-content-start">
+                            @foreach (countries() as $side_menu_country)
+                                <li class="mx-2"><a class="{{ $country->id == $side_menu_country->id ? 'active' : '' }}"
+                                        style="white-space: nowrap"
+                                        href="{{ route('website.country', $side_menu_country->slug) }}">{{ $side_menu_country->name }}<span
+                                            class="mx-2"><img src="{{ $side_menu_country->flag }}"
+                                                alt=""></span></a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+            <div class="single-content">
+                <h3>
+                    <div class="d-flex justify-content-between">
+                        {{ $country->name }}
                         @if ($country->downloads->count() > 0)
-                            <div class="widget">
-                                <h3>Downloads</h3>
-                                <ul class="widget-download ul_li_between list-unstyled">
+                            <div x-data="{ isOpen: false }">
+                                <button class="btn btn-primary" @click="isOpen = !isOpen" @keydown.escape="isOpen = false">
+                                    <u>Downloads</u>
+                                </button>
+                                <ul x-show="isOpen" @click.away="isOpen = false"
+                                    style="position: absolute;background-color: white;color: black;list-style: none;z-index: 99;width:8vw;text-align:center">
                                     @foreach ($country->downloads as $download)
                                         <li>
-                                            <a href="{{ $download->getFullUrl() }}" download>
-                                                <div class="xb-download">
-                                                    <div class="xb-item--inner">
-                                                        <div class="xb-item--icon">
-                                                            <img src="{{ asset('website/assets/img/icon/pdf.svg') }}"
-                                                                alt="">
-                                                        </div>
-                                                        <h4 class="xb-item--title">{{ $download->name }}</h4>
-                                                        <div class="xb-item--size">
-                                                            {{ $download->human_readable_size }}
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <a href="{{ $download->getFullUrl() }}" download wire:click='isOpen = false'>
+                                                <span
+                                                    style="font-size: 14px;color: black;font-weight:lighter">{{ $download->name }}</span>
                                             </a>
                                         </li>
                                     @endforeach
                                 </ul>
                             </div>
                         @endif
-                        {{-- <div class="widget widget-banner text-center bg_img" data-background="assets/img/bg/b_bg.jpg">
-                                <img class="mb-40" src="assets/img/icon/b_icon.png" alt="">
-                                <h4>Assured Approval – <br> Guaranteed</h4>
-                                <a class="thm-btn" href="contact.html">Get in Touch</a>
-                            </div> --}}
                     </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="single-content">
-                        <h3>{{ $country->name }}</h3>
-                        @if ($country->getMedia('images')->count() > 0)
-                            <div class="swiper mySwiper" style="width: 100%;overflow:hidden">
-                                <div class="swiper-wrapper">
-                                    @foreach ($country->getMedia('images') as $image)
-                                        <div class="swiper-slide">
-                                            <img src="{{ $image->getUrl() }}" class="img-fluid"
-                                                alt="{{ $country->name . ' photos ' . $loop->iteration }}">
-                                        </div>
-                                    @endforeach
+                </h3>
+                @if ($country->getMedia('images')->count() > 0)
+                    <div class="swiper mySwiper" style="width: 100%;overflow:hidden">
+                        <div class="swiper-wrapper">
+                            @foreach ($country->getMedia('images') as $image)
+                                <div class="swiper-slide">
+                                    <img src="{{ $image->getUrl() }}" class="img-fluid"
+                                        alt="{{ $country->name . ' photos ' . $loop->iteration }}">
                                 </div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                        @endif
-                        <p>
-                            {!! $country->description !!}
-                        </p>
-                        @if (count($country->counters ?? []) > 0)
-                            <div class="row mt-none-30 mb-80 d-flex justify-content-around mt-20">
-                                <h3>Why Choose Us</h3>
-                                @foreach ($country->counters as $counter)
-                                    <div class="col-lg-3 col-md-6 mt-10">
-                                        <div
-                                            class="team-skills style-{{ !$loop->first ? ($loop->iteration <= 4 ? $loop->iteration : ($loop->iteration % 4 == 1 ? 1 : $loop->iteration % 4)) : '' }}">
-                                            <div class="xb-item--inner">
-                                                <h5 class="xb-item--number" style="font-size: 40px"><span class="xbo"
-                                                        data-count="{{ $counter['count'] }}">00</span><span
-                                                        class="suffix">{{ $counter['suffix'] }}</span></h5>
-                                                <h4 class="xb-item--title" style="top:6px">{{ $counter['name'] }}</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
+                            @endforeach
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
-                </div>
+                @endif
+                <p>
+                    {!! $country->description !!}
+                </p>
             </div>
+            @if (count($country->faqs ?? []) > 0)
+                <section class="faq pos-rel gray-bg-2 pt-120 pb-130">
+                    <div class="container">
+                        <div class="row align-items-center mb-30">
+                            <div class="col-lg-6 col-md-7">
+                                <div class="sec-title style-2 mb-30">
+                                    <span class="sec-title--sub"><img
+                                            src="{{ asset('website/assets/img/icon/h_star.png') }}"
+                                            alt="">Popular<img
+                                            src="{{ asset('website/assets/img/icon/h_star.png') }}" alt=""></span>
+                                    <h3 class="sec-title--heading">Asked Questions</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="xb-faq xb-faq2">
+                            <ul class="accordion_box clearfix">
+                                @foreach ($country->faqs as $faq)
+                                    @if (!is_null($faq['question']) && $faq['answer'])
+                                        <li class="accordion block {{ $loop->first ? 'active-block' : '' }}">
+                                            <div class="acc-btn">
+                                                {!! $faq['question'] !!}
+                                                <span class="arrow"></span>
+                                            </div>
+                                            <div class="acc_body {{ $loop->first ? 'current' : '' }}">
+                                                <div class="content">
+                                                    <p>
+                                                        {!! $faq['answer'] !!}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="faq-shape">
+                        <div class="shape shape--1">
+                            <div class="shape-inner" data-parallax='{"x":-50,"y":-70}'>
+                                <img src="{{ asset('website/assets/img/shape/faq_shape1.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="shape shape--2">
+                            <div class="shape-inner" data-parallax='{"x":50,"y":-80}'>
+                                <img src="{{ asset('website/assets/img/shape/faq_shape2.png') }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+            @if (count($country->counters ?? []) > 0)
+                <div class="row mt-none-30 mb-80 d-flex justify-content-around">
+                    <h3>Why Choose Us</h3>
+                    @foreach ($country->counters as $counter)
+                        <div class="col-lg-3 col-md-6 mt-30">
+                            <div
+                                class="team-skills style-{{ !$loop->first ? ($loop->iteration <= 4 ? $loop->iteration : ($loop->iteration % 4 == 1 ? 1 : $loop->iteration % 4)) : '' }}">
+                                <div class="xb-item--inner">
+                                    <h5 class="xb-item--number" style="font-size: 40px"><span class="xbo"
+                                            data-count="{{ $counter['count'] }}">00</span><span
+                                            class="suffix">{{ $counter['suffix'] }}</span></h5>
+                                    <h4 class="xb-item--title" style="top:6px">{{ $counter['name'] }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
             @if ($country->universities->count() > 0)
                 <section class="brand gray-bg-2 pos-rel pt-120 pb-120">
                     <div class="container">

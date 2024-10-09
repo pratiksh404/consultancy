@@ -11,6 +11,9 @@
             @livewire('admin.counter.appended-counter', ['counters' => $country->counters ?? null])
         </div>
         <div class="mt-2">
+            @livewire('admin.faq.appended-faq', ['faqs' => $country->faqs ?? null])
+        </div>
+        <div class="mt-2">
             <label>Country's Gallery Images</label> <br>
             @livewire('admin.system.upload-image', ['model' => $country ?? null, 'attribute' => 'images', 'multiple' => true])
         </div>
