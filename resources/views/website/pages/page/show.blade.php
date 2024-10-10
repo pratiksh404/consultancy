@@ -1,4 +1,9 @@
-@extends('website.layouts.app')
+@extends('website.layouts.app', [
+    'title' => $page->meta_name ?? $page->name,
+    'description' => $page->meta_description ?? website('short_description'),
+    'keywords' => $page->meta_keywords ?? website('keywords'),
+    'image' => $page->thumbnail,
+])
 
 @section('custom_css')
     @include('website.layouts.assets.show_page_style')
@@ -85,81 +90,77 @@
                         @else
                             {!! $page->description !!}
                         @endif
-                        @if (count($page->faqs ?? []) > 0)
-                            <section class="faq pos-rel gray-bg-2 pt-120 pb-130">
-                                <div class="container">
-                                    <div class="row align-items-center mb-30">
-                                        <div class="col-lg-6 col-md-7">
-                                            <div class="sec-title style-2 mb-30">
-                                                <span class="sec-title--sub"><img
-                                                        src="{{ asset('website/assets/img/icon/h_star.png') }}"
-                                                        alt="">Popular<img
-                                                        src="{{ asset('website/assets/img/icon/h_star.png') }}"
-                                                        alt=""></span>
-                                                <h3 class="sec-title--heading">Asked Questions</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="xb-faq xb-faq2">
-                                        <ul class="accordion_box clearfix">
-                                            @foreach ($page->faqs as $faq)
-                                                @if (!is_null($faq['question']) && $faq['answer'])
-                                                    <li class="accordion block {{ $loop->first ? 'active-block' : '' }}">
-                                                        <div class="acc-btn">
-                                                            {!! $faq['question'] !!}
-                                                            <span class="arrow"></span>
-                                                        </div>
-                                                        <div class="acc_body {{ $loop->first ? 'current' : '' }}">
-                                                            <div class="content">
-                                                                <p>
-                                                                    {!! $faq['answer'] !!}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="faq-shape">
-                                    <div class="shape shape--1">
-                                        <div class="shape-inner" data-parallax='{"x":-50,"y":-70}'>
-                                            <img src="{{ asset('website/assets/img/shape/faq_shape1.png') }}"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                    <div class="shape shape--2">
-                                        <div class="shape-inner" data-parallax='{"x":50,"y":-80}'>
-                                            <img src="{{ asset('website/assets/img/shape/faq_shape2.png') }}"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        @endif
-                        @if (count($page->counters ?? []) > 0)
-                            <div class="row mt-none-30 mb-80 d-flex justify-content-around">
-                                <h3>Why Choose Us</h3>
-                                @foreach ($page->counters as $counter)
-                                    <div class="col-lg-3 col-md-6 mt-30">
-                                        <div
-                                            class="team-skills style-{{ !$loop->first ? ($loop->iteration <= 4 ? $loop->iteration : ($loop->iteration % 4 == 1 ? 1 : $loop->iteration % 4)) : '' }}">
-                                            <div class="xb-item--inner">
-                                                <h5 class="xb-item--number" style="font-size: 40px"><span class="xbo"
-                                                        data-count="{{ $counter['count'] }}">00</span><span
-                                                        class="suffix">{{ $counter['suffix'] }}</span></h5>
-                                                <h4 class="xb-item--title" style="top:6px">{{ $counter['name'] }}</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>
         </div>
+        @if (count($page->faqs ?? []) > 0)
+            <section class="faq pos-rel gray-bg-2 pt-120 pb-130">
+                <div class="container">
+                    <div class="row align-items-center mb-30">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="sec-title style-2 mb-30">
+                                <span class="sec-title--sub"><img src="{{ asset('website/assets/img/icon/h_star.png') }}"
+                                        alt="">Popular<img src="{{ asset('website/assets/img/icon/h_star.png') }}"
+                                        alt=""></span>
+                                <h3 class="sec-title--heading">Asked Questions</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="xb-faq xb-faq2">
+                        <ul class="accordion_box clearfix">
+                            @foreach ($page->faqs as $faq)
+                                @if (!is_null($faq['question']) && $faq['answer'])
+                                    <li class="accordion block {{ $loop->first ? 'active-block' : '' }}">
+                                        <div class="acc-btn">
+                                            {!! $faq['question'] !!}
+                                            <span class="arrow"></span>
+                                        </div>
+                                        <div class="acc_body {{ $loop->first ? 'current' : '' }}">
+                                            <div class="content">
+                                                <p>
+                                                    {!! $faq['answer'] !!}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-shape">
+                    <div class="shape shape--1">
+                        <div class="shape-inner" data-parallax='{"x":-50,"y":-70}'>
+                            <img src="{{ asset('website/assets/img/shape/faq_shape1.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="shape shape--2">
+                        <div class="shape-inner" data-parallax='{"x":50,"y":-80}'>
+                            <img src="{{ asset('website/assets/img/shape/faq_shape2.png') }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+        @if (count($page->counters ?? []) > 0)
+            <div class="row mt-none-30 mb-80 d-flex justify-content-around">
+                <h3>Why Choose Us</h3>
+                @foreach ($page->counters as $counter)
+                    <div class="col-lg-3 col-md-6 mt-30">
+                        <div
+                            class="team-skills style-{{ !$loop->first ? ($loop->iteration <= 4 ? $loop->iteration : ($loop->iteration % 4 == 1 ? 1 : $loop->iteration % 4)) : '' }}">
+                            <div class="xb-item--inner">
+                                <h5 class="xb-item--number" style="font-size: 40px"><span class="xbo"
+                                        data-count="{{ $counter['count'] }}">00</span><span
+                                        class="suffix">{{ $counter['suffix'] }}</span></h5>
+                                <h4 class="xb-item--title" style="top:6px">{{ $counter['name'] }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
     </section>
 
     <!-- newsletter start -->

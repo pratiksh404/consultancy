@@ -49,12 +49,22 @@ class Service extends Model implements HasMedia
         'data' => 'array',
     ];
 
-    protected $appends = ['image', 'icon_image', 'downloads'];
+    protected $appends = ['image', 'icon_image', 'downloads', 'faqs', 'counters'];
 
     // Relationships
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function getFaqsAttribute()
+    {
+        return $this->data['faqs'] ?? null;
+    }
+
+    public function getCountersAttribute()
+    {
+        return $this->data['counters'] ?? null;
     }
 
     public function getDownloadsAttribute()

@@ -21,6 +21,16 @@
                     </div>
                 </div>
                 <br>
+                <div class="mt-2">
+                    @livewire('admin.counter.appended-counter', ['counters' => $service->counters ?? null])
+                </div>
+                <div class="mt-2">
+                    @livewire('admin.faq.appended-faq', ['faqs' => $service->faqs ?? null])
+                </div>
+                <div class="mt-2">
+                    <label>Service's Gallery Images</label> <br>
+                    @livewire('admin.system.upload-image', ['model' => $service ?? null, 'attribute' => 'images', 'multiple' => true])
+                </div>
                 <div class="row">
                     <div class="col-12 mt-3">
                         <label for="excerpt">{{ label('services', 'description') }}</label>
@@ -78,7 +88,7 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        Visa's Downloads
+                        Service's Downloads
                     </div>
                     <div class="card-body shadow-lg p-3">
                         @livewire('admin.system.upload-attachment', ['model' => $service ?? null, 'attribute' => 'downloads'])

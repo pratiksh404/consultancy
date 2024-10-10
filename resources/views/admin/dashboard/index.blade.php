@@ -29,6 +29,10 @@
                         data-bs-toggle="pill" href="#j-pills-inquiries" role="tab" aria-controls="j-pills-inquiries"
                         aria-selected="false" tabindex="-1">Inquiries</a>
                 </li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="j-pills-candidates-tab"
+                        data-bs-toggle="pill" href="#j-pills-candidates" role="tab" aria-controls="j-pills-candidates"
+                        aria-selected="false" tabindex="-1">Candidates</a>
+                </li>
                 <li class="nav-item" role="presentation"><a class="nav-link" id="j-pills-newsletter-subscribers-tab"
                         data-bs-toggle="pill" href="#j-pills-newsletter-subscribers" role="tab"
                         aria-controls="j-pills-newsletter-subscribers" aria-selected="true">Subscribers</a></li>
@@ -49,6 +53,13 @@
             </div>
             <div class="tab-pane fade" id="j-pills-inquiries" role="tabpanel" aria-labelledby="j-pills-inquiries-tab">
                 @livewire('admin.inquiry.inquiry-panel')
+            </div>
+            <div class="tab-pane fade" id="j-pills-candidates" role="tabpanel" aria-labelledby="j-pills-candidates-tab">
+                <div class="card">
+                    <div class="card-body shadow-lg p-2">
+                        @livewire('admin.candidate.candidate-table')
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="j-pills-notifications" role="tabpanel"
                 aria-labelledby="j-pills-notifications-tab">

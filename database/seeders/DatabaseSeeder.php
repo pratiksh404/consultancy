@@ -16,11 +16,13 @@ class DatabaseSeeder extends Seeder
             SetupSeeder::class,
             CourseSeeder::class,
             VisaSeeder::class,
-            CountrySeeder::class,
             StepSeeder::class,
-            ServiceSeeder::class,
-            PageSeeder::class,
             FaqSeeder::class,
+            CountriesTableSeeder::class,
+            ServicesTableSeeder::class,
+            PagesTableSeeder::class,
+            CategoriesTableSeeder::class,
         ]);
+
     }
 }
