@@ -3,7 +3,7 @@
 return [
     'website' => [
         'name' => 'Consultancy',
-        'short_description' => 'Your unique weekend getaway',
+        'short_description' => 'Your perfect gateway to abroad',
         'phone' => '4357496,9843652012',
         'email' => 'info@pratikshrestha404.com.np',
         'address' => 'Location, Country',
