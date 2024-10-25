@@ -6,7 +6,7 @@ return [
         'short_description' => 'Your perfect gateway to abroad',
         'phone' => '01-4972690,9851077530',
         'email' => 'hrishav@vibrant.edu.np',
-        'address' => 'Location, Country',
+        'address' => '📍Sorakhutte Chwok, near Ganesh Mandir',
         'map' => 'https://www.google.com/maps/embed/v1/place?q=vems+education&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8',
         'mail_map' => 'https://maps.app.goo.gl/84Ht6TVR6gT18LadA',
         'banner' => [
