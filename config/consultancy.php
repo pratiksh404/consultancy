@@ -2,9 +2,9 @@
 
 return [
     'website' => [
-        'name' => 'Consultancy',
+        'name' => 'VEMS educational consultancy',
         'short_description' => 'Your perfect gateway to abroad',
-        'phone' => '4357496,9843652012',
+        'phone' => '01-4972690,9851077530',
         'email' => 'hrishav@vibrant.edu.np',
         'address' => 'Location, Country',
         'map' => 'https://www.google.com/maps/embed/v1/place?q=vems+education&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8',
