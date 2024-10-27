@@ -39,6 +39,9 @@
                 <li class="nav-item" role="presentation"><a class="nav-link" id="j-pills-notifications-tab"
                         data-bs-toggle="pill" href="#j-pills-notifications" role="tab"
                         aria-controls="j-pills-notifications" aria-selected="true">Notifications</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="j-pills-business_hour-tab"
+                        data-bs-toggle="pill" href="#j-pills-business_hour" role="tab"
+                        aria-controls="j-pills-business_hour" aria-selected="true">Business Hour</a></li>
                 @if (env('ANALYTICS_PROPERTY_ID', false))
                     <li class="nav-item" role="presentation"><a class="nav-link" id="j-pills-google-analytics-tab"
                             data-bs-toggle="pill" href="#j-pills-google-analytics" role="tab"
@@ -70,6 +73,14 @@
                 <div class="card">
                     <div class="card-body shadow-lg p-2">
                         @livewire('newsletter-subscriber-panel')
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="j-pills-business_hour" role="tabpanel"
+                aria-labelledby="j-pills-business_hour-tab">
+                <div class="card">
+                    <div class="card-body shadow-lg p-2">
+                        @livewire('business-hour-panel')
                     </div>
                 </div>
             </div>
