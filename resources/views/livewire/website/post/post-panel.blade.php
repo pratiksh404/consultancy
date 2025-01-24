@@ -8,7 +8,7 @@
                         @foreach ($posts as $post)
                             <article class="single-post-item">
                                 <div class="post-thumbnail-wrapper">
-                                    <a href="blog-single.html"><img src="{{ $post->image }}"
+                                    <a href="{{ route('website.post', $post->slug) }}"><img src="{{ $post->image }}"
                                             alt="{{ $post->meta_name ?? $post->name }}"></a>
                                 </div>
                                 <div class="post-content-wrapper">
@@ -58,7 +58,7 @@
                                     @foreach ($featured_positioned_posts as $featured_positioned_post)
                                         <div class="widget__post-item ul_li">
                                             <div class="post-thumb">
-                                                <a href="blog-single.html"><img
+                                                <a href="{{ route('website.post', $post->slug) }}"><img
                                                         src="{{ $featured_positioned_post->image }}"
                                                         alt="{{ $featured_positioned_post->meta_name ?? $featured_positioned_post->name }}"></a>
                                             </div>

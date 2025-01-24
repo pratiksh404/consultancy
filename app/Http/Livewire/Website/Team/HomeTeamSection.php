@@ -17,7 +17,7 @@ class HomeTeamSection extends Component
 
     public function render()
     {
-        $teams = Team::active()->position()->paginate(1);
+        $teams = Team::active()->position()->paginate(5);
 
         return view('livewire.website.team.home-team-section', compact('teams'));
     }

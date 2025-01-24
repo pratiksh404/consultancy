@@ -30,13 +30,16 @@
                                                 </li>
                                             </ul>
                                             <h3 class="xb-item--title border-effect"><a
-                                                    href="blog-single.html">{{ $post->optimized_title }}</a></h3>
-                                            <a class="xb-item--link" href="blog-single.html">Read the
+                                                    href="{{ route('website.post', $post->slug) }}">{{ $post->optimized_title }}</a>
+                                            </h3>
+                                            <a class="xb-item--link"
+                                                href="{{ route('website.post', $post->slug) }}">Read the
                                                 article<span><img
                                                         src="{{ asset('website/assets/img/icon/right_arrow.svg') }}"
                                                         alt=""></span></a>
                                         </div>
-                                        <a class="xb-overlay xb-overlay-link" href="blog-single.html"></a>
+                                        <a class="xb-overlay xb-overlay-link"
+                                            href="{{ route('website.post', $post->slug) }}"></a>
                                     </div>
                                 </div>
                             </div>

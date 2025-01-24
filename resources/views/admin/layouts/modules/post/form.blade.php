@@ -39,11 +39,11 @@
         <x-adminetic-edit-add-button :model="$post ?? null" name="post" />
     </div>
     <div class="col-lg-4">
-        {{-- <div class="card">
+        <div class="card">
             <div class="card-body shadow-lg p-3">
                 @livewire('admin.category.quick-category', ['model' => 'Post', 'category_id' => $post->category_id ?? null, 'attribute' => 'category_id'])
             </div>
-        </div> --}}
+        </div>
         <div class="card">
             <div class="card-header">
                 Post Image
